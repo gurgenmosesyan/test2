@@ -20,7 +20,7 @@ $mls = $guest->ml->keyBy('lng_id');
 
             <div class="form-group">
                 <label class="col-sm-3 control-label data-req">{{trans('admin.base.label.name')}}</label>
-                <div class="col-sm-9">
+                <div class="col-sm-9 separate-sections">
                     @foreach($languages as $lng)
                         <div class="form-group form-group-inner">
                             <input type="text" name="ml[{{$lng->id}}][name]" class="form-control" value="{{isset($mls[$lng->id]) ? $mls[$lng->id]->name : ''}}" placeholder="{{$lng->name}}">

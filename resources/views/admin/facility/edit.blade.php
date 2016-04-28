@@ -19,7 +19,7 @@ $mls = $facility->ml->keyBy('lng_id');
 
             <div class="form-group">
                 <label class="col-sm-3 control-label data-req">{{trans('admin.base.label.title')}}</label>
-                <div class="col-sm-9">
+                <div class="col-sm-9 separate-sections">
                     @foreach($languages as $lng)
                         <div class="form-group form-group-inner">
                             <input type="text" name="ml[{{$lng->id}}][title]" class="form-control" value="{{isset($mls[$lng->id]) ? $mls[$lng->id]->title : ''}}" placeholder="{{$lng->name}}">

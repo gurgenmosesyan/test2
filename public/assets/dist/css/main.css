@@ -4752,6 +4752,9 @@ table.text-center th {
     margin-left: 0 !important;
     margin-right: 0 !important;
 }
+.form-group.form-group-inner {
+    margin-bottom: 0;
+}
 .img-uploader-tools {
     margin-top: 7px;
 }
@@ -4778,4 +4781,7 @@ table.text-center th {
 }
 .img-uploader-image {
     max-width: 100%;
+}
+.separate-sections > div {
+    margin-bottom: 10px !important;
 }

@@ -78,7 +78,7 @@ $mls = $accommodation->ml->keyBy('lng_id');
         <div class="form-group">
             <label class="col-sm-3 control-label data-req">{{trans('admin.base.label.facilities')}}</label>
             <div class="col-sm-9">
-                <div id="facilities"></div>
+                <div id="facilities" class="separate-sections"></div>
                 <div id="form-error-facilities" class="form-error"></div>
                 <div>
                     <a href="#" id="add-facility" class="btn btn-default"><i class="fa fa-plus"></i></a>

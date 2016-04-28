@@ -56,4 +56,12 @@ Route::group($params, function () {
     Route::get('/facility/text', ['uses' => 'FacilityTextController@edit', 'as' => 'admin_facility_text_edit']);
     Route::post('/facility/text', ['uses' => 'FacilityTextController@update', 'as' => 'admin_facility_text_update']);
 
+    Route::get('/vacancy', ['uses' => 'VacancyController@table', 'as' => 'admin_vacancy_table']);
+    Route::get('/vacancy/create', ['uses' => 'VacancyController@create', 'as' => 'admin_vacancy_create']);
+    Route::get('/vacancy/edit/{id}', ['uses' => 'VacancyController@edit', 'as' => 'admin_vacancy_edit']);
+    Route::post('/vacancy', ['uses' => 'VacancyController@index', 'as' => 'admin_vacancy_index']);
+    Route::post('/vacancy/store', ['uses' => 'VacancyController@store', 'as' => 'admin_vacancy_store']);
+    Route::post('/vacancy/update/{id}', ['uses' => 'VacancyController@update', 'as' => 'admin_vacancy_update']);
+    Route::post('/vacancy/delete/{id}', ['uses' => 'VacancyController@delete', 'as' => 'admin_vacancy_delete']);
+
 });

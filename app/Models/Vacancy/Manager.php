@@ -8,8 +8,7 @@ class Manager
 {
     public function store($data)
     {
-        $data = $this->processSave($data);
-        $vacancy = new Vacancy();
+        $vacancy = new Vacancy($data);
         DB::transaction(function() use($data, $vacancy) {
             $vacancy->save();
             $this->storeMl($data['ml'], $vacancy);
@@ -19,20 +18,10 @@ class Manager
     public function update($id, $data)
     {
         $vacancy = Vacancy::findOrFail($id);
-        $data = $this->processSave($data);
         DB::transaction(function() use($data, $vacancy) {
-            $vacancy->update();
+            $vacancy->update($data);
             $this->updateMl($data['ml'], $vacancy);
         });
-    }
-
-    protected function processSave($data)
-    {
-        if (!isset($data['asap'])) {
-            $data['asap'] = Vacancy::ASAP_NO;
-        }
-        $data['published_at'] = empty($data['published_at']) ? date('Y-m-d') : date('Y-m-d', strtotime($data['published_at']));
-        return $data;
     }
 
     protected function storeMl($data, Vacancy $vacancy)

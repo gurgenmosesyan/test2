@@ -19,6 +19,31 @@ class Vacancy extends Model
         'deadline'
     ];
 
+    public function setAsapAttribute($asap)
+    {
+        $this->attributes['asap'] = isset($asap) ? $asap : self::ASAP_NO;
+    }
+
+    public function setPublishedAtAttribute($date)
+    {
+        $this->attributes['published_at'] = empty($date) ? date('Y-m-d') : $date;
+    }
+
+    public function setStartDateAttribute($date)
+    {
+        $this->attributes['start_date'] = empty($date) ? date('Y-m-d') : $date;
+    }
+
+    public function setOpenDateAttribute($date)
+    {
+        $this->attributes['open_date'] = empty($date) ? date('Y-m-d') : $date;
+    }
+
+    public function setDeadlineAttribute($date)
+    {
+        $this->attributes['deadline'] = empty($date) ? '0000-00-00' : $date;
+    }
+
     public function ml()
     {
         return $this->hasMany(VacancyMl::class, 'id', 'id');

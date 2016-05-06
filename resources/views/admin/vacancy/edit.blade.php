@@ -1,5 +1,6 @@
 <?php
 use App\Models\Vacancy\Vacancy;
+use App\Core\Helpers\Calendar;
 
 $head->appendScript('/admin/vacancy/vacancy.js');
 $pageTitle = trans('admin.vacancy.form.title');
@@ -71,10 +72,7 @@ $mls = $vacancy->ml->keyBy('lng_id');
             <div class="form-group">
                 <label class="col-sm-3 control-label">{{trans('admin.base.label.published_on')}}</label>
                 <div class="col-sm-3">
-                    <div class="input-group">
-                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                        <input type="text" name="published_at" class="form-control pull-right date" value="{{$vacancy->published_at or ''}}">
-                    </div>
+                    <?php Calendar::render('published_at', $vacancy->published_at); ?>
                     <div id="form-error-published_at" class="form-error"></div>
                 </div>
             </div>
@@ -85,11 +83,8 @@ $mls = $vacancy->ml->keyBy('lng_id');
                     <strong>{{trans('admin.base.label.asap')}}:</strong>&nbsp;&nbsp;
                     <input type="checkbox" id="asap" name="asap" class="minimal-checkbox" value="{{Vacancy::ASAP_YES}}"{{$vacancy->asap == Vacancy::ASAP_YES ? ' checked="checked"' : ''}}>
                 </div>
-                <div class="col-sm-3">
-                    <div class="input-group">
-                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                        <input type="text" id="start-date" name="start_date" class="form-control pull-right date" value="{{$vacancy->start_date or ''}}">
-                    </div>
+                <div id="start-date" class="col-sm-3">
+                    <?php Calendar::render('start_date', $vacancy->start_date); ?>
                     <div id="form-error-start_date" class="form-error"></div>
                 </div>
             </div>
@@ -97,10 +92,7 @@ $mls = $vacancy->ml->keyBy('lng_id');
             <div class="form-group">
                 <label class="col-sm-3 control-label">{{trans('admin.base.label.opening_date')}}</label>
                 <div class="col-sm-3">
-                    <div class="input-group">
-                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                        <input type="text" name="open_date" class="form-control pull-right date" value="{{$vacancy->open_date or ''}}">
-                    </div>
+                    <?php Calendar::render('open_date', $vacancy->open_date); ?>
                     <div id="form-error-open_date" class="form-error"></div>
                 </div>
             </div>
@@ -108,10 +100,7 @@ $mls = $vacancy->ml->keyBy('lng_id');
             <div class="form-group">
                 <label class="col-sm-3 control-label">{{trans('admin.base.label.application_deadline')}}</label>
                 <div class="col-sm-3">
-                    <div class="input-group">
-                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                        <input type="text" name="deadline" class="form-control pull-right date" value="{{$vacancy->deadline or ''}}">
-                    </div>
+                    <?php Calendar::render('deadline', $vacancy->deadline); ?>
                     <div id="form-error-deadline" class="form-error"></div>
                 </div>
             </div>

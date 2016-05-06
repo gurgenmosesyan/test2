@@ -21,10 +21,10 @@ class VacancyRequest extends Request
             'ml.*.procedures' => 'max:10000',
             'ml.*.about' => 'max:10000',
             'asap' => 'in:'.Vacancy::ASAP_NO.','.Vacancy::ASAP_YES,
-            'published_at' => 'date_format:d/m/Y',
-            'start_date' => 'date_format:d/m/Y',
-            'open_date' => 'date_format:d/m/Y',
-            'deadline' => 'date_format:d/m/Y'
+            'published_at' => 'date',
+            'start_date' => 'date',
+            'open_date' => 'date',
+            'deadline' => 'date'
         ];
     }
 }

@@ -29,7 +29,6 @@ $jsTrans->addTrans([
     $head->appendMainStyle('/assets/dist/css/main.css');
     $head->appendMainStyle('/assets/dist/css/skins/skin-blue.min.css');
     $head->appendMainStyle('/assets/plugins/iCheck/minimal/blue.css');
-    $head->appendMainStyle('/assets/plugins/datepicker/datepicker3.css');
 
     $head->appendMainScript('/assets/plugins/jQuery/jQuery-2.1.4.min.js');
     $head->appendMainScript('https://code.jquery.com/ui/1.11.4/jquery-ui.min.js');
@@ -37,11 +36,8 @@ $jsTrans->addTrans([
     $head->appendMainScript('/assets/plugins/datatables/jquery.dataTables.min.js');
     $head->appendMainScript('/assets/plugins/datatables/dataTables.bootstrap.min.js');
     $head->appendMainScript('/assets/plugins/iCheck/icheck.min.js');
-    $head->appendMainScript('/assets/plugins/datepicker/bootstrap-datepicker.js');
     $head->appendMainScript('/assets/dist/js/app.js');
     $head->appendMainScript('/core/js/main.js');
-
-    $head->appendMainScript('/assets/plugins/timepicker/bootstrap-timepicker.min.js');
 
     $head->renderStyles();
     $head->renderScripts();

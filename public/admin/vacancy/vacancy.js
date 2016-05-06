@@ -14,17 +14,13 @@ $vacancy.initEditPage = function() {
 
     $vacancy.initForm();
 
-    $('.date').datepicker({
-        autoclose: true
-    });
-
     $('#asap').on('ifChanged', function() {
         if ($(this).prop('checked')) {
-            $('#start-date').attr('disabled', 'disabled').val('');
+            $('#start-date input:text').attr('disabled', 'disabled').val('');
         } else {
-            $('#start-date').attr('disabled', false);
+            $('#start-date input:text').attr('disabled', false);
         }
-    });
+    }).trigger('ifChanged');
 };
 
 $vacancy.init();

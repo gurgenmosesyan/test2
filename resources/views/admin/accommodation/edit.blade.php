@@ -1,4 +1,5 @@
 <?php
+use App\Models\Accommodation\Accommodation;
 
 $head->appendStyle('/admin/accommodation/accommodation.css');
 $head->appendScript('/assets/plugins/ckeditor/ckeditor.js');
@@ -73,6 +74,18 @@ $mls = $accommodation->ml->keyBy('lng_id');
                     </div>
                 </div>
             @endforeach
+        </div>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">{{trans('admin.base.label.extra_bed')}}</label>
+            <div class="col-sm-1" style="padding-top: 5px;">
+                <input type="checkbox" id="extra-bed" name="extra_bed" class="minimal-checkbox" value="{{Accommodation::EXTRA_BED_YES}}"{{$accommodation->extra_bed == Accommodation::EXTRA_BED_YES ? ' checked="checked"' : ''}}>
+                <div id="form-error-extra_bed" class="form-error"></div>
+            </div>
+            <div id="start-date" class="col-sm-3">
+                <input type="text" id="extra-bed-price" name="extra_bed_price" class="form-control" value="{{$accommodation->extra_bed_price or ''}}" placeholder="{{trans('admin.base.label.price')}}">
+                <div id="form-error-extra_bed_price" class="form-error"></div>
+            </div>
         </div>
 
         <div class="form-group">

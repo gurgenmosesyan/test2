@@ -99,4 +99,5 @@ return array (
   'base.label.application_deadline' => 'Application deadline',
   'base.label.asap' => 'Asap',
   'vacancy.form.edit.sub_title' => 'Vacancy № :id',
+  'base.label.extra_bed' => 'Extra bed',
 );

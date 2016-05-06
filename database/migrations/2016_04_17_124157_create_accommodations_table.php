@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Models\Accommodation\Accommodation;
 
 class CreateAccommodationsTable extends Migration
 {
@@ -16,6 +17,8 @@ class CreateAccommodationsTable extends Migration
             $table->increments('id');
             $table->integer('price')->unsigned();
             $table->float('room_size')->unsigned();
+            $table->enum('extra_bed', [Accommodation::EXTRA_BED_NO, Accommodation::EXTRA_BED_YES]);
+            $table->integer('extra_bed_price')->unsigned();
             $table->timestamps();
         });
     }

@@ -7,10 +7,14 @@ use App\Core\Model;
 class Accommodation extends Model
 {
     const IMAGES_PATH = 'images/accommodation';
+    const EXTRA_BED_YES = '1';
+    const EXTRA_BED_NO = '0';
 
     protected $fillable = [
         'price',
-        'room_size'
+        'room_size',
+        'extra_bed',
+        'extra_bed_price'
     ];
 
     protected $table = 'accommodations';

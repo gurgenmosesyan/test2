@@ -143,6 +143,14 @@ $accommodation.initEditPage = function() {
     $accommodation.initFacilities();
 
     CKEDITOR.config.height = 120;
+
+    $('#extra-bed').on('ifChanged', function() {
+        if ($(this).prop('checked')) {
+            $('#extra-bed-price').attr('disabled', false);
+        } else {
+            $('#extra-bed-price').attr('disabled', 'disabled').val('');
+        }
+    }).trigger('ifChanged');
 };
 
 $accommodation.init();

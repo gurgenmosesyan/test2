@@ -82,6 +82,7 @@ $mls = $vacancy->ml->keyBy('lng_id');
                 <div class="col-sm-1" style="padding-top: 5px;">
                     <strong>{{trans('admin.base.label.asap')}}:</strong>&nbsp;&nbsp;
                     <input type="checkbox" id="asap" name="asap" class="minimal-checkbox" value="{{Vacancy::ASAP_YES}}"{{$vacancy->asap == Vacancy::ASAP_YES ? ' checked="checked"' : ''}}>
+                    <div id="form-error-asap" class="form-error"></div>
                 </div>
                 <div id="start-date" class="col-sm-3">
                     <?php Calendar::render('start_date', $vacancy->start_date); ?>

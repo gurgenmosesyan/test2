@@ -77,8 +77,6 @@ return array (
   'offer.form.title' => 'Special Offers',
   'admin_menu.images' => 'Images',
   'admin_menu.text' => 'Text',
-  'admin_menu.hotel_facilities' => 'Hotel Facilities',
-  'facility.form.title' => 'Facilities',
   'facility.form.add.sub_title' => 'Add new facility',
   'facility.form.edit.sub_title' => 'Facility № :id',
   'facility_image.form.title' => 'Facility Images',
@@ -100,4 +98,8 @@ return array (
   'base.label.asap' => 'Asap',
   'vacancy.form.edit.sub_title' => 'Vacancy № :id',
   'base.label.extra_bed' => 'Extra bed',
+  'img.size.help_text' => 'Image size must be :widthx:height px',
+  'admin_menu.hotel_facilities' => 'Hotel Facilities',
+  'facility_slider.form.title' => 'Slider',
+  'facility.form.title' => 'Facilities',
 );

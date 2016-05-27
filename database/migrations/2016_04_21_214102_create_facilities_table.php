@@ -14,6 +14,7 @@ class CreateFacilitiesTable extends Migration
     {
         Schema::create('facilities', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('sort_order')->unsigned();
             $table->timestamps();
         });
     }

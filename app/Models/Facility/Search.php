@@ -27,9 +27,10 @@ class Search extends DataTable
 
     protected function constructQuery()
     {
-        $query = FacilityMl::where('lng_id', cLng('id'));
+        $query = Facility::joinMl();
         if ($this->search != null) {
-            $query->where('title', 'LIKE', '%'.$this->search.'%');
+            $query->where('ml.title', 'LIKE', '%'.$this->search.'%')
+                ->orWhere('ml.text', 'LIKE', '%'.$this->search.'%');
         }
         return $query;
     }
@@ -38,10 +39,13 @@ class Search extends DataTable
     {
         switch ($this->orderCol) {
             case 'title':
-                $orderCol = 'title';
+                $orderCol = 'ml.title';
+                break;
+            case 'sort_order':
+                $orderCol = 'facilities.sort_order';
                 break;
             default:
-                $orderCol = 'id';
+                $orderCol = 'facilities.id';
         }
         $orderType = 'desc';
         if ($this->orderType == 'asc') {

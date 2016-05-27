@@ -30,3 +30,7 @@
 .img-block:hover .img-tools {
     display: block;
 }
+.img-size-help-txt {
+    color: #706e6e;
+    margin-left: 10px;
+}

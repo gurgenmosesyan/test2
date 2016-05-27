@@ -3,16 +3,17 @@
     <li{{$pageMenu == 'partner' ? ' class=active' : ''}}><a href="{{route('admin_partner_table')}}"><i class="fa fa-suitcase"></i> <span>{{trans('admin.partner.form.title')}}</span></a></li>
     <li{{$pageMenu == 'accommodation' ? ' class=active' : ''}}><a href="{{route('admin_accommodation_table')}}"><i class="fa fa-hotel"></i> <span>{{trans('admin.accommodation.form.title')}}</span></a></li>
     <li{{$pageMenu == 'offer' ? ' class=active' : ''}}><a href="{{route('admin_offer_table')}}"><i class="fa fa-tags"></i> <span>{{trans('admin.offer.form.title')}}</span></a></li>
-    <li class="treeview{{$pageMenu == 'facility' || $pageMenu == 'facility_image' || $pageMenu == 'facility_text' ? ' active' : ''}}">
+
+    <li class="treeview{{$pageMenu == 'facility' || $pageMenu == 'facility_slider' ? ' active' : ''}}">
         <a href="#">
-            <i class="fa fa-th"></i> <span>{{trans('admin.admin_menu.hotel_facilities')}}</span> <i class="fa fa-angle-left pull-right"></i>
+            <i class="fa fa-wrench"></i> <span>{{trans('admin.admin_menu.hotel_facilities')}}</span> <i class="fa fa-angle-left pull-right"></i>
         </a>
         <ul class="treeview-menu">
-            <li{{$pageMenu == 'facility' ? ' class=active' : ''}}><a href="{{route('admin_facility_table')}}"><i class="fa fa-list"></i> {{trans('admin.facility.form.title')}}</a></li>
-            <li{{$pageMenu == 'facility_image' ? ' class=active' : ''}}><a href="{{route('admin_facility_image_edit')}}"><i class="fa fa-file-image-o"></i> {{trans('admin.admin_menu.images')}}</a></li>
-            <li{{$pageMenu == 'facility_text' ? ' class=active' : ''}}><a href="{{route('admin_facility_text_edit')}}"><i class="fa fa-file-text-o"></i> {{trans('admin.admin_menu.text')}}</a></li>
+            <li{{$pageMenu == 'facility' ? ' class=active' : ''}}><a href="{{route('admin_facility_table')}}"><i class="fa fa-tags"></i> {{trans('admin.facility.form.title')}}</a></li>
+            <li{{$pageMenu == 'facility_slider' ? ' class=active' : ''}}><a href="<?php /*{{route('admin_facility_slider_table')}}*/?>"><i class="fa fa-image"></i> {{trans('admin.facility_slider.form.title')}}</a></li>
         </ul>
     </li>
+
     <li{{$pageMenu == 'vacancy' ? ' class=active' : ''}}><a href="{{route('admin_vacancy_table')}}"><i class="fa fa-cube"></i> <span>{{trans('admin.vacancy.form.title')}}</span></a></li>
     <li class="treeview{{$pageMenu == 'admin' || $pageMenu == 'language' || $pageMenu == 'dictionary' ? ' active' : ''}}">
         <a href="#">

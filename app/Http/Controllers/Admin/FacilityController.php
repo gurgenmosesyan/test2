@@ -36,6 +36,7 @@ class FacilityController extends BaseController
         return view('admin.facility.edit')->with([
             'facility' => $facility,
             'languages' => $languages,
+            'images' => [],
             'saveMode' => 'add'
         ]);
     }
@@ -53,6 +54,7 @@ class FacilityController extends BaseController
         return view('admin.facility.edit')->with([
             'facility' => $facility,
             'languages' => $languages,
+            'images' => $facility->images,
             'saveMode' => 'edit'
         ]);
     }

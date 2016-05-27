@@ -14,6 +14,7 @@ $main.initSearch = function() {
         "orderable": false
     };
     listColumns.push(actions);
+    var order = self.order || [[0, "desc"]];
     $main.table = $('#data-table').DataTable({
         "autoWidth": false,
         "processing": true,
@@ -34,7 +35,7 @@ $main.initSearch = function() {
             }
         },
         "columns": listColumns,
-        "order": [[0, "desc"]]
+        "order": order
     });
     $('#data-table tbody').on('click', '.action-remove', function() {
         var data = $main.table.row($(this).parents('tr')).data();

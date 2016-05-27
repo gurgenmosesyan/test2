@@ -9,19 +9,23 @@ class Manager
 {
     public function store($data)
     {
-        $facility = new Facility();
+        $data = $this->processSave($data);
+        $facility = new Facility($data);
         DB::transaction(function() use($data, $facility) {
             $facility->save();
             $this->storeMl($data['ml'], $facility);
+            $this->storeImages($data['images'], $facility);
         });
     }
 
     public function update($id, $data)
     {
         $facility = Facility::findOrFail($id);
+        $data = $this->processSave($data);
         DB::transaction(function() use($data, $facility) {
-            $facility->update();
+            $facility->update($data);
             $this->updateMl($data['ml'], $facility);
+            $this->updateImages($data['images'], $facility);
         });
     }
 
@@ -41,58 +45,58 @@ class Manager
         $this->storeMl($data, $facility);
     }
 
-    public function updateImages($data)
+    protected function processSave($data)
     {
-        FacilityImage::where('show_status', FacilityImage::STATUS_ACTIVE)->update(['show_status' => FacilityImage::STATUS_DELETED]);
+        if (!isset($data['images'])) {
+            $data['images'] = [];
+        }
+        return $data;
+    }
+
+    protected function storeImages($data, Facility $facility)
+    {
+        $images = [];
+        $i = 0;
+        foreach ($data as $value) {
+            $images[$i] = new FacilityImage(['show_status' => Facility::STATUS_ACTIVE]);
+            SaveImage::save($value['image'], $images[$i]);
+            $i++;
+        }
+        if (!empty($images)) {
+            $facility->images()->saveMany($images);
+        }
+    }
+
+    protected function updateImages($data, Facility $facility)
+    {
+        FacilityImage::where('facility_id', $facility->id)->update(['show_status' => Facility::STATUS_DELETED]);
         $newImages = [];
         foreach ($data as $value) {
             if (empty($value['id'])) {
                 $newImages[] = $value;
             } else {
-                $offerImage = FacilityImage::findOrFail($value['id']);
-                $offerImage->show_status = FacilityImage::STATUS_ACTIVE;
-                $offerImage->save();
+                $facilityImage = FacilityImage::findOrFail($value['id']);
+                $facilityImage->show_status = Facility::STATUS_ACTIVE;
+                $facilityImage->save();
             }
         }
         if (!empty($newImages)) {
-            $this->storeImages($newImages);
+            $this->storeImages($newImages, $facility);
         }
-        $deletedImages = FacilityImage::where('show_status', FacilityImage::STATUS_DELETED)->get();
+        $deletedImages = FacilityImage::where('facility_id', $facility->id)->where('show_status', Facility::STATUS_DELETED)->get();
         foreach ($deletedImages as $deletedImage) {
             $imgPath = public_path($deletedImage->getStorePath().'/'.$deletedImage->image);
             if (file_exists($imgPath)) {
                 unlink($imgPath);
             }
         }
-        FacilityImage::where('show_status', FacilityImage::STATUS_DELETED)->delete();
-    }
-
-    public function updateText($data)
-    {
-        DB::transaction(function() use($data) {
-            FacilityText::getProcessor()->delete();
-            foreach ($data as $lngId => $mlData) {
-                $mlData['lng_id'] = $lngId;
-                $text = new FacilityText($mlData);
-                $text->save();
-            }
-        });
-    }
-
-    protected function storeImages($data)
-    {
-        foreach ($data as $value) {
-            $image = new FacilityImage(['show_status' => FacilityImage::STATUS_ACTIVE]);
-            SaveImage::save($value['image'], $image);
-            $image->save();
-        }
+        FacilityImage::where('facility_id', $facility->id)->where('show_status', Facility::STATUS_DELETED)->delete();
     }
 
     public function delete($id)
     {
-        DB::transaction(function() use($id) {
-            Facility::where('id', $id)->delete();
-            FacilityMl::where('id', $id)->delete();
-        });
+        Facility::where('id', $id)->delete();
+        FacilityMl::where('id', $id)->delete();
+        FacilityImage::where('facility_id', $id)->delete();
     }
 }

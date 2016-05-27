@@ -50,12 +50,6 @@ Route::group($params, function () {
     Route::post('/facility/update/{id}', ['uses' => 'FacilityController@update', 'as' => 'admin_facility_update']);
     Route::post('/facility/delete/{id}', ['uses' => 'FacilityController@delete', 'as' => 'admin_facility_delete']);
 
-    Route::get('/facility/image', ['uses' => 'FacilityImageController@edit', 'as' => 'admin_facility_image_edit']);
-    Route::post('/facility/image', ['uses' => 'FacilityImageController@update', 'as' => 'admin_facility_image_update']);
-
-    Route::get('/facility/text', ['uses' => 'FacilityTextController@edit', 'as' => 'admin_facility_text_edit']);
-    Route::post('/facility/text', ['uses' => 'FacilityTextController@update', 'as' => 'admin_facility_text_update']);
-
     Route::get('/vacancy', ['uses' => 'VacancyController@table', 'as' => 'admin_vacancy_table']);
     Route::get('/vacancy/create', ['uses' => 'VacancyController@create', 'as' => 'admin_vacancy_create']);
     Route::get('/vacancy/edit/{id}', ['uses' => 'VacancyController@edit', 'as' => 'admin_vacancy_edit']);

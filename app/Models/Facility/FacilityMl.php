@@ -11,12 +11,9 @@ class FacilityMl extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'id',
         'lng_id',
-        'title'
+        'title',
+        'text'
     ];
-
-    public function scopeCurrent($query)
-    {
-        return $query->where('lng_id', cLng('id'));
-    }
 }

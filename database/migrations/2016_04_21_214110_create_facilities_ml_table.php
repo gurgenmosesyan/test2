@@ -16,6 +16,7 @@ class CreateFacilitiesMlTable extends Migration
             $table->integer('id')->unsigned();
             $table->tinyInteger('lng_id')->unsigned();
             $table->string('title');
+            $table->text('text');
             $table->primary(['id', 'lng_id']);
         });
     }

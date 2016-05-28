@@ -9,7 +9,7 @@ use App\Models\Slider\Manager;
 use App\Models\Slider\Search;
 use App\Http\Requests\Admin\SliderRequest;
 
-class SliderController extends BaseController
+class OfferSliderController extends BaseController
 {
     protected $manager = null;
 
@@ -20,11 +20,12 @@ class SliderController extends BaseController
 
     public function table()
     {
-        return view('admin.slider.index');
+        return view('admin.slider.index')->with(['key' => Slider::KEY_OFFERS]);
     }
 
     public function index(Search $search)
     {
+        $search->key = Slider::KEY_OFFERS;
         $result = $this->processDataTable($search);
         return $this->toDataTable($result);
     }
@@ -36,13 +37,16 @@ class SliderController extends BaseController
         return view('admin.slider.edit')->with([
             'slider' => $slider,
             'facilities' => $facilities,
+            'key' => Slider::KEY_OFFERS,
             'saveMode' => 'add'
         ]);
     }
 
     public function store(SliderRequest $request)
     {
-        $this->manager->store($request->all());
+        $data = $request->all();
+        $data['key'] = Slider::KEY_OFFERS;
+        $this->manager->store($data);
         return $this->api('OK');
     }
 
@@ -53,13 +57,16 @@ class SliderController extends BaseController
         return view('admin.slider.edit')->with([
             'slider' => $slider,
             'facilities' => $facilities,
+            'key' => Slider::KEY_OFFERS,
             'saveMode' => 'edit'
         ]);
     }
 
     public function update(SliderRequest $request, $id)
     {
-        $this->manager->update($id, $request->all());
+        $data = $request->all();
+        $data['key'] = Slider::KEY_OFFERS;
+        $this->manager->update($id, $data);
         return $this->api('OK');
     }
 

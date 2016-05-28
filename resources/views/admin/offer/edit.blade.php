@@ -1,6 +1,5 @@
 <?php
 
-$head->appendStyle('/admin/offer/offer.css');
 $head->appendScript('/assets/plugins/ckeditor/ckeditor.js');
 $head->appendScript('/admin/offer/offer.js');
 $pageTitle = trans('admin.offer.form.title');
@@ -16,10 +15,6 @@ $mls = $offer->ml->keyBy('lng_id');
 ?>
 @extends('core.layout')
 @section('content')
-<script type="text/javascript">
-    $offer.images = <?php echo json_encode($images); ?>;
-    $offer.saveMode = '<?php echo $saveMode; ?>';
-</script>
 <form id="edit-form" class="form-horizontal" method="post" action="{{$url}}">
     <div class="box-body">
 
@@ -50,17 +45,6 @@ $mls = $offer->ml->keyBy('lng_id');
             <div class="col-sm-3">
                 <input type="text" class="form-control" name="sort_order" value="{{$offer->sort_order or ''}}">
                 <div id="form-error-sort_order" class="form-error"></div>
-            </div>
-        </div>
-
-        <br>
-
-        <div id="image-group" class="form-group">
-            <label class="col-sm-3 control-label">{{trans('admin.base.label.images')}}</label>
-            <div class="col-sm-9">
-                <a href="#" id="upload-image" class="btn btn-default">{{trans('admin.base.label.upload')}}</a>
-                <div id="form-error-images" class="form-error"></div>
-                <div id="images-block"></div>
             </div>
         </div>
 

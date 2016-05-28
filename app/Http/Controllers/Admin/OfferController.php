@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Core\BaseController;
 use App\Models\Offer\Offer;
 use App\Models\Offer\Manager;
+use App\Models\Offer\OfferText;
 use App\Models\Offer\Search;
 use App\Http\Requests\Admin\OfferRequest;
 use App\Core\Language\Language;
+use App\Http\Requests\Admin\OfferTextRequest;
 
 class OfferController extends BaseController
 {
@@ -68,6 +70,23 @@ class OfferController extends BaseController
     public function delete($id)
     {
         $this->manager->delete($id);
+        return $this->api('OK');
+    }
+
+    public function text()
+    {
+        $texts = OfferText::get()->keyBy('lng_id');
+        $languages = Language::all();
+
+        return view('admin.offer.text')->with([
+            'texts' => $texts,
+            'languages' => $languages
+        ]);
+    }
+
+    public function updateText(OfferTextRequest $request)
+    {
+        $this->manager->updateText($request->all());
         return $this->api('OK');
     }
 }

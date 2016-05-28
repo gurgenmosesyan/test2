@@ -9,11 +9,9 @@ class SliderRequest extends Request
 {
     public function rules()
     {
-        $categories = config('slider.categories');
-
         return [
-            'category' => 'required|in:'.implode(',', $categories),
-            'image' => 'required|core_image'
+            'facility_id' => 'required|exists:facilities,id',
+            'sort_order' => 'integer'
         ];
     }
 }

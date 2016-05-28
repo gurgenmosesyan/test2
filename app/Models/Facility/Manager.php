@@ -95,8 +95,10 @@ class Manager
 
     public function delete($id)
     {
-        Facility::where('id', $id)->delete();
-        FacilityMl::where('id', $id)->delete();
-        FacilityImage::where('facility_id', $id)->delete();
+        DB::transaction(function() use($id) {
+            Facility::where('id', $id)->delete();
+            FacilityMl::where('id', $id)->delete();
+            FacilityImage::where('facility_id', $id)->delete();
+        });
     }
 }

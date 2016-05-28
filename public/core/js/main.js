@@ -5,10 +5,10 @@ var $main = {};
 $main.initSearch = function() {
     var self = this;
     var listColumns = self.listColumns;
-    var actions = {
+    var actions = self.actions || {
         "data": null,
         "render": function(data) {
-            return '<div class="text-center"><a href="'+ self.getListPath() +'/edit/'+data.id+'"><i class="fa fa-pencil"></i></a>'+
+            return '<div class="text-center"><a href="'+ self.getEditPath() +'/'+data.id+'"><i class="fa fa-pencil"></i></a>'+
                 '<a class="action-remove" href="#"><i class="fa fa-trash"></i></a></div>';
         },
         "orderable": false
@@ -53,7 +53,7 @@ $main.deleteObj = function(id) {
     var self = this;
     $.ajax({
         method: 'post',
-        url: self.getListPath()+'/delete/'+id,
+        url: self.getDeletePath()+'/'+id,
         data: {_token: $main.token},
         dataType: 'json',
         success: function(result) {
@@ -69,6 +69,14 @@ $main.deleteObj = function(id) {
 
 $main.getListPath = function() {
     return this.listPath;
+};
+
+$main.getEditPath = function() {
+    return this.editPath || this.listPath+'/edit';
+};
+
+$main.getDeletePath = function() {
+    return this.deletePath || this.listPath+'/delete';
 };
 
 $main.getConfirmModal = function() {

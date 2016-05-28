@@ -8,7 +8,7 @@ class Search extends DataTable
 {
     public function totalCount()
     {
-        return Slider::count();
+        return Slider::where('key', $this->key)->count();
     }
 
     public function filteredCount()
@@ -22,14 +22,22 @@ class Search extends DataTable
         $query = $this->constructQuery();
         $this->constructOrder($query);
         $this->constructLimit($query);
-        return $query->get();
+        $data = $query->get();
+        foreach ($data as $value) {
+            $value->key = trans('admin.slider.key.'.$value->key);
+        }
+        return $data;
     }
 
     protected function constructQuery()
     {
-        $query = Slider::getProcessor();
+        $query = Slider::select('slider.id', 'slider.key', 'slider.sort_order', 'facility.title as facility_title')
+            ->join('facilities_ml as facility', function($query) {
+                $query->on('facility.id', '=', 'slider.facility_id')->where('facility.lng_id', '=', cLng('id'));
+            })
+            ->where('key', $this->key);
         if ($this->search != null) {
-            $query->where('category', 'LIKE', '%'.$this->search.'%');
+            $query->where('facility.title', 'LIKE', '%'.$this->search.'%');
         }
         return $query;
     }
@@ -37,8 +45,11 @@ class Search extends DataTable
     protected function constructOrder($query)
     {
         switch ($this->orderCol) {
-            case 'category':
-                $orderCol = 'category';
+            case 'facility_title':
+                $orderCol = 'facility.title';
+                break;
+            case 'sort_order':
+                $orderCol = 'slider.sort_order';
                 break;
             default:
                 $orderCol = 'id';

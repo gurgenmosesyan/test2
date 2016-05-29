@@ -1,5 +1,5 @@
 <?php
-$title = trans('www.menu.about');;
+$title = trans('www.menu.about');
 $page = 'about';
 ?>
 @extends('layout')

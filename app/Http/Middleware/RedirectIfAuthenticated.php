@@ -18,7 +18,7 @@ class RedirectIfAuthenticated
 	public function handle($request, Closure $next, $guard = null)
 	{
 		if (Auth::guard($guard)->check()) {
-            $route = $guard == 'admin' ? route('core_admin_table') : route('user_profile', cLng('code'));
+            $route = $guard == 'admin' ? route('admin_homepage') : route('user_profile', cLng('code'));
 			return redirect($route);
 		}
 

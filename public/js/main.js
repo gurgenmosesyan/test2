@@ -28,80 +28,6 @@ $main.initSlider = function() {
     $main.slider = new $JssorSlider$("jssor", options);
 };
 
-$main.drawProducts = function(data) {
-    var productsBox = $('#products');
-    productsBox.html('');
-    var html = '';
-    for (var i in data) {
-        html += '<div class="product fl'+ (i % 3 == 0 ? ' mln' : '') +'">'+
-                    '<img src="/images/product/'+ data[i].image +'" alt="'+ data[i].title +'" />'+
-                    '<div class="product-title">'+
-                        '<p>'+ data[i].title +'</p>'+
-                    '</div>'+
-                '</div>';
-    }
-    html += '<div class="cb"></div>';
-    productsBox.html(html);
-};
-
-$main.getProducts = function(link) {
-    $.ajax({
-        type: 'post',
-        url: $main.basePath('/api/products'),
-        data: {
-            category_id: link.data('id'),
-            _token: $main.token
-        },
-        dataType: 'json',
-        success: function(result) {
-            if (result.status == 'OK') {
-                $('html, body').animate({
-                    scrollTop: link.offset().top - 10
-                }, 500);
-                $main.drawProducts(result.data);
-            }
-        }
-    });
-};
-
-$main.initCategories = function() {
-    var catLinks = $('#categories a');
-    catLinks.mouseover(function() {
-        var item = $(this).parent('li');
-        $('.separator', $(this)).addClass('dpn');
-        $('.separator', item.next()).addClass('dpn');
-    });
-    catLinks.mouseout(function() {
-        var item = $(this).parent('li');
-        $('.separator', $(this)).removeClass('dpn');
-        $('.separator', item.next()).removeClass('dpn');
-        $main.initCatActive();
-    });
-    catLinks.on('click', function() {
-        var self = $(this);
-        if (self.hasClass('active')) {
-            return false;
-        }
-        window.history.pushState({}, '', $main.basePath('/products/'+self.data('alias')));
-        var activeLink = $('#categories a.active'),
-            item = activeLink.parent('li');
-        activeLink.removeClass('active');
-        $('.separator', activeLink).removeClass('dpn');
-        $('.separator', item.next()).removeClass('dpn');
-        self.addClass('active');
-        $main.initCatActive();
-        $main.getProducts(self);
-        return false;
-    });
-};
-
-$main.initCatActive = function() {
-    var activeLink = $('#categories a.active'),
-        item = activeLink.parent('li');
-    $('.separator', activeLink).addClass('dpn');
-    $('.separator', item.next()).addClass('dpn');
-};
-
 $main.initMap = function() {
     var myLatLng = {lat: 40.176122, lng: 44.513620};
     $main.map = new google.maps.Map(document.getElementById('map'), {
@@ -160,11 +86,5 @@ $main.initContactForm = function() {
 };
 
 $(document).ready(function() {
-    $main.initSlider();
-    $main.initCategories();
-    $main.initCatActive();
-    if ($main.contactPage) {
-        $main.initMap();
-        $main.initContactForm();
-    }
+
 });

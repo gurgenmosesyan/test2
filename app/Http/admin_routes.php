@@ -8,7 +8,9 @@ $params = [
 
 Route::group($params, function () {
 
-    Route::get('/', 'GuestController@table');
+    Route::get('/', function() {
+        return redirect()->route('admin_homepage');
+    });
 
     Route::get('/homepage', ['uses' => 'HomepageController@edit', 'as' => 'admin_homepage']);
     Route::post('/homepage', ['uses' => 'HomepageController@update', 'as' => 'admin_homepage_update']);

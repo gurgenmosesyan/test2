@@ -10,6 +10,12 @@ Route::group($params, function () {
 
     Route::get('/', 'GuestController@table');
 
+    Route::get('/homepage', ['uses' => 'HomepageController@edit', 'as' => 'admin_homepage']);
+    Route::post('/homepage', ['uses' => 'HomepageController@update', 'as' => 'admin_homepage_update']);
+
+    Route::get('/about', ['uses' => 'AboutController@edit', 'as' => 'admin_about']);
+    Route::post('/about', ['uses' => 'AboutController@update', 'as' => 'admin_about_update']);
+
     Route::get('/guest', ['uses' => 'GuestController@table', 'as' => 'admin_guest_table']);
     Route::get('/guest/create', ['uses' => 'GuestController@create', 'as' => 'admin_guest_create']);
     Route::get('/guest/edit/{id}', ['uses' => 'GuestController@edit', 'as' => 'admin_guest_edit']);
@@ -68,6 +74,17 @@ Route::group($params, function () {
     Route::post('/facility/slider/store', ['uses' => 'FacilitySliderController@store', 'as' => 'admin_facility_slider_store']);
     Route::post('/facility/slider/update/{id}', ['uses' => 'FacilitySliderController@update', 'as' => 'admin_facility_slider_update']);
     Route::post('/facility/slider/delete/{id}', ['uses' => 'FacilitySliderController@delete', 'as' => 'admin_facility_slider_delete']);
+
+    Route::get('/event', ['uses' => 'EventController@table', 'as' => 'admin_event_table']);
+    Route::get('/event/create', ['uses' => 'EventController@create', 'as' => 'admin_event_create']);
+    Route::get('/event/edit/{id}', ['uses' => 'EventController@edit', 'as' => 'admin_event_edit']);
+    Route::post('/event', ['uses' => 'EventController@index', 'as' => 'admin_event_index']);
+    Route::post('/event/store', ['uses' => 'EventController@store', 'as' => 'admin_event_store']);
+    Route::post('/event/update/{id}', ['uses' => 'EventController@update', 'as' => 'admin_event_update']);
+    Route::post('/event/delete/{id}', ['uses' => 'EventController@delete', 'as' => 'admin_event_delete']);
+
+    Route::get('/event/text', ['uses' => 'EventController@text', 'as' => 'admin_event_text']);
+    Route::post('/event/text', ['uses' => 'EventController@updateText', 'as' => 'admin_event_text_update']);
 
     Route::get('/event/slider', ['uses' => 'EventSliderController@table', 'as' => 'admin_event_slider_table']);
     Route::get('/event/slider/create', ['uses' => 'EventSliderController@create', 'as' => 'admin_event_slider_create']);

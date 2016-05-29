@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHomepageTable extends Migration
+class CreateHomepageMlTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,11 @@ class CreateHomepageTable extends Migration
      */
     public function up()
     {
-        Schema::create('homepage', function (Blueprint $table) {
-            $table->string('about_image');
-            $table->string('offers_image');
+        Schema::create('homepage_ml', function (Blueprint $table) {
+            $table->tinyInteger('lng_id')->unsigned();
+            $table->text('about_text');
+            $table->text('offers_text');
+            $table->primary('lng_id');
         });
     }
 
@@ -25,6 +27,6 @@ class CreateHomepageTable extends Migration
      */
     public function down()
     {
-        Schema::drop('homepage');
+        Schema::drop('homepage_ml');
     }
 }

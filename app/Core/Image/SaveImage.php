@@ -8,7 +8,7 @@ class SaveImage
     {
         $image = trim($image);
         if ($image === 'same') {
-            return null;
+            return $model->$column;
         } else if (empty($image)) {
             $filePath = env('PUBLIC_PATH', public_path()) . '/' . $model->getStorePath();
             if (!empty($model->getFile($column)) && file_exists($filePath . '/' . $model->getFile($column))) {

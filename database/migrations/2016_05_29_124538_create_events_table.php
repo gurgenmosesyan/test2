@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateHomepageTable extends Migration
+class CreateEventsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +12,10 @@ class CreateHomepageTable extends Migration
      */
     public function up()
     {
-        Schema::create('homepage', function (Blueprint $table) {
-            $table->string('about_image');
-            $table->string('offers_image');
+        Schema::create('events', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('sort_order')->unsigned();
+            $table->timestamps();
         });
     }
 
@@ -25,6 +26,6 @@ class CreateHomepageTable extends Migration
      */
     public function down()
     {
-        Schema::drop('homepage');
+        Schema::drop('events');
     }
 }

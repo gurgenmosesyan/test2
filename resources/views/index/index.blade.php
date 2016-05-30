@@ -5,6 +5,6 @@ $title = trans('www.homepage.title');
 
 @section('content')
 
-<img src="/images/temp/bg.jpg" />
+
 
 @stop

@@ -130,6 +130,8 @@ body textarea {
 }
 #header .top-inner {
     padding: 0 45px;
+    margin: 0 auto;
+    width: 1110px;
 }
 #header .social {
     padding-top: 15px;
@@ -205,12 +207,73 @@ body textarea {
 #header .white-inner {
     background-color: #ffffff;
     height: 100%;
+    padding: 0 47px;
     position: relative;
-    width: 100%;
+    width: 1106px;
+}
+#logo {
+    background: url('../images/logo.png') no-repeat;
+    height: 100px;
+    margin-top: 24px;
+    width: 92px;
+}
+#logo a {
+    height: 100%;
+}
+#search-form {
+    height: 32px;
+    margin-top: 30px;
+}
+#search-form input[type="text"] {
+    background-color: #ECEDEE;
+    height: 100%;
+    padding: 0 10px;
+    vertical-align: top;
+    width: 265px;
+}
+#search-form input[type="submit"] {
+    background: #CECFD1 url('../images/search.png') no-repeat center center;
+    cursor: pointer;
+    height: 100%;
+    vertical-align: top;
+    width: 46px;
+}
+#nav {
+    margin-top: 33px;
+}
+#nav li {
+    border-right: 2px solid #B3B3B3;
+    height: 21px;
+    line-height: 21px;
+    padding: 0 17px;
+}
+#nav li.first {
+    border-right: none;
+    padding-right: 0;
+}
+#nav li a {
+    color: #979797;
+}
+#nav li a:hover {
+    color: #D2AB67;
+}
+#nav li.active a {
+    color: #D2AB67;
+    text-decoration: underline;
 }
 
-#content {
+/* bg block */
+#bg-block {
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    height: 650px;
     margin-top: -73px;
     position: relative;
     z-index: 1;
+}
+
+/* content */
+#content {
+
 }

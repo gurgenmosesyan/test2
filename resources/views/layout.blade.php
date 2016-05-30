@@ -44,7 +44,7 @@ $cLngId = cLng('id');
 
 <div id="header">
     <div class="top">
-        <div class="top-inner page">
+        <div class="top-inner">
             <ul class="social fl">
                 <li class="facebook fl"><a href="{{trans('www.facebook.link')}}" class="db" target="_blank"></a></li>
                 <li class="g-plus fl"><a href="{{trans('www.google_plus.link')}}" class="db" target="_blank"></a></li>
@@ -72,8 +72,31 @@ $cLngId = cLng('id');
     </div>
     <div class="white page">
         <div class="header-overlay"></div>
-        <div class="white-inner"></div>
+        <div class="white-inner">
+            <div id="logo" class="fl">
+                <a href="{{url_with_lng('')}}" class="db"></a>
+            </div>
+            <div class="fr">
+                <form id="search-form" action="{{url_with_lng('search', false)}}" method="get" class="fr">
+                    <input type="text" name="q" /><input type="submit" value="" />
+                </form>
+                <div class="cb"></div>
+                <ul id="nav">
+                    <li class="fr first"><a href="#">{{trans('www.menu.meeting_events')}}</a></li>
+                    <li class="fr"><a href="#">{{trans('www.menu.hotel_facilities')}}</a></li>
+                    <li class="fr"><a href="#">{{trans('www.menu.special_offers')}}</a></li>
+                    <li class="fr"><a href="#">{{trans('www.menu.accommodation')}}</a></li>
+                    <li class="fr"><a href="#">{{trans('www.menu.about')}}</a></li>
+                    <li class="cb"></li>
+                </ul>
+            </div>
+            <div class="cb"></div>
+        </div>
     </div>
+</div>
+
+<div id="bg-block" style="background-image: url('/images/temp/bg.jpg');">
+    <div id=""></div>
 </div>
 
 <div id="content">

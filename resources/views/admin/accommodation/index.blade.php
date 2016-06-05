@@ -15,6 +15,7 @@ $pageMenu = 'accommodation';
             <th>{{trans('admin.base.label.id')}}</th>
             <th>{{trans('admin.base.label.title')}}</th>
             <th>{{trans('admin.base.label.price')}}</th>
+            <th>{{trans('admin.base.label.sort_order')}}</th>
             <th class="th-actions"></th>
         </tr>
         </thead>

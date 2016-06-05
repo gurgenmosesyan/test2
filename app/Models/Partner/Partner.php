@@ -14,6 +14,11 @@ class Partner extends Model
         'link'
     ];
 
+    public function getImage()
+    {
+        return url('/'.self::IMAGES_PATH.'/'.$this->image);
+    }
+
     public function getFile($column)
     {
         return $this->$column;

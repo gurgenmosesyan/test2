@@ -14,4 +14,9 @@ class About extends Model
         'lng_id',
         'text'
     ];
+
+    public function scopeCurrent($query)
+    {
+        return $query->where('lng_id', cLng('id'));
+    }
 }

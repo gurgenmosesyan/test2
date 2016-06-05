@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Core\Language\Manager as LngManager;
+use Exception;
 
 class Front
 {
@@ -31,7 +32,7 @@ class Front
             } else {
                 abort(404);
             }
-        } catch (LocalNotSetException $e) {
+        } catch (Exception $e) {
             abort(404);
         };
 

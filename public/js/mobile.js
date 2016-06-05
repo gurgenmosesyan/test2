@@ -1,31 +1,7 @@
-var $trans = function() {
-    return $trans.get.apply(arguments);
-};
-$trans.transMap = null;
-
-$trans.get = function (key, paramData) {
-    try {
-        if ($trans.transMap  == null) {
-            var locSettings = $locSettings || {};
-            $trans.transMap = locSettings.trans || {};
-        }
-        if (typeof $trans.transMap[key] != "undefined") {
-            key = $trans.transMap[key];
-            if (paramData) {
-                for (var i in paramData) {
-                    if (paramData.hasOwnProperty(i)) {
-                        key = key.replace("{"+i+"}",paramData[i]);
-                    }
-                }
-            }
-            return key;
-        }
-    }
-    catch(e){}
-    return key;
-};
+'use strict';
 
 var $mobile = {};
+$mobile.mobileMode = false;
 
 $mobile.initNav = function() {
     var mobileNav = '<a href="#" id="mobile-nav" class="db">'+
@@ -137,8 +113,28 @@ $mobile.initPartner = function() {
     });
 };
 
+$mobile.resizing = function(width) {
+    if (!$mobile.mobileMode && width < 705) {
+
+        // set mobile settings
+
+        $mobile.initNav();
+
+    } else if ($mobile.mobileMode) {
+        // reset mobile settings
+        $mobile.mobileMode = false;
+    }
+};
+
 $(document).ready(function() {
-    $mobile.initNav();
+
+    $mobile.resizing(window.innerWidth || screen.availWidth);
+
+    $(window).resize(function() {
+        $mobile.resizing(this.innerWidth || screen.availWidth);
+    });
+
+    /*$mobile.initNav();
     $mobile.initFooter();
     var categoriesBox = $('#categories');
     if (categoriesBox.length > 0) {
@@ -150,5 +146,5 @@ $(document).ready(function() {
     if ($main.map) {
         $main.map.setOptions({draggable: false});
     }
-    $mobile.initPartner();
+    $mobile.initPartner();*/
 });

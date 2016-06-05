@@ -47,6 +47,9 @@ class Search extends DataTable
             case 'price':
                 $orderCol = 'accommodations.price';
                 break;
+            case 'sort_order':
+                $orderCol = 'accommodations.sort_order';
+                break;
             default:
                 $orderCol = 'accommodations.id';
         }

@@ -19,6 +19,18 @@ class Vacancy extends Model
         'deadline'
     ];
 
+    public function scopeJoinMl($query)
+    {
+        return $query->join('vacancies_ml as ml', function($query) {
+            $query->on('ml.id', '=', 'vacancies.id')->where('ml.lng_id', '=', cLng('id'));
+        });
+    }
+
+    public function scopeLatest($query)
+    {
+        return $query->orderBy('id', 'desc');
+    }
+
     public function setAsapAttribute($asap)
     {
         $this->attributes['asap'] = isset($asap) ? $asap : self::ASAP_NO;

@@ -9,7 +9,6 @@ class ContactRequest extends Request
         return [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255',
-            'subject' => 'required|max:255',
             'message' => 'required|max:10000'
         ];
     }

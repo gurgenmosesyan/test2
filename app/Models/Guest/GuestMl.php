@@ -23,6 +23,6 @@ class GuestMl extends Model
 
     public function getImage()
     {
-        return url('/images/guests/'.$this->image);
+        return url('/images/guest/'.$this->image);
     }
 }

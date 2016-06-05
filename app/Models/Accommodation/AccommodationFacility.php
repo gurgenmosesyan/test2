@@ -16,4 +16,9 @@ class AccommodationFacility extends Model
         'title',
         'index'
     ];
+
+    public function scopeCurrent($query)
+    {
+        return $query->where('lng_id', cLng('id'));
+    }
 }

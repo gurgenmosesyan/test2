@@ -12,9 +12,9 @@ return [
             //'width' => 390,
             //'height' => 265,
             //'min_width' => 500,
-            //'max_width' => 200,
+            'max_width' => 260,
             //'min_height' => 500,
-            //'max_height' => 200,
+            'max_height' => 140,
         ]
     ]
 ];

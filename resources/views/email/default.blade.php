@@ -1,1 +1,0 @@
-<?php echo trim(str_replace('&nbsp;', '', strip_tags($email->body))); ?>

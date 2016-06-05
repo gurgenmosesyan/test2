@@ -14,6 +14,16 @@ class Homepage extends Model
 
     protected $table = 'homepage';
 
+    public function getAboutImage()
+    {
+        return url(self::IMAGES_PATH.'/'.$this->about_image);
+    }
+
+    public function getOffersImage()
+    {
+        return url(self::IMAGES_PATH.'/'.$this->offers_image);
+    }
+
     public function getFile($column)
     {
         return $this->$column;

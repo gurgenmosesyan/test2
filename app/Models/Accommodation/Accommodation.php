@@ -14,7 +14,8 @@ class Accommodation extends Model
         'price',
         'room_size',
         'extra_bed',
-        'extra_bed_price'
+        'extra_bed_price',
+        'sort_order'
     ];
 
     protected $table = 'accommodations';
@@ -24,6 +25,11 @@ class Accommodation extends Model
         return $query->join('accommodations_ml as ml', function($query) {
             $query->on('ml.id', '=', 'accommodations.id')->where('ml.lng_id', '=', cLng('id'));
         });
+    }
+
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('accommodations.sort_order', 'asc');
     }
 
     public function ml()

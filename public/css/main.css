@@ -710,6 +710,13 @@ body.ru .title {
 .html-content p {
     margin-bottom: 12px;
 }
+.html-content ul {
+    margin-bottom: 15px;
+}
+.html-content ul li {
+    background: url('../images/list-dot.png') no-repeat left center;
+    padding-left: 22px;
+}
 
 #guests-block {
     margin-bottom: 55px;
@@ -900,6 +907,23 @@ body.ru .title {
     line-height: 38px;
     padding: 0 15px;
     min-width: 200px;
+}
+
+#first-text {
+    border-top: 1px solid #F8EEEE;
+    padding: 25px 45px;
+}
+#offers h2 {
+    color: #58595B;
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+#offers .offer-item {
+    padding: 35px 45px 20px;
+}
+#offers .offer-item.odd {
+    background-color: #F1F2F2;
 }
 
 #footer {

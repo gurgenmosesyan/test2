@@ -111,8 +111,8 @@ $cLngId = cLng('id');
                             <a href="{{url_with_lng('/about', false)}}">{{trans('www.menu.about')}}</a>
                         </li><li{{$page == 'accommodation' ? ' class=active' : ''}}>
                             <a href="#">{{trans('www.menu.accommodation')}}</a>
-                        </li><li>
-                            <a href="#">{{trans('www.menu.special_offers')}}</a>
+                        </li><li{{$page == 'offer' ? ' class=active' : ''}}>
+                            <a href="{{url_with_lng('/special-offers', false)}}">{{trans('www.menu.special_offers')}}</a>
                         </li><li>
                             <a href="#">{{trans('www.menu.hotel_facilities')}}</a>
                         </li><li>

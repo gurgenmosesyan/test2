@@ -19,6 +19,11 @@ class Offer extends Model
         });
     }
 
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('offers.sort_order', 'asc');
+    }
+
     public function ml()
     {
         return $this->hasMany(OfferMl::class, 'id', 'id');

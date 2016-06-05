@@ -342,6 +342,15 @@ body .page {
     position: relative;
     z-index: 1;
 }
+#bg-block h1 {
+    color: #ffffff;
+    font-size: 3.2em;
+    font-weight: bold;
+    margin-top: 35px;
+    padding-right: 20px;
+    text-align: right;
+    text-shadow: 0 0 10px #000000;
+}
 #calendar-block {
     color: #878787;
     height: 334px;

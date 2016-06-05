@@ -77,7 +77,7 @@ $cLngId = cLng('id');
                         <li class="cb"></li>
                     </ul>
                     <ul class="top-menu fr">
-                        <li class="fr"><a href="#" id="contact-link">{{trans('www.top_menu.contact_us')}}</a></li>
+                        <li class="fr"><a href="{{url_with_lng('#contacts', false)}}" id="contact-link">{{trans('www.top_menu.contact_us')}}</a></li>
                         <li class="subscribe mln fr"><a href="#">{{trans('www.top_menu.subscribe')}}</a></li>
                         <li class="subscribe-box mln dpn fr">
                             <form id="subscribe-form" action="{{url_with_lng('/api/subscribe', false)}}" method="post">
@@ -157,6 +157,11 @@ $cLngId = cLng('id');
                 </form>
             </div>
         </div>
+
+        @if(isset($isHomepage))
+            <h1 class="main-title tu">{{trans('www.homepage.main_title')}}</h1>
+        @endif
+
     </div>
 </div>
 

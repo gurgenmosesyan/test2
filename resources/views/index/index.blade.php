@@ -2,6 +2,7 @@
 use App\Image\Image;
 
 $title = trans('www.homepage.title');
+$isHomepage = true;
 $page = null;
 ?>
 @extends('layout')
@@ -92,6 +93,7 @@ $page = null;
     </div>
 </div>
 <script type="text/javascript">
+    $main.homepage = true;
     $main.includeGoogleMap();
     setTimeout(function() {
         $main.initMap();

@@ -33,29 +33,6 @@ $main.basePath = function(path) {
     return $main.baseUrl + path;
 };
 
-/*$main.initSlider = function() {
-    if ($('#jssor').length <= 0) {
-        return;
-    }
-    var options = {
-        $AutoPlay: true,
-        $SlideshowOptions: {
-            $Class: $JssorSlideshowRunner$,
-            $Transitions: [
-                {$Duration:1200,$Opacity:2}
-            ],
-            $TransitionsOrder: 1
-        },
-        $ArrowNavigatorOptions: {
-            $Class: $JssorArrowNavigator$
-        },
-        $BulletNavigatorOptions: {
-            $Class: $JssorBulletNavigator$
-        }
-    };
-    $main.slider = new $JssorSlider$("jssor", options);
-};*/
-
 $main.includeGoogleMap = function() {
     var s = document.createElement("script");
     s.type = "text/javascript";
@@ -175,12 +152,23 @@ $main.initTopCalendar = function() {
     });
 };
 
+$main.animateToContact = function() {
+    $('html, body').animate({
+        scrollTop: $('#contact').offset().top
+    }, 700);
+};
+
 $main.initContactLink = function() {
+    var hash = document.location.hash.substr(1);
+    if (hash == 'contacts') {
+        $main.animateToContact();
+    }
     $('#contact-link').on('click', function() {
-        $('html, body').animate({
-            scrollTop: $('#contact').offset().top
-        }, 700);
-        return false;
+        if ($main.homepage) {
+            document.location.hash = 'contacts';
+            $main.animateToContact();
+            return false;
+        }
     });
 };
 

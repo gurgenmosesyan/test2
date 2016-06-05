@@ -44,4 +44,5 @@ return array (
   'accommodation.bed_type' => 'Bed type:',
   'accommodation.booking' => 'Booking',
   'accommodation.price_text' => 'Price per night from :price dram',
+  'homepage.main_title' => 'The mark of luxury',
 );

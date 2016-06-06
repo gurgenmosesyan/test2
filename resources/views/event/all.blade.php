@@ -1,6 +1,6 @@
 <?php
-$title = trans('www.menu.special_offers');
-$page = 'offers';
+$title = trans('www.menu.meeting_events');
+$page = 'events';
 ?>
 @extends('layout')
 
@@ -14,18 +14,28 @@ $page = 'offers';
 
 <div class="page">
 
-    <div id="offers-first-text" class="html-content">{!!$offerText->text!!}</div>
+    <div id="events-top">
+        <div class="top-box tc fl">
+            <div class="dib">{!!trans('www.events.top.left.text')!!}</div>
+        </div>
+        <div class="top-box tc fl">
+            <div class="dib">{!!trans('www.events.top.right.text')!!}</div>
+        </div>
+        <div class="cb"></div>
+    </div>
+
+    <div id="events-first-text" class="html-content">{!!$eventText->text!!}</div>
 
     <div id="offers">
-        @foreach($offers as $key => $offer)
+        @foreach($events as $key => $event)
             <div class="offer-item {{$key%2 == 0 ? 'odd' : 'even'}}">
-                <h2 class="tu">{{$offer->title}}</h2>
-                <div class="html-content">{!!$offer->text!!}</div>
+                <h2 class="tu">{{$event->title}}</h2>
+                <div class="html-content">{!!$event->text!!}</div>
             </div>
         @endforeach
     </div>
 
-    <div id="slider-block" class="offers-slider">
+    <div id="slider-block" class="events-slider">
         <div id="slider" class="owl-carousel">
             @foreach($slider as $item)
                 <div class="slider-item" style="background-image: url('{{$item->first_image->getImage()}}');">
@@ -35,10 +45,6 @@ $page = 'offers';
                 </div>
             @endforeach
         </div>
-    </div>
-
-    <div id="offer-bottom">
-        <div class="offer-bottom-text tc">{!!trans('www.special_offers.bottom_text')!!}</div>
     </div>
 
 </div>

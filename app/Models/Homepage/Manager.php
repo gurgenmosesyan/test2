@@ -12,7 +12,6 @@ class Manager
         $homepage = Homepage::first();
         DB::transaction(function() use($data, $homepage) {
 
-            $homepage = Homepage::first();
             if ($homepage == null) {
                 $homepage = new Homepage();
                 SaveImage::save($data['about_image'], $homepage, 'about_image');

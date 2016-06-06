@@ -128,4 +128,10 @@ return array (
   'base.label.offers_image' => 'Special offers image',
   'base.label.offers_text' => 'Special offers text',
   'about.form.title' => 'About',
+  'background.form.title' => 'Backgrounds',
+  'base.label.homepage' => 'Homepage',
+  'base.label.accommodations' => 'Accommodation & rates',
+  'base.label.special_offers' => 'Special offers',
+  'base.label.hotel_facilities' => 'Hotel facilities',
+  'base.label.meeting_events' => 'Meeting & events',
 );

@@ -130,7 +130,7 @@ body .noah {
 
 #page,
 #footer {
-    min-width: 690px;
+    /*min-width: 690px;*/
 }
 body .page {
     margin: 0 auto;
@@ -875,6 +875,9 @@ body.ru .title {
     height: 460px;
     width: 100%;
 }
+#slider .slider-item a {
+    height: 100%;
+}
 #acc-content {
     margin-bottom: 30px;
 }
@@ -909,7 +912,8 @@ body.ru .title {
     min-width: 200px;
 }
 
-#first-text {
+#offers-first-text,
+#facility-text {
     border-top: 1px solid #F8EEEE;
     padding: 25px 45px;
 }
@@ -924,6 +928,70 @@ body.ru .title {
 }
 #offers .offer-item.odd {
     background-color: #F1F2F2;
+}
+#offer-bottom {
+    background-color: #F1F2F2;
+    margin-bottom: 45px;
+    padding: 43px;
+}
+#offer-bottom .offer-bottom-text {
+    border: 1px solid #D7B77F;
+    color: #58595B;
+    font-size: 1.2em;
+    max-width: 678px;
+    margin: 0 auto;
+    line-height: 32px;
+    padding: 27px 38px;
+}
+#slider-block.offers-slider,
+#slider-block.events-slider,
+#slider-block.facility-slider {
+    margin-bottom: 45px;
+}
+
+#events-top {
+    border-top: 1px solid #F8EEEE;
+    color: #58595B;
+    font-size: 1.2em;
+    line-height: 30px;
+    padding: 28px 0;
+}
+#events-top .top-box {
+    width: 50%;
+}
+#events-top .top-box div {
+    padding: 0 15px;
+    text-align: left;
+}
+#events-first-text {
+    padding: 0 45px 25px;
+}
+
+#facilities {
+    background-color: #F1F1F2;
+    margin-bottom: 45px;
+    padding: 28px 0;
+}
+#facilities .facility-item {
+    background: url('../images/list-dot.png') no-repeat 0 9px;
+    min-height: 25px;
+    line-height: 25px;
+    margin-bottom: 3px;
+    padding-left: 21px;
+    max-width: 350px;
+}
+#facilities .facility-item a {
+    color: #6C6D6F;
+}
+#facilities .facility-item a:hover {
+    text-decoration: underline;
+}
+#facilities .facility-box {
+    width: 50%;
+}
+#facilities .center-box {
+    padding: 0 15px;
+    text-align: left;
 }
 
 #footer {

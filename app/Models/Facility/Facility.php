@@ -21,6 +21,11 @@ class Facility extends Model
         });
     }
 
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('facilities.sort_order', 'asc');
+    }
+
     public function ml()
     {
         return $this->hasMany(FacilityMl::class, 'id', 'id');

@@ -16,4 +16,9 @@ class FacilityMl extends Model
         'title',
         'text'
     ];
+
+    public function first_image()
+    {
+        return $this->hasOne(FacilityImage::class, 'facility_id', 'id')->active();
+    }
 }

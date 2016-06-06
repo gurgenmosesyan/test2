@@ -1,4 +1,5 @@
 <ul class="sidebar-menu">
+    <li{{$pageMenu == 'background' ? ' class=active' : ''}}><a href="{{route('admin_background')}}"><i class="fa fa-home"></i> <span>{{trans('admin.background.form.title')}}</span></a></li>
     <li{{$pageMenu == 'homepage' ? ' class=active' : ''}}><a href="{{route('admin_homepage')}}"><i class="fa fa-home"></i> <span>{{trans('admin.homepage.form.title')}}</span></a></li>
     <li{{$pageMenu == 'about' ? ' class=active' : ''}}><a href="{{route('admin_about')}}"><i class="fa fa-info-circle"></i> <span>{{trans('admin.about.form.title')}}</span></a></li>
     <li{{$pageMenu == 'guest' ? ' class=active' : ''}}><a href="{{route('admin_guest_table')}}"><i class="fa fa-user"></i> <span>{{trans('admin.guest.form.title')}}</span></a></li>

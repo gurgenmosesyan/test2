@@ -113,10 +113,10 @@ $cLngId = cLng('id');
                             <a href="#">{{trans('www.menu.accommodation')}}</a>
                         </li><li{{$page == 'offer' ? ' class=active' : ''}}>
                             <a href="{{url_with_lng('/special-offers', false)}}">{{trans('www.menu.special_offers')}}</a>
-                        </li><li>
-                            <a href="#">{{trans('www.menu.hotel_facilities')}}</a>
-                        </li><li>
-                            <a href="#">{{trans('www.menu.meeting_events')}}</a>
+                        </li><li{{$page == 'facilities' ? ' class=active' : ''}}>
+                            <a href="{{url_with_lng('/hotel-facilities', false)}}">{{trans('www.menu.hotel_facilities')}}</a>
+                        </li><li{{$page == 'events' ? ' class=active' : ''}}>
+                            <a href="{{url_with_lng('/meeting-and-events', false)}}">{{trans('www.menu.meeting_events')}}</a>
                         </li>
                     </ul>
                 </div>
@@ -126,7 +126,7 @@ $cLngId = cLng('id');
     </div>
 </div>
 
-<div id="bg-block" style="background-image: url('/images/temp/bg.jpg');">
+<div id="bg-block" style="background-image: url('{{$background}}');">
     <div class="page">
         <div id="calendar-block">
             <div class="calendar-overlay"></div>

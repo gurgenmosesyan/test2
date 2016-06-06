@@ -10,7 +10,7 @@ return [
                 'jpg', 'jpeg', 'png'
             ],
             'width' => 1200,
-            'height' => 550,
+            'height' => 460,
             //'min_width' => 500,
             //'max_width' => 200,
             //'min_height' => 500,

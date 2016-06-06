@@ -18,11 +18,9 @@ $page = 'accommodation';
 
     <div id="slider-block">
         <div id="slider" class="owl-carousel">
-
             @foreach($accommodation->images as $image)
                 <div class="slider-item" style="background-image: url('{{$image->getImage()}}');"></div>
             @endforeach
-
         </div>
         <div class="slider-title title">{{$accommodation->title}}</div>
     </div>

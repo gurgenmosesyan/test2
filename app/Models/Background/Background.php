@@ -1,24 +1,22 @@
 <?php
 
-namespace App\Models\Facility;
+namespace App\Models\Background;
 
 use App\Core\Model;
 
-class FacilityImage extends Model
+class Background extends Model
 {
-    const IMAGES_PATH = 'images/facility';
-
-    protected $table = 'facility_images';
+    const IMAGES_PATH = 'images/background';
 
     public $timestamps = false;
 
-    protected $fillable = [
-        'show_status'
-    ];
+    protected $fillable = [];
 
-    public function getImage()
+    protected $table = 'backgrounds';
+
+    public function getImage($key)
     {
-        return url('/'.self::IMAGES_PATH.'/'.$this->image);
+        return url(self::IMAGES_PATH.'/'.$this->$key);
     }
 
     public function getFile($column)

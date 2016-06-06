@@ -45,4 +45,9 @@ return array (
   'accommodation.booking' => 'Booking',
   'accommodation.price_text' => 'Price per night from :price dram',
   'homepage.main_title' => 'The mark of luxury',
+  'special_offers.bottom_text' => 'For more detailed information, please do not hesitate to contact us:<br />Tel. +374 (60)46 10 99 | E-mail: hotel@goldenpalacehotel.am',
+  'events.top.left.text' => 'The executive conference<br />Exceptial meeting facilities',
+  'events.top.right.text' => 'Professional technology support<br />Distinctive catering servie',
+  'facilities.top.left.text' => 'Check-in time at 14:00 p.m.',
+  'facilities.top.right.text' => 'Check-out time at 12:00 p.m.',
 );

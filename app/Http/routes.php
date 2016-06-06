@@ -13,7 +13,7 @@ Route::group(['middleware' => ['web', 'front']], function() {
         Route::get('/accommodations/{id}', 'AccommodationController@index');
         Route::get('/special-offers', 'OfferController@all');
         Route::get('/hotel-facilities', 'FacilityController@all');
-        Route::get('/hotel-facilities/{$id}', 'FacilityController@index');
+        Route::get('/hotel-facilities/{id}', 'FacilityController@index');
         Route::get('/meeting-and-events', 'EventController@all');
 
         Route::post('/api/contact', 'ApiController@contact');

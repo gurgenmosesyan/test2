@@ -12,6 +12,9 @@ Route::group($params, function () {
         return redirect()->route('admin_homepage');
     });
 
+    Route::get('/background', ['uses' => 'BackgroundController@edit', 'as' => 'admin_background']);
+    Route::post('/background', ['uses' => 'BackgroundController@update', 'as' => 'admin_background_update']);
+
     Route::get('/homepage', ['uses' => 'HomepageController@edit', 'as' => 'admin_homepage']);
     Route::post('/homepage', ['uses' => 'HomepageController@update', 'as' => 'admin_homepage_update']);
 

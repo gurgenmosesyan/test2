@@ -19,6 +19,11 @@ class Event extends Model
         });
     }
 
+    public function scopeOrdered($query)
+    {
+        return $query->orderBy('events.sort_order', 'asc');
+    }
+
     public function ml()
     {
         return $this->hasMany(EventMl::class, 'id', 'id');

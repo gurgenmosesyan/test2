@@ -1,8 +1,10 @@
 <?php
 use App\Core\Language\Language;
+use App\Models\Accommodation\Accommodation;
 
 $languages = Language::all();
 $cLngId = cLng('id');
+$accommodations = Accommodation::joinMl()->ordered()->get();
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -15,29 +17,29 @@ $cLngId = cLng('id');
     use App\Core\Helpers\UserAgent;
 
     $head->appendMainStyle('/css/jquery-ui.css');
+    $head->appendMainStyle('/css/owl.carousel.css');
     $head->appendMainStyle('/css/main.css');
     $head->appendMainStyle('/css/media.css');
-    $head->appendMainStyle('/css/owl.carousel.css');
+    //$head->appendMainStyle('/css/mobile.css');
 
     $head->appendMainScript('/js/jquery-2.1.4.min.js');
     $head->appendMainScript('/js/jquery-ui.min.js');
     $head->appendMainScript('/js/owl.carousel.min.js');
     //$head->appendMainScript('/js/jssor.slider.mini.js');
     $head->appendMainScript('/js/main.js');
-    $head->appendMainScript('/js/mobile.js');
+    //$head->appendMainScript('/js/mobile.js');
 
     $ua = new UserAgent();
     if ($ua->isIPhone() || $ua->isAndroidMobile() || $ua->isWinPhone()) {
-        echo '<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1, maximum-scale=1.0" />';
         $head->appendMainStyle('/css/mobile.css');
         $head->appendMainScript('/js/mobile.js');
-        $jsTrans->addTrans([
+        /*$jsTrans->addTrans([
             'www.menu.about',
             'www.menu.products',
             'www.menu.partners',
             'www.menu.contact'
-        ]);
-        echo '<script>var $locSettings = {"trans":'.json_encode($jsTrans->getTrans()).'};</script>';
+        ]);*/
+        //echo '<script>var $locSettings = {"trans":'.json_encode($jsTrans->getTrans()).'};</script>';
     }
 
     $head->renderStyles();
@@ -109,9 +111,14 @@ $cLngId = cLng('id');
                     <ul id="nav">
                         <li class="first{{$page == 'about' ? ' active' : ''}}">
                             <a href="{{url_with_lng('/about', false)}}">{{trans('www.menu.about')}}</a>
-                        </li><li{{$page == 'accommodation' ? ' class=active' : ''}}>
-                            <a href="#">{{trans('www.menu.accommodation')}}</a>
-                        </li><li{{$page == 'offer' ? ' class=active' : ''}}>
+                        </li><li id="acc-top-menu"{{$page == 'accommodation' ? ' class=active' : ''}}>
+                            <a href="#" class="acc-link">{{trans('www.menu.accommodation')}}</a>
+                            <ul id="acc-sub-menu" class="dpn">
+                                @foreach($accommodations as $acc)
+                                    <li><a href="{{url_with_lng('/accommodations/'.$acc->id, false)}}">{{$acc->title}}</a></li>
+                                @endforeach
+                            </ul>
+                        </li><li{{$page == 'offers' ? ' class=active' : ''}}>
                             <a href="{{url_with_lng('/special-offers', false)}}">{{trans('www.menu.special_offers')}}</a>
                         </li><li{{$page == 'facilities' ? ' class=active' : ''}}>
                             <a href="{{url_with_lng('/hotel-facilities', false)}}">{{trans('www.menu.hotel_facilities')}}</a>

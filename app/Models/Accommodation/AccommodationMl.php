@@ -17,4 +17,9 @@ class AccommodationMl extends Model
         'text',
         'bed_type'
     ];
+
+    public function current($query)
+    {
+        return $query->where('lng_id', cLng('id'));
+    }
 }

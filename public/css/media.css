@@ -47,6 +47,9 @@
     #header .social li {
         margin-right: 5px;
     }
+    #header .white-inner {
+        padding: 0 20px;
+    }
     #footer .footer-part {
         margin-bottom: 8px;
         width: 100%;

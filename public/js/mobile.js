@@ -113,26 +113,51 @@ $mobile.initPartner = function() {
     });
 };
 
-$mobile.resizing = function(width) {
-    if (!$mobile.mobileMode && width < 705) {
+$mobile.init = function() {
 
-        // set mobile settings
+    //$('#page').addClass('mobile');
 
-        $mobile.initNav();
+    //$('#contact-form-block').insertBefore('#contact');
+    $('#contact').prepend($('#contact-form-block h2'));
 
+    var homeAbout = $('#homepage-about'),
+        homeOffers = $('#homepage-offers');
+    homeAbout.prepend(homeAbout.find('h2'));
+    homeOffers.find('.title').after(homeOffers.find('.img-section'));
+
+
+    setTimeout(function() {
+        if ($main.map) {
+            $main.map.setOptions({draggable: false});
+        }
+    }, 1000);
+
+};
+
+/*$mobile.reset = function() {
+    $('#page').removeClass('mobile');
+};*/
+
+/*$mobile.resizing = function(width) {
+    if (width < 705) {
+        if (!$mobile.mobileMode) {
+            $mobile.init();
+            $mobile.mobileMode = true;
+        }
     } else if ($mobile.mobileMode) {
-        // reset mobile settings
+        $mobile.reset();
         $mobile.mobileMode = false;
     }
-};
+};*/
 
 $(document).ready(function() {
 
-    $mobile.resizing(window.innerWidth || screen.availWidth);
+    $mobile.init();
 
+    /*$mobile.resizing(window.innerWidth || screen.availWidth);
     $(window).resize(function() {
         $mobile.resizing(this.innerWidth || screen.availWidth);
-    });
+    });*/
 
     /*$mobile.initNav();
     $mobile.initFooter();

@@ -130,7 +130,7 @@ body .noah {
 
 #page,
 #footer {
-    /*min-width: 690px;*/
+    min-width: 680px;
 }
 body .page {
     margin: 0 auto;
@@ -267,9 +267,6 @@ body .page {
     padding: 0 45px;
     position: relative;
 }
-#header-left {
-    width: 10%;
-}
 #logo {
     background: url('../images/logo.png') no-repeat;
     height: 100px;
@@ -329,6 +326,39 @@ body .page {
 #nav li.active a {
     color: #D2AB67;
     text-decoration: underline;
+}
+
+#acc-top-menu {
+    position: relative;
+    z-index: 99999;
+}
+#acc-sub-menu {
+    position: absolute;
+    left: 0;
+    top: 50px;
+    min-width: 200px;
+    width: 100%;
+    z-index: 99999;
+}
+#nav #acc-sub-menu li {
+    border: none;
+    border-top: 1px solid #755322;
+    display: block;
+    height: auto;
+    line-height: 38px;
+    padding: 0 !important;
+}
+#nav #acc-sub-menu li a {
+    background-color: #EBECED;
+    color: #58595B;
+    display: block;
+    height: 38px;
+    padding: 0 15px;
+    text-align: left;
+    text-decoration: none;
+}
+#nav #acc-sub-menu li a:hover {
+    background-color: #CECFD1;
 }
 
 /* bg block */

@@ -15,10 +15,10 @@ $page = 'events';
 <div class="page">
 
     <div id="events-top">
-        <div class="top-box tc fl">
+        <div class="top-box events-top-left tc fl">
             <div class="dib">{!!trans('www.events.top.left.text')!!}</div>
         </div>
-        <div class="top-box tc fl">
+        <div class="top-box events-top-right tc fl">
             <div class="dib">{!!trans('www.events.top.right.text')!!}</div>
         </div>
         <div class="cb"></div>

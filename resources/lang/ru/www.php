@@ -50,4 +50,5 @@ return array (
   'events.top.right.text' => 'Professional technology support<br />Distinctive catering servie',
   'facilities.top.left.text' => 'Check-in time at 14:00 p.m.',
   'facilities.top.right.text' => 'Check-out time at 12:00 p.m.',
+  'mobile.book_now' => 'Book now',
 );

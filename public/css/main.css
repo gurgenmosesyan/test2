@@ -646,20 +646,16 @@ body.ru .title {
 #contact-form .name-box {
     box-sizing: border-box;
     padding-right: 7px;
-    /*margin-right: 15px;
-    width: 273px;*/
     width: 50%;
 }
 #contact-form .email-box {
     box-sizing: border-box;
-    /*width: 272px;*/
     padding-left: 7px;
     width: 50%;
 }
 #contact-form .name-box input,
 #contact-form .email-box input {
     box-sizing: border-box;
-    /*width: 245px;*/
     width: 100%;
 }
 #contact-form input[type="text"],
@@ -802,31 +798,6 @@ body.ru .title {
 #vacancies h2 a:hover {
     text-decoration: underline;
 }
-/*#vacancies .vacancy-title {
-    width: 33%;
-}
-#vacancies .vacancy-function {
-    width: 30%;
-}
-#vacancies .vacancy-published {
-    width: 37%;
-}
-#vacancies .vacancy-item {
-    background-color: #F1F2F2;
-    border-bottom: 2px solid #ffffff;
-    border-right: 2px solid #ffffff;
-    color: #6C6D6F;
-    min-height: 43px;
-    line-height: 43px;
-    padding: 0 10px 0 45px;
-}
-#vacancies .vacancy-published .vacancy-item {
-    border-right: none;
-}
-#vacancies .vacancy-item.first {
-    background-color: #D4D5D7;
-    font-size: 1.2em;
-}*/
 #vacancies table {
     width: 100%;
 }

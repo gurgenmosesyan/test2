@@ -1,6 +1,13 @@
 <?php
 $title = trans('www.menu.about');
 $page = 'about';
+
+$jsTrans->addTrans([
+    'www.vacancies.list.title',
+    'www.vacancies.list.function',
+    'www.vacancies.list.published_on',
+    'www.vacancies.list.read_more'
+]);
 ?>
 @extends('layout')
 
@@ -53,7 +60,7 @@ $page = 'about';
     @endif
 
     @if(!$vacancies->isEmpty())
-        <div id="vacancies">
+        <div id="vacancies" class="list">
             <h2 class="tu"><a href="{{url_with_lng('/vacancies', false)}}">{{trans('www.vacancies.title')}}</a></h2>
 
             <table>
@@ -80,26 +87,6 @@ $page = 'about';
                     @endforeach
                 </tbody>
             </table>
-
-            <?php /* <div class="vacancy-title fl">
-                <div class="vacancy-item first">{{trans('www.vacancies.list.title')}}</div>
-                @foreach($vacancies as $vacancy)
-                    <div class="vacancy-item">{{$vacancy->title}}</div>
-                @endforeach
-            </div>
-            <div class="vacancy-function fl">
-                <div class="vacancy-item first">{{trans('www.vacancies.list.function')}}</div>
-                @foreach($vacancies as $vacancy)
-                    <div class="vacancy-item">{{$vacancy->function}}</div>
-                @endforeach
-            </div>
-            <div class="vacancy-published  fl">
-                <div class="vacancy-item first">{{trans('www.vacancies.list.published_on')}}</div>
-                @foreach($vacancies as $vacancy)
-                    <div class="vacancy-item">{{date('d.m.Y', strtotime($vacancy->published_at))}}</div>
-                @endforeach
-            </div>
-            <div class="cb"></div> */ ?>
 
         </div>
     @endif

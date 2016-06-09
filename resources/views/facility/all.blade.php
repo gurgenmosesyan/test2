@@ -18,17 +18,17 @@ $separator = ceil($count / 2);
 <div class="page">
 
     <div id="events-top">
-        <div class="top-box tc fl">
+        <div class="top-box events-top-left tc fl">
             <div class="dib">{!!trans('www.facilities.top.left.text')!!}</div>
         </div>
-        <div class="top-box tc fl">
+        <div class="top-box events-top-right tc fl">
             <div class="dib">{!!trans('www.facilities.top.right.text')!!}</div>
         </div>
         <div class="cb"></div>
     </div>
 
     <div id="facilities">
-        <div class="facility-box tc fl">
+        <div class="facility-box left tc fl">
             <div class="center-box dib">
                 @foreach($facilities->slice(0, $separator) as $facility)
                     <div class="facility-item">
@@ -39,7 +39,7 @@ $separator = ceil($count / 2);
                 @endforeach
             </div>
         </div>
-        <div class="facility-box tc fl">
+        <div class="facility-box right tc fl">
             <div class="center-box dib">
                 @foreach($facilities->slice($separator) as $facility)
                     <div class="facility-item">

@@ -97,7 +97,7 @@ body #header .white-inner {
     padding: 0;
 }
 body .title {
-    font-size: 1.1em;
+    font-size: 1em;
 }
 body .homepage-section {
     margin-bottom: 0;
@@ -224,29 +224,95 @@ body #homepage-offers .text-section {
     line-height: 25px;
 }
 
-body #home-acc-block {
+body #home-acc-block,
+body #acc-car-block {
     padding: 0 25px;
 }
-body #home-acc .acc-item {
+body #acc-car-block {
+    margin-bottom: 25px;
+}
+body #home-acc .acc-item,
+body #acc-car .acc-item {
     height: 180px;
     width: 100%;
 }
-body #home-acc .acc-title {
+body #home-acc .acc-title,
+body #acc-car .acc-title {
+    box-sizing: border-box;
     font-size: 1.2em;
     height: 40px;
     line-height: 40px;
     margin-top: 69px;
     min-width: 120px;
+    max-width: 100%;
     padding: 0 7px;
 }
-body #home-acc .owl-buttons div {
+body #home-acc .owl-buttons div,
+body #acc-car .owl-buttons div {
     top: 71px;
 }
-body #home-acc .owl-buttons .owl-prev {
+body #home-acc .owl-buttons .owl-prev,
+body #acc-car .owl-buttons .owl-prev {
     left: -25px;
 }
-body #home-acc .owl-buttons .owl-next {
+body #home-acc .owl-buttons .owl-next,
+body #acc-car .owl-buttons .owl-next {
     right: -25px;
+}
+body #slider-block {
+    height: 250px;
+    margin-bottom: 20px;
+}
+body #slider .slider-item {
+    height: 250px;
+}
+body #slider-block .slider-title {
+    font-size: 0.9em;
+    height: 35px;
+    line-height: 35px;
+    padding: 0 10px;
+    bottom: 40px;
+    min-width: 170px;
+}
+body #slider .owl-pagination {
+    bottom: 20px;
+    width: 170px;
+}
+body #slider .owl-buttons div {
+    top: 106px;
+}
+body #slider .owl-buttons .owl-prev {
+    left: 7px;
+}
+body #slider .owl-buttons .owl-next {
+    right: 7px;
+}
+body #acc-info {
+    margin-bottom: 25px;
+}
+body #acc-info .acc-left {
+    float: none;
+}
+body #acc-info .acc-right {
+    float: none;
+    text-align: center;
+}
+body #acc-content {
+    margin-bottom: 20px;
+}
+body #acc-info .acc-facilities {
+    border-right: none;
+    float: none;
+    margin-right: 0;
+    margin-bottom: 5px;
+    padding-right: 0;
+}
+body .acc-room {
+    float: none;
+    margin-bottom: 20px;
+}
+body .acc-right {
+    float: none;
 }
 
 body #page-title {
@@ -268,11 +334,109 @@ body #guests-block {
 body #guests-block h2,
 body #partners h2,
 body #vacancies h2 {
-    font-size: 1.1em;
+    font-size: 1em;
     margin-bottom: 25px;
-    padding-left: 0;
-    text-align: center;
+    padding-left: 15px;
 }
 body #partners {
     padding: 25px 0 0;
+}
+
+body #offers-first-text,
+body #facility-text,
+body #events-first-text {
+    padding: 15px 0;
+}
+body #offers h2 {
+    font-size: 1em;
+    margin-bottom: 12px;
+}
+body #offers .offer-item {
+    padding: 20px 10px 20px;
+}
+body #slider-block.offers-slider,
+body #slider-block.events-slider,
+body #slider-block.facility-slider {
+    margin-bottom: 25px;
+}
+body #offer-bottom {
+    margin-bottom: 25px;
+    padding: 17px;
+}
+body #offer-bottom .offer-bottom-text {
+    font-size: 0.9em;
+    line-height: 24px;
+    padding: 8px;
+}
+body #events-top {
+    font-size: 0.9em;
+    line-height: 20px;
+    padding: 17px 0 7px;
+}
+#events-top .events-top-left div {
+    padding: 0 7px 0 0;
+}
+#events-top .events-top-right div {
+    padding: 0 0 0 7px;
+}
+body #facilities {
+    padding: 17px 0;
+    margin-bottom: 25px;
+}
+body #facilities .facility-item {
+    font-size: 0.9em;
+}
+body #facilities .center-box {
+    padding: 0 5px;
+}
+body #facilities .facility-item {
+    margin-bottom: 0;
+    padding-left: 15px;
+}
+body #vacancies {
+    margin-bottom: 15px;
+}
+body #vacancies table {
+    font-size: 0.9em;
+}
+body #vacancies table .gray {
+    background-color: #D3D5D6;
+    min-width: 85px;
+}
+body #vacancies table tr {
+    border-bottom: 3px solid #ffffff;
+}
+body #vacancies table td {
+    border-right: none;
+    border-bottom: 3px solid #ffffff;
+    line-height: 18px;
+    padding: 4px 8px;
+}
+#vacancies .v-empty {
+    background: none;
+}
+#vacancies .v-date {
+    background: none;
+    padding: 0 0 0 10px;
+}
+#vacancies .v-date a {
+    background-color: #D3D5D6;
+    display: inline-block;
+    color: #6C6D6F;
+    height: 31px;
+    line-height: 31px;
+    margin-bottom: 7px;
+    padding: 0 10px;
+}
+#vacancies.index table th {
+    border: none;
+    font-size: 1em;
+    line-height: 18px;
+    padding: 4px 8px;
+}
+#vacancies.index table td {
+    border: none;
+}
+body #footer {
+    padding: 20px 0;
 }

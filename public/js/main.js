@@ -1,6 +1,6 @@
 'use strict';
 
-/*var $trans = function() {
+var $trans = function() {
     return $trans.get.apply(arguments);
 };
 $trans.transMap = null;
@@ -25,7 +25,7 @@ $trans.get = function (key, paramData) {
     }
     catch(e){}
     return key;
-};*/
+};
 
 var $main = {};
 
@@ -184,20 +184,6 @@ $main.initSlider = function() {
         rewindSpeed: 2000
     });
 };
-
-/*$main._homeAccCarousel = function() {
-    $('#home-acc').owlCarousel({
-        loop: true,
-        autoplay: true,
-        smartSpeed: 700,
-        responsiveClass: true,
-        responsive: {
-            0: { items: 1 },
-            800: { items: 2 },
-            1200: { items: 3 }
-        }
-    });
-};*/
 
 $main.homeAccCarousel = function() {
     $('#home-acc').owlCarousel({

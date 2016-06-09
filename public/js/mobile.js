@@ -53,10 +53,37 @@ $mobile.lngSwitcher = function() {
     $('#header').prepend(html);
 };
 
+$mobile.initVacancies = function() {
+    var vacancies = $('#vacancies.list'),
+        html = '<table>';
+    $('table tbody tr', vacancies).each(function() {
+        var tr = $(this);
+        html += '<tr>' +
+                    '<td class="gray">'+$trans.get('www.vacancies.list.title')+'</td>'+
+                    '<td>'+ tr.find('.v-title').text() +'</td>'+
+                '</tr>'+
+                '<tr>'+
+                    '<td class="gray">'+$trans.get('www.vacancies.list.function')+'</td>'+
+                    '<td>'+ tr.find('.v-function').text() +'</td>'+
+                '</tr>'+
+                '<tr>'+
+                    '<td class="gray">'+$trans.get('www.vacancies.list.published_on')+'</td>'+
+                    '<td>'+ tr.find('.date').text() +'</td>'+
+                '</tr>'+
+                '<tr>'+
+                    '<td class="v-empty"></td>'+
+                    '<td class="v-date">'+ tr.find('.more').html() +'</td>'+
+                '</tr>';
+    });
+    html += '</table>';
+    $(' table', vacancies).remove();
+    vacancies.append(html);
+};
+
 $mobile.init = function() {
     $mobile.initBurger();
 
-    $('#bg-block').prepend('<div class="booking"><div><a href="#" class="btn">Book now</a></div></div>').prepend('<div class="bg-overlay"></div>');
+    $('#bg-block').prepend('<div class="booking"><div><a href="#" class="btn">'+$trans.get('www.mobile.book_now')+'</a></div></div>').prepend('<div class="bg-overlay"></div>');
 
     $mobile.lngSwitcher();
 
@@ -72,6 +99,8 @@ $mobile.init = function() {
             $main.map.setOptions({draggable: false});
         }
     }, 1000);
+
+    $mobile.initVacancies();
 };
 
 $(document).ready(function() {

@@ -14,7 +14,7 @@ $page = 'vacancies';
 
 <div class="page">
 
-    <div id="vacancies">
+    <div id="vacancies" class="index">
         <table>
             <thead>
             <tr>

@@ -1,6 +1,13 @@
 <?php
 $title = trans('www.vacancies.title');
 $page = 'vacancies';
+
+$jsTrans->addTrans([
+    'www.vacancies.list.title',
+    'www.vacancies.list.function',
+    'www.vacancies.list.published_on',
+    'www.vacancies.list.read_more'
+]);
 ?>
 @extends('layout')
 
@@ -17,7 +24,7 @@ $page = 'vacancies';
     @if($vacancies->isEmpty())
         <p class="empty-result">{{trans('www.vacancies.empty_text')}}</p>
     @else
-        <div id="vacancies">
+        <div id="vacancies" class="list">
             <table>
                 <thead>
                 <tr>
@@ -29,8 +36,8 @@ $page = 'vacancies';
                 <tbody>
                 @foreach($vacancies as $vacancy)
                     <tr>
-                        <td>{{$vacancy->title}}</td>
-                        <td>{{$vacancy->function}}</td>
+                        <td class="v-title">{{$vacancy->title}}</td>
+                        <td class="v-function">{{$vacancy->function}}</td>
                         <td class="published last">
                             <div class="date fl">{{date('d.m.Y', strtotime($vacancy->published_at))}}</div>
                             <div class="more fr">

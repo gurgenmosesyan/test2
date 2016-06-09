@@ -20,26 +20,19 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
     $head->appendMainStyle('/css/owl.carousel.css');
     $head->appendMainStyle('/css/main.css');
     $head->appendMainStyle('/css/media.css');
-    //$head->appendMainStyle('/css/mobile.css');
 
     $head->appendMainScript('/js/jquery-2.1.4.min.js');
     $head->appendMainScript('/js/jquery-ui.min.js');
     $head->appendMainScript('/js/owl.carousel.min.js');
-    //$head->appendMainScript('/js/jssor.slider.mini.js');
     $head->appendMainScript('/js/main.js');
-    //$head->appendMainScript('/js/mobile.js');
 
     $ua = new UserAgent();
     if ($ua->isIPhone() || $ua->isAndroidMobile() || $ua->isWinPhone()) {
         $head->appendMainStyle('/css/mobile.css');
         $head->appendMainScript('/js/mobile.js');
-        /*$jsTrans->addTrans([
-            'www.menu.about',
-            'www.menu.products',
-            'www.menu.partners',
-            'www.menu.contact'
-        ]);*/
-        //echo '<script>var $locSettings = {"trans":'.json_encode($jsTrans->getTrans()).'};</script>';
+        $jsTrans->addTrans([
+            'www.mobile.book_now',
+        ]);
     }
 
     $head->renderStyles();
@@ -50,6 +43,7 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
 <script type="text/javascript">
     $main.baseUrl = '{{url('')}}';
     $main.time = <?php echo time(); ?>;
+    var $locSettings = {"trans": <?php echo json_encode($jsTrans->getTrans()); ?>};
 </script>
 
 <div id="page">

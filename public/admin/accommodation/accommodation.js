@@ -2,6 +2,7 @@ var $accommodation = $.extend(true, {}, $main);
 $accommodation.listPath = '/admpanel/accommodation';
 $accommodation.imgIndex = 0;
 $accommodation.facilityIndex = 0;
+$accommodation.detailIndex = 0;
 
 $accommodation.initSearchPage = function() {
     $accommodation.listColumns = [
@@ -94,10 +95,11 @@ $accommodation.initImageUpload = function() {
 $accommodation.addFacility = function(facilityData) {
     var title,
         html = '<div class="row"><div class="col-sm-11 no-padding">',
-        index = $accommodation.facilityIndex;
+        index = $accommodation.facilityIndex,
+        lng;
 
     for (var i in $accommodation.languages) {
-        var lng = $accommodation.languages[i];
+        lng = $accommodation.languages[i];
         title = facilityData && facilityData[lng.id] ? facilityData[lng.id].title : '';
         html += '<div class="col-sm-4">'+
                     '<div class="form-group form-group-inner">'+
@@ -121,17 +123,67 @@ $accommodation.addFacility = function(facilityData) {
 };
 
 $accommodation.initFacilities = function() {
-    var addFacility = $('#add-facility');
-    addFacility.on('click', function() {
+    $('#add-facility').on('click', function() {
         $accommodation.addFacility();
         return false;
     });
-    if ($accommodation.saveMode == 'add') {
-        addFacility.click();
-    }
     if (!$.isEmptyObject($accommodation.facilities)) {
         for (var i in $accommodation.facilities) {
             $accommodation.addFacility($accommodation.facilities[i]);
+        }
+    }
+};
+
+$accommodation.addDetail = function(detailData) {
+    var title,
+        price,
+        html = '<div class="row"><div class="col-sm-11 no-padding">',
+        index = $accommodation.detailIndex,
+        lng;
+
+    for (var i in $accommodation.languages) {
+        lng = $accommodation.languages[i];
+        if (detailData && detailData[lng.id]) {
+            title = detailData[lng.id].title;
+            price = detailData[lng.id].price;
+        } else {
+            title = '';
+            price = '';
+        }
+        title = detailData && detailData[lng.id] ? detailData[lng.id].title : '';
+        html += '<div class="col-sm-4">'+
+                    '<div class="form-group form-group-inner">'+
+                        '<input type="text" name="details['+index+'][ml]['+lng.id+'][title]" class="form-control" value="'+title+'" placeholder="'+lng.name+'">'+
+                        '<div id="form-error-details_'+index+'_ml_'+lng.id+'_title" class="form-error"></div>'+
+                    '</div>'+
+                '</div>';
+    }
+    html += '<div class="cb col-sm-4" style="margin-top:10px;">'+
+                '<input type="text" name="details['+index+'][price]" class="form-control" value="'+price+'" placeholder="'+$trans.get('admin.base.label.price')+'">'+
+                '<div id="form-error-details_'+index+'_price" class="form-error"></div>'+
+            '</div>';
+    html += '</div>';
+    html += '<div class="col-sm-1 row"><a href="#" class="btn btn-default remove"><i class="fa fa-remove"></i></a></div>';
+    html += '</div>';
+
+    html = $(html);
+    $('.remove', html).on('click', function() {
+        html.remove();
+        return false;
+    });
+
+    $('#details').append(html);
+    $accommodation.detailIndex++;
+};
+
+$accommodation.initDetails = function() {
+    $('#add-detail').on('click', function() {
+        $accommodation.addDetail();
+        return false;
+    });
+    if (!$.isEmptyObject($accommodation.details)) {
+        for (var i in $accommodation.details) {
+            $accommodation.addDetail($accommodation.details[i]);
         }
     }
 };
@@ -144,15 +196,9 @@ $accommodation.initEditPage = function() {
 
     $accommodation.initFacilities();
 
-    CKEDITOR.config.height = 120;
+    $accommodation.initDetails();
 
-    $('#extra-bed').on('ifChanged', function() {
-        if ($(this).prop('checked')) {
-            $('#extra-bed-price').attr('disabled', false);
-        } else {
-            $('#extra-bed-price').attr('disabled', 'disabled').val('');
-        }
-    }).trigger('ifChanged');
+    CKEDITOR.config.height = 120;
 };
 
 $accommodation.init();

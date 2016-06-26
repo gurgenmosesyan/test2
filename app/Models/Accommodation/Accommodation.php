@@ -7,14 +7,11 @@ use App\Core\Model;
 class Accommodation extends Model
 {
     const IMAGES_PATH = 'images/accommodation';
-    const EXTRA_BED_YES = '1';
-    const EXTRA_BED_NO = '0';
 
     protected $fillable = [
+        'room_quantity',
         'price',
         'room_size',
-        'extra_bed',
-        'extra_bed_price',
         'sort_order'
     ];
 
@@ -40,6 +37,11 @@ class Accommodation extends Model
     public function facilities()
     {
         return $this->hasMany(AccommodationFacility::class, 'accommodation_id', 'id');
+    }
+
+    public function details()
+    {
+        return $this->hasMany(AccommodationDetail::class, 'accommodation_id', 'id');
     }
 
     public function images()

@@ -107,4 +107,12 @@ Route::group($params, function () {
     Route::post('/vacancy/update/{id}', ['uses' => 'VacancyController@update', 'as' => 'admin_vacancy_update']);
     Route::post('/vacancy/delete/{id}', ['uses' => 'VacancyController@delete', 'as' => 'admin_vacancy_delete']);
 
+    Route::get('/reserved', ['uses' => 'ReservedController@table', 'as' => 'admin_reserved_table']);
+    Route::get('/reserved/create', ['uses' => 'ReservedController@create', 'as' => 'admin_reserved_create']);
+    Route::get('/reserved/edit/{id}', ['uses' => 'ReservedController@edit', 'as' => 'admin_reserved_edit']);
+    Route::post('/reserved', ['uses' => 'ReservedController@index', 'as' => 'admin_reserved_index']);
+    Route::post('/reserved/store', ['uses' => 'ReservedController@store', 'as' => 'admin_reserved_store']);
+    Route::post('/reserved/update/{id}', ['uses' => 'ReservedController@update', 'as' => 'admin_reserved_update']);
+    Route::post('/reserved/delete/{id}', ['uses' => 'ReservedController@delete', 'as' => 'admin_reserved_delete']);
+
 });

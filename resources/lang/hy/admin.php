@@ -134,4 +134,12 @@ return array (
   'base.label.special_offers' => 'Special offers',
   'base.label.hotel_facilities' => 'Hotel facilities',
   'base.label.meeting_events' => 'Meeting & events',
+  'base.label.room_quantity' => 'Room quantity',
+  'base.label.details' => 'Details',
+  'reserved.form.title' => 'Reserves',
+  'base.label.accommodation' => 'Accommodation',
+  'base.label.date_from' => 'Date from',
+  'base.label.date_to' => 'Date to',
+  'reserved.form.edit.sub_title' => 'Reserve № :id',
+  'reserved.form.add.sub_title' => 'Add new reserve',
 );

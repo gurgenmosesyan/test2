@@ -2,9 +2,8 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
-use App\Models\Accommodation\Accommodation;
 
-class CreateAccommodationsTable extends Migration
+class CreateReservedTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +12,12 @@ class CreateAccommodationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('accommodations', function (Blueprint $table) {
+        Schema::create('reserved', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('accommodation_id')->unsigned();
             $table->smallInteger('room_quantity')->unsigned();
-            $table->integer('price')->unsigned();
-            $table->float('room_size')->unsigned();
-            $table->integer('sort_order')->unsigned();
+            $table->date('date_from');
+            $table->date('date_to');
             $table->timestamps();
         });
     }
@@ -30,6 +29,6 @@ class CreateAccommodationsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('accommodations');
+        Schema::drop('reserved');
     }
 }

@@ -14,6 +14,7 @@ class Manager
         DB::transaction(function() use($data, $accommodation) {
             $accommodation->save();
             $this->storeMl($data['ml'], $accommodation);
+            $this->updateDetails($data['details'], $accommodation);
             $this->storeImages($data['images'], $accommodation);
         });
     }
@@ -25,6 +26,7 @@ class Manager
         DB::transaction(function() use($data, $accommodation) {
             $accommodation->update($data);
             $this->updateMl($data['ml'], $accommodation);
+            $this->updateDetails($data['details'], $accommodation, true);
             $this->updateImages($data['images'], $accommodation);
         });
     }
@@ -76,17 +78,27 @@ class Manager
         return $data;
     }
 
-    protected function updateFacilities($data, Accommodation $accommodation, $editMode = true)
+    protected function updateDetails($data, Accommodation $accommodation, $editMode = false)
     {
-        if ($editMode === true) {
-            AccommodationFacility::where('accommodation_id', $accommodation->id)->delete();
+        if ($editMode) {
+            AccommodationDetail::where('accommodation_id', $accommodation->id)->delete();
         }
-        if (!empty($data)) {
-            $facilities = [];
-            foreach ($data as $title) {
-                $facilities[] = new AccommodationFacility(['title' => $title]);
+        $details = [];
+        $index = 0;
+        foreach ($data as $key => $value) {
+            foreach ($value['ml'] as $lngId => $ml) {
+                $details[] = [
+                    'accommodation_id' => $accommodation->id,
+                    'lng_id' => $lngId,
+                    'title' => $ml['title'],
+                    'price' => $value['price'],
+                    'index' => $index
+                ];
             }
-            $accommodation->facilities()->saveMany($facilities);
+            $index++;
+        }
+        if (!empty($details)) {
+            AccommodationDetail::insert($details);
         }
     }
 
@@ -136,5 +148,6 @@ class Manager
         AccommodationMl::where('id', $id)->delete();
         AccommodationImage::where('accommodation_id', $id)->delete();
         AccommodationFacility::where('accommodation_id', $id)->delete();
+        AccommodationDetail::where('accommodation_id', $id)->delete();
     }
 }

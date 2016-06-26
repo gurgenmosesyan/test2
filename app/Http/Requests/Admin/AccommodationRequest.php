@@ -3,18 +3,16 @@
 namespace App\Http\Requests\Admin;
 
 use App\Http\Requests\Request;
-use App\Models\Accommodation\Accommodation;
 
 class AccommodationRequest extends Request
 {
     public function rules()
     {
-        return [
+        $rules = [
+            'room_quantity' => 'required|integer',
             'price' => 'required|integer',
             'room_size' => 'required|numeric',
             'sort_order' => 'integer',
-            'extra_bed' => 'in:'.Accommodation::EXTRA_BED_NO.','.Accommodation::EXTRA_BED_YES,
-            'extra_bed_price' => 'required_with:extra_bed|integer',
             'ml' => 'ml',
             'ml.*.title' => 'required|max:255',
             'ml.*.text' => 'required|max:65000',
@@ -22,8 +20,17 @@ class AccommodationRequest extends Request
             'images' => 'required|array',
             'images.*.id' => 'integer',
             'images.*.image' => 'required|core_image',
-            'ml.*.facilities' => 'array',
-            'ml.*.facilities.*.title' => 'required|max:255'
+            'ml.*.facilities' => 'string',
+            'ml.*.facilities.*.title' => 'required|max:255',
+            'details' => 'array',
+            'details.*.price' => 'required|integer',
+            'details.*.ml' => 'array|ml',
+            'details.*.ml.*.title' => 'required|max:255'
         ];
+        $details = $this->get('details');
+        foreach ($details as $key => $value) {
+            $rules['details.'.$key.'.ml'] = 'ml';
+        }
+        return $rules;
     }
 }

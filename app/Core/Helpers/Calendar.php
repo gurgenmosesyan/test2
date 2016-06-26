@@ -6,7 +6,7 @@ class Calendar
 {
     protected static $includedHeadData = false;
 
-    public static function render($name, $value)
+    public static function render($name, $value = '')
     {
         self::includeHeadData();
         if (empty($value) || $value == '0000-00-00' || $value == '0000-00-00 00:00:00') {

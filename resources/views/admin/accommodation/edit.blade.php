@@ -14,12 +14,15 @@ if ($saveMode == 'add') {
     $url = route('admin_accommodation_update', $accommodation->id);
 }
 $mls = $accommodation->ml->keyBy('lng_id');
+
+$jsTrans->addTrans(['admin.base.label.price']);
 ?>
 @extends('core.layout')
 @section('content')
 <script type="text/javascript">
     $accommodation.languages = <?php echo json_encode($languages); ?>;
     $accommodation.facilities = <?php echo json_encode($facilities); ?>;
+    $accommodation.details = <?php echo json_encode($details); ?>;
     $accommodation.images = <?php echo json_encode($images); ?>;
     $accommodation.saveMode = '<?php echo $saveMode; ?>';
 </script>
@@ -47,6 +50,14 @@ $mls = $accommodation->ml->keyBy('lng_id');
                 </div>
             </div>
         @endforeach
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label data-req">{{trans('admin.base.label.room_quantity')}}</label>
+            <div class="col-sm-3">
+                <input type="text" class="form-control" name="room_quantity" value="{{$accommodation->room_quantity or ''}}">
+                <div id="form-error-room_quantity" class="form-error"></div>
+            </div>
+        </div>
 
         <div class="form-group">
             <label class="col-sm-3 control-label data-req">{{trans('admin.base.label.price')}}</label>
@@ -77,24 +88,24 @@ $mls = $accommodation->ml->keyBy('lng_id');
         </div>
 
         <div class="form-group">
-            <label class="col-sm-3 control-label">{{trans('admin.base.label.extra_bed')}}</label>
-            <div class="col-sm-1" style="padding-top: 5px;">
-                <input type="checkbox" id="extra-bed" name="extra_bed" class="minimal-checkbox" value="{{Accommodation::EXTRA_BED_YES}}"{{$accommodation->extra_bed == Accommodation::EXTRA_BED_YES ? ' checked="checked"' : ''}}>
-                <div id="form-error-extra_bed" class="form-error"></div>
-            </div>
-            <div id="start-date" class="col-sm-3">
-                <input type="text" id="extra-bed-price" name="extra_bed_price" class="form-control" value="{{$accommodation->extra_bed_price or ''}}" placeholder="{{trans('admin.base.label.price')}}">
-                <div id="form-error-extra_bed_price" class="form-error"></div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="col-sm-3 control-label data-req">{{trans('admin.base.label.facilities')}}</label>
+            <label class="col-sm-3 control-label">{{trans('admin.base.label.facilities')}}</label>
             <div class="col-sm-9">
                 <div id="facilities" class="separate-sections"></div>
                 <div id="form-error-facilities" class="form-error"></div>
                 <div>
                     <a href="#" id="add-facility" class="btn btn-default"><i class="fa fa-plus"></i></a>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label">{{trans('admin.base.label.details')}}</label>
+            <div class="col-sm-9">
+                <div id="details" class="separate-sections"></div>
+                <div id="form-error-details" class="form-error"></div>
+                <div>
+                    <a href="#" id="add-detail" class="btn btn-default"><i class="fa fa-plus"></i></a>
                 </div>
             </div>
         </div>

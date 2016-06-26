@@ -1,10 +1,11 @@
 <ul class="sidebar-menu">
-    <li{{$pageMenu == 'background' ? ' class=active' : ''}}><a href="{{route('admin_background')}}"><i class="fa fa-home"></i> <span>{{trans('admin.background.form.title')}}</span></a></li>
     <li{{$pageMenu == 'homepage' ? ' class=active' : ''}}><a href="{{route('admin_homepage')}}"><i class="fa fa-home"></i> <span>{{trans('admin.homepage.form.title')}}</span></a></li>
+    <li{{$pageMenu == 'background' ? ' class=active' : ''}}><a href="{{route('admin_background')}}"><i class="fa fa-image"></i> <span>{{trans('admin.background.form.title')}}</span></a></li>
     <li{{$pageMenu == 'about' ? ' class=active' : ''}}><a href="{{route('admin_about')}}"><i class="fa fa-info-circle"></i> <span>{{trans('admin.about.form.title')}}</span></a></li>
     <li{{$pageMenu == 'guest' ? ' class=active' : ''}}><a href="{{route('admin_guest_table')}}"><i class="fa fa-user"></i> <span>{{trans('admin.guest.form.title')}}</span></a></li>
     <li{{$pageMenu == 'partner' ? ' class=active' : ''}}><a href="{{route('admin_partner_table')}}"><i class="fa fa-suitcase"></i> <span>{{trans('admin.partner.form.title')}}</span></a></li>
     <li{{$pageMenu == 'accommodation' ? ' class=active' : ''}}><a href="{{route('admin_accommodation_table')}}"><i class="fa fa-hotel"></i> <span>{{trans('admin.accommodation.form.title')}}</span></a></li>
+    <li{{$pageMenu == 'reserved' ? ' class=active' : ''}}><a href="{{route('admin_reserved_table')}}"><i class="fa fa-lock"></i> <span>{{trans('admin.reserved.form.title')}}</span></a></li>
     <li class="treeview{{$pageMenu == 'offer' || $pageMenu == 'offer_text' || $pageMenu == 'offer_slider' ? ' active' : ''}}">
         <a href="#">
             <i class="fa fa-tags"></i> <span>{{trans('admin.offer.form.title')}}</span> <i class="fa fa-angle-left pull-right"></i>

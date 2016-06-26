@@ -37,6 +37,7 @@ class AccommodationController extends BaseController
             'accommodation' => $accommodation,
             'languages' => $languages,
             'facilities' => [],
+            'details' => [],
             'images' => [],
             'saveMode' => 'add'
         ]);
@@ -56,10 +57,16 @@ class AccommodationController extends BaseController
         foreach ($accommodation->facilities as $value) {
             $facilities[$value->index][$value->lng_id] = $value;
         }
+        $details = [];
+        foreach ($accommodation->details as $value) {
+            $details[$value->index][$value->lng_id] = $value->toArray();
+        }
+
         return view('admin.accommodation.edit')->with([
             'accommodation' => $accommodation,
             'languages' => $languages,
             'facilities' => $facilities,
+            'details' => $details,
             'images' => $accommodation->images,
             'saveMode' => 'edit'
         ]);

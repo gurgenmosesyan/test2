@@ -129,35 +129,37 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
 
 <div id="bg-block" style="background-image: url('{{$background}}');">
     <div class="page">
-        <div id="calendar-block">
-            <div class="calendar-overlay"></div>
-            <div id="weather-block">
-                <div class="weather fl">
-                    <p class="tc">weather in Armenia</p>
-                    <h4 class="tc">3<span>º</span>C</h4>
+        @if(!isset($bookingPage))
+            <div id="calendar-block">
+                <div class="calendar-overlay"></div>
+                <div id="weather-block">
+                    <div class="weather fl">
+                        <p class="tc">weather in Armenia</p>
+                        <h4 class="tc">3<span>º</span>C</h4>
+                    </div>
+                    <div id="clock" class="fl">
+                        <div id="hour"></div>
+                        <div id="minute"></div>
+                    </div>
+                    <div class="currency fl">
+                        <p class="tc">currency<br />exchange rates</p>
+                    </div>
+                    <div class="cb"></div>
                 </div>
-                <div id="clock" class="fl">
-                    <div id="hour"></div>
-                    <div id="minute"></div>
+                <div id="top-calendar">
+                    <h3 class="tc">Online Rooms Booking</h3>
+                    <p class="tc">Get your guaranteed reservation right now!</p>
+                    <div class="calendar-separator"></div>
+                    <form id="top-booking-form" action="{{url_with_lng('/booking')}}" method="get">
+                        <input type="text" id="from" value="{{date('d/m/Y', time()+86400)}}" placeholder="Arrival date" />
+                        <input type="hidden" id="from-hidden" name="start_date" value="{{date('Y-m-d', time()+86400)}}" />
+                        <input type="text" id="to" value="{{date('d/m/Y', time()+172800)}}" placeholder="Depart, date" />
+                        <input type="hidden" id="to-hidden" name="end_date" value="{{date('Y-m-d', time()+172800)}}" />
+                        <input type="submit" class="tu" value="Find room" />
+                    </form>
                 </div>
-                <div class="currency fl">
-                    <p class="tc">currency<br />exchange rates</p>
-                </div>
-                <div class="cb"></div>
             </div>
-            <div id="top-calendar">
-                <h3 class="tc">Online Rooms Booking</h3>
-                <p class="tc">Get your guaranteed reservation right now!</p>
-                <div class="calendar-separator"></div>
-                <form id="top-booking-form" action="" method="get">
-                    <input type="text" id="from" value="{{date('d/m/Y', time()+86400)}}" placeholder="Arrival date" />
-                    <input type="hidden" id="from-hidden" name="start_date" value="{{date('Y-m-d', time()+86400)}}" />
-                    <input type="text" id="to" value="{{date('d/m/Y', time()+172800)}}" placeholder="Depart, date" />
-                    <input type="hidden" id="to-hidden" name="end_date" value="{{date('Y-m-d', time()+172800)}}" />
-                    <input type="submit" class="tu" value="Find room" />
-                </form>
-            </div>
-        </div>
+        @endif
 
         @if(isset($isHomepage))
             <h1 class="main-title tu">{{trans('www.homepage.main_title')}}</h1>

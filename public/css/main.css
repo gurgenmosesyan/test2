@@ -995,6 +995,63 @@ body.ru .title {
     text-align: left;
 }
 
+/* booking */
+#booking-steps .step-box {
+    background-color: #ECEDED;
+    box-sizing: border-box;
+    height: 48px;
+    margin-bottom: 44px;
+    margin-left: 3.33%;
+    overflow: hidden;
+    width: 17.33%;
+}
+#booking-steps .step-box.first {
+    margin-left: 0;
+}
+#booking-steps a {
+    color: #6D6E71;
+    height: 100%;
+}
+#booking-steps a:hover .right {
+    text-decoration: underline;
+}
+#booking-steps .active a .right {
+    text-decoration: none;
+}
+#booking-steps .active a {
+    cursor: default;
+}
+#booking-steps .active .left {
+    background-color: #D2AB67;
+    color: #ffffff;
+}
+#booking-steps span {
+    height: 100%;
+}
+#booking-steps .left {
+    background-color: #CED0D1;
+    font-size: 2em;
+    line-height: 48px;
+    width: 48px;
+}
+#booking-steps .right {
+    padding-left: 48px;
+}
+#booking-steps .right span {
+    display: table-cell;
+    height: 48px;
+    vertical-align: middle;
+    width: 160px;
+}
+
+#booking-1 {
+    color: #808285;
+}
+#booking-1 p {
+    font-size: 1.2em;
+}
+
+/* footer */
 #footer {
     background-color: #D4D5D6;
     color: #686A6B;

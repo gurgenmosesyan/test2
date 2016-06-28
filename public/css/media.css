@@ -28,6 +28,10 @@
     #vacancies table td {
         padding-left: 10px;
     }
+    /*#booking-steps .step-box {
+        margin-left: 2.08%;
+        width: 18.33%;
+    }*/
 }
 @media screen and (max-width: 880px) {
     #header .top-inner {
@@ -38,6 +42,10 @@
     }
     #header .social li {
         margin-right: 10px;
+    }
+    #booking-steps .step-box {
+        margin-left: 0;
+        width: 20%;
     }
 }
 @media screen and (max-width: 768px) {

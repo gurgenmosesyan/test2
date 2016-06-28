@@ -51,4 +51,11 @@ return array (
   'facilities.top.left.text' => 'Check-in time at 14:00 p.m.',
   'facilities.top.right.text' => 'Check-out time at 12:00 p.m.',
   'mobile.book_now' => 'Book now',
+  'booking.head_title' => 'Booking',
+  'booking.step.1' => 'Select Dates',
+  'booking.step.2' => 'Rooms & Rates',
+  'booking.step.3' => 'Guests Details',
+  'booking.step.4' => 'Payment Types',
+  'booking.step.5' => 'Hotel Confirmation Voucher',
+  'booking.step1.text' => 'Please enter the dates of your stay to check availability',
 );

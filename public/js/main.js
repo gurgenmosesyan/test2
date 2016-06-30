@@ -122,7 +122,7 @@ $main.initClock = function() {
     }, 15000);
 };
 
-$main.initTopCalendar = function() {
+$main.initCalendar = function() {
     var fromObj = $('#from'),
         fromMinDate = fromObj.val(),
         toObj = $('#to'),
@@ -295,7 +295,7 @@ $(document).ready(function() {
 
     $main.initClock();
 
-    $main.initTopCalendar();
+    $main.initCalendar();
 
     $main.initContactLink();
 

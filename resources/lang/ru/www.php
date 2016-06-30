@@ -58,4 +58,7 @@ return array (
   'booking.step.4' => 'Payment Types',
   'booking.step.5' => 'Hotel Confirmation Voucher',
   'booking.step1.text' => 'Please enter the dates of your stay to check availability',
+  'booking.show_available_rooms' => 'Show available rooms',
+  'booking.arrival_date' => 'Arrival date',
+  'booking.depart_date' => 'Depart date',
 );

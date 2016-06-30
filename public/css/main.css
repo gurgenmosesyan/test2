@@ -501,6 +501,7 @@ body .page {
 .btn {
     background-color: #ffffff;
     border: 2px solid #E2C798;
+    box-sizing: content-box;
     color: #E2C798;
     cursor: pointer;
     display: inline-block;
@@ -1046,9 +1047,28 @@ body.ru .title {
 
 #booking-1 {
     color: #808285;
+    margin-bottom: 40px;
 }
-#booking-1 p {
+#booking-1 h2 {
     font-size: 1.2em;
+    margin-bottom: 40px;
+}
+#booking-1 .left,
+#booking-1 .right {
+    margin: 0 10px 21px;
+}
+#booking-1 form p {
+    margin-bottom: 20px;
+    text-align: left;
+}
+#booking-1 form input[type="text"] {
+    background: #F1F1F2 url('../images/calendar-big.png') no-repeat 345px 12px;
+    color: #757575;
+    cursor: pointer;
+    font-size: 1em;
+    height: 50px;
+    padding: 0 60px 0 15px;
+    width: 317px;
 }
 
 /* footer */

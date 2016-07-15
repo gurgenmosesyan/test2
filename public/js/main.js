@@ -291,6 +291,24 @@ $main.initAccSubMenu = function() {
     });
 };
 
+$main.initSelect = function() {
+    $('#booking-2').find('select').change(function() {
+        var self = $(this),
+            text = self.find('option:selected').text();
+        self.prev('.select-title').text($.trim(text));
+
+        var quantity = self.val(),
+            td = self.closest('td');
+        if (quantity) {
+            var price = parseInt(quantity) * parseInt(td.prev('td').data('price'));
+            td.next('td').html(price);
+        } else {
+            td.next('td').html('<img src="/images/booking-rate.png" />');
+        }
+
+    }).change();
+};
+
 $(document).ready(function() {
 
     $main.initClock();
@@ -302,4 +320,6 @@ $(document).ready(function() {
     $main.initSubscribe();
 
     $main.initAccSubMenu();
+
+    $main.initSelect();
 });

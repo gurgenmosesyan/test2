@@ -61,4 +61,11 @@ return array (
   'booking.show_available_rooms' => 'Show available rooms',
   'booking.arrival_date' => 'Arrival date',
   'booking.depart_date' => 'Depart date',
+  'booking.empty_rooms' => 'Sorry, there are no free rooms on this date.',
+  'booking.room_type' => 'Room type',
+  'booking.room_price' => 'Rate per :interval night, AMD',
+  'booking.room_quantity' => 'Room quantity',
+  'booking.rate_amd' => 'Rate, AMD',
+  'booking.details' => 'Details',
+  'base.label.select' => 'Select',
 );

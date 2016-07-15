@@ -17,12 +17,12 @@ $bookingPage = true;
 <div class="page">
     <div id="booking-steps">
         @for($i = 1; $i < 6; $i++)
-            <div class="step-box fl tc{{$i == 1 ? ' first' : ''}}">
-                <a href="" class="db">
+            <div class="step-box fl tc{{$i == 1 ? ' first active' : ''}}">
+                <span class="step-item db">
                     <span class="db fl left">{{$i}}</span>
                     <span class="db right"><span>{{trans('www.booking.step.'.$i)}}</span></span>
                     <span class="fl"></span>
-                </a>
+                </span>
             </div>
         @endfor
         <div class="cb"></div>
@@ -31,7 +31,7 @@ $bookingPage = true;
     <div id="booking-1" class="tc">
         <h2>{{trans('www.booking.step1.text')}}</h2>
 
-        <form action="" method="get">
+        <form action="{{url_with_lng('/booking/rooms', false)}}" method="get">
             <div class="dib left">
                 <p>{{trans('www.booking.arrival_date')}}</p>
                 <div>
@@ -51,14 +51,6 @@ $bookingPage = true;
         </form>
 
     </div>
-
-    <?php
-    foreach ($accommodations as $accommodation) {
-        if ($accommodation->room_quantity > 0) {
-            echo '<pre>'; print_r($accommodation->toArray()); echo '<br /></pre>';
-        }
-    }
-    ?>
 
 </div>
 

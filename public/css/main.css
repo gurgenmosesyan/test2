@@ -1009,7 +1009,7 @@ body.ru .title {
 #booking-steps .step-box.first {
     margin-left: 0;
 }
-#booking-steps a {
+#booking-steps .step-item {
     color: #6D6E71;
     height: 100%;
 }
@@ -1044,7 +1044,7 @@ body.ru .title {
     vertical-align: middle;
     width: 160px;
 }
-
+/* booking 1 */
 #booking-1 {
     color: #808285;
     margin-bottom: 40px;
@@ -1069,6 +1069,95 @@ body.ru .title {
     height: 50px;
     padding: 0 60px 0 15px;
     width: 317px;
+}
+/* booking 2 */
+#booking-2 {
+    color: #808285;
+}
+#booking-2 .empty {
+    margin-bottom: 45px;
+}
+#booking-2 table {
+    color: #505153;
+    text-align: left;
+    width: 100%;
+}
+#booking-2 table th,
+#booking-2 table td {
+    padding: 8px 20px;
+    line-height: 22px;
+    vertical-align: middle;
+}
+#booking-2 table th {
+    background-color: #CED0D2;
+    font-size: 1.2em;
+}
+#booking-2 td {
+    background-color: #F1F1F2;
+}
+#booking-2 td.tc {
+    text-align: center;
+}
+#booking-2 .acc-title {
+    font-size: 1.4em;
+    margin-bottom: 10px;
+}
+#booking-2 .details {
+    background: url('../images/arrow-down-black.png') no-repeat right center;
+    color: #505153;
+    font-size: 0.9em;
+    height: 25px;
+    line-height: 25px;
+    padding-right: 25px;
+}
+#booking-2 .details:hover {
+    text-decoration: underline;
+}
+#booking-2 .price,
+#booking-2 .quantity {
+    width: 150px;
+}
+#booking-2 .rate {
+    width: 130px;
+}
+#booking-2 .select-box {
+    border: 2px solid #CDCFD1;
+    height: 34px;
+    position: relative;
+    width: 135px;
+}
+#booking-2 .select-arrow {
+    background: #CED0D2 url('../images/arrow-down-black.png') no-repeat center center;
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 40px;
+}
+#booking-2 .select-title {
+    font-size: 14px;
+    height: 100%;
+    line-height: 34px;
+    overflow: hidden;
+    padding: 0 2px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 92px;
+}
+#booking-2 select {
+    background: #F1F1F2;
+    color: #808285;
+    cursor: pointer;
+    font-size: 14px;
+    margin-left: -2px;
+    padding-left: 22px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    height: 100%;
+    width: 139px;
 }
 
 /* footer */

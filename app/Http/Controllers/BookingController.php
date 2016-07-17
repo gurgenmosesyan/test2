@@ -48,7 +48,11 @@ class BookingController extends Controller
             if ($checkStart && $checkStart->format('Y-m-d') === $startDate && $checkEnd && $checkEnd->format('Y-m-d') === $endDate) {
                 if ($startDate > date('Y-m-d') && $endDate > $startDate) {
                     $interval = (strtotime($endDate) - strtotime($startDate)) / 86400;
-                    $accommodations = Accommodation::joinMl()->with('facilities', 'details', 'images')->get();
+                    $accommodations = Accommodation::joinMl()->with('images')->with(['facilities' => function($query) {
+                        $query->current();
+                    }])->with(['details' => function($query) {
+                        $query->current();
+                    }])->get();
                     $reserves = Reserved::where('date_from', '<', $endDate)->where('date_to', '>', $startDate)->orderBy('room_quantity', 'asc')->get()->keyBy('accommodation_id');
                     foreach ($accommodations as $accommodation) {
                         if (isset($reserves[$accommodation->id])) {
@@ -72,6 +76,56 @@ class BookingController extends Controller
             'endDate' => $endDate,
             'accommodations' => $accommodations,
             'interval' => $interval
+        ]);
+    }
+
+    public function booking3(Request $request)
+    {
+        $background = $this->background();
+
+        $startDate = $request->input('start_date');
+        $endDate = $request->input('end_date');
+
+        $reqData = $request->all();
+        $data = [];
+        $accIds = [];
+        if (isset($reqData['accommodations']) && is_array($reqData['accommodations'])) {
+            foreach ($reqData['accommodations'] as $accId => $value) {
+                if (!empty($value['quantity'])) {
+                    $accIds[] = $accId;
+                    $data[$accId]['quantity'] = $value['quantity'];
+                    if (isset($value['details']) && is_array($value['details'])) {
+                        foreach ($value['details'] as $index => $detail) {
+                            if ($detail == '1') {
+                                $data[$accId]['details'][$index] = 1;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        $price = 0;
+        $accommodations = Accommodation::joinMl()->whereIn('accommodations.id', $accIds)->with(['details' => function($query) {
+            $query->current();
+        }])->get();
+        foreach ($accommodations as $acc) {
+            $price += $acc->price * $data[$acc->id]['quantity'];
+            foreach ($acc->details as $key => $detail) {
+                if (isset($data[$acc->id]['details'][$detail->index])) {
+                    $price += $detail->price;
+                } else {
+                    unset($acc->details[$key]);
+                }
+            }
+        }
+        //dd($accommodations->toArray());
+
+        return view('booking.booking3')->with([
+            'background' => $background,
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'accommodations' => $accommodations,
+            'price' => $price
         ]);
     }
 }

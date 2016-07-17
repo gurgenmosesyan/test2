@@ -50,6 +50,8 @@ html,body {
 .dpn { display: none; }
 .mln { margin-left: 0; }
 .tc { text-align: center; }
+.tl { text-align: left; }
+.tr { text-align: right; }
 .tu { text-transform: uppercase; }
 
 ul li.cb {
@@ -1073,20 +1075,36 @@ body.ru .title {
 /* booking 2 */
 #booking-2 {
     color: #808285;
+    margin-bottom: 55px;
 }
 #booking-2 .empty {
     margin-bottom: 45px;
 }
 #booking-2 table {
+    border-collapse: collapse;
     color: #505153;
     text-align: left;
     width: 100%;
 }
+#booking-2 table tr {
+    border-top: 2px solid #ffffff;
+}
+#booking-2 table tr.details-box {
+    border-top: 1px solid #dbdbdb;
+}
+#booking-2 table tr.detail-dn {
+    display: none;
+}
 #booking-2 table th,
 #booking-2 table td {
+    border-right: 2px solid #ffffff;
     padding: 8px 20px;
     line-height: 22px;
     vertical-align: middle;
+}
+#booking-2 table th.rate,
+#booking-2 table td.rate {
+    border: none;
 }
 #booking-2 table th {
     background-color: #CED0D2;
@@ -1126,7 +1144,15 @@ body.ru .title {
     position: relative;
     width: 135px;
 }
-#booking-2 .select-arrow {
+#booking-3 .select-box {
+    background-color: #F1F1F2;
+    height: 50px;
+    margin-top: 5px;
+    position: relative;
+    width: 100%;
+}
+#booking-2 .select-arrow,
+#booking-3 .select-arrow {
     background: #CED0D2 url('../images/arrow-down-black.png') no-repeat center center;
     display: block;
     position: absolute;
@@ -1135,7 +1161,11 @@ body.ru .title {
     height: 100%;
     width: 40px;
 }
-#booking-2 .select-title {
+#booking-3 .select-arrow {
+    width: 50px;
+}
+#booking-2 .select-title,
+#booking-3 .select-title {
     font-size: 14px;
     height: 100%;
     line-height: 34px;
@@ -1145,11 +1175,19 @@ body.ru .title {
     white-space: nowrap;
     width: 92px;
 }
-#booking-2 select {
+#booking-3 .select-title {
+    color: #58595B;
+    font-size: 15px;
+    line-height: 50px;
+    padding: 0 55px 0 20px;
+    width: auto;
+}
+#booking-2 select,
+#booking-3 select {
     background: #F1F1F2;
     color: #808285;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 0.9em;
     margin-left: -2px;
     padding-left: 22px;
     position: absolute;
@@ -1158,6 +1196,76 @@ body.ru .title {
     opacity: 0;
     height: 100%;
     width: 139px;
+}
+#booking-3 select {
+    color: #58595B;
+    margin-left: 0;
+    padding-left: 20px;
+    width: 100%;
+}
+#booking-2 .img-box {
+    margin: 2px;
+}
+#booking-2 .text-box {
+    font-size: 0.9em;
+    margin-top: 5px;
+    line-height: 18px;
+}
+#booking-2 .text,
+#booking-2 .facilities {
+    margin-bottom: 7px;
+}
+#booking-2 .total-box {
+    border-top: 1px solid #cccccc;
+    font-size: 1.6em;
+    margin: 15px 0;
+    padding-top: 10px;
+}
+/* booking 3 */
+#booking-3 {
+    color: #58595B;
+    margin-bottom: 55px;
+}
+#booking-3 .col {
+    height: 50px;
+    line-height: 50px;
+}
+#booking-3 .left {
+    margin-right: 2%;
+    width: 18%;
+}
+#booking-3 .middle {
+    margin-right: 4%;
+    width: 38%;
+}
+#booking-3 .right {
+    width: 38%;
+}
+#booking-3 h2 {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+#booking-3 label {
+    font-size: 1.2em;
+}
+#booking-3 .required:after {
+    content: " *" !important;
+    font-size: 1.2em;
+    vertical-align: middle;
+}
+#booking-3 input[type="text"] {
+    background-color: #F1F1F2;
+    box-sizing: border-box;
+    color: #58595B;
+    font-size: 1em;
+    height: 50px;
+    padding: 0 20px;
+    width: 100%;
+}
+#booking-3 .separator {
+    background-color: #CED0D1;
+    height: 1px;
+    margin: 20px 0;
 }
 
 /* footer */

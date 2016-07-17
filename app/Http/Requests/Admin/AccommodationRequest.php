@@ -28,8 +28,10 @@ class AccommodationRequest extends Request
             'details.*.ml.*.title' => 'required|max:255'
         ];
         $details = $this->get('details');
-        foreach ($details as $key => $value) {
-            $rules['details.'.$key.'.ml'] = 'ml';
+        if (is_array($details)) {
+            foreach ($details as $key => $value) {
+                $rules['details.'.$key.'.ml'] = 'ml';
+            }
         }
         return $rules;
     }

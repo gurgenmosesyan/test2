@@ -127,7 +127,7 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
     </div>
 </div>
 
-<div id="bg-block" style="background-image: url('{{$background}}');">
+<div id="bg-block"<?php echo isset($background) ? ' style="background-image: url(\''.$background.'\')";' : ''; ?>>
     <div class="page">
         @if(!isset($bookingPage))
             <div id="calendar-block">

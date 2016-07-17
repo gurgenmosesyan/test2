@@ -75,6 +75,9 @@ class Manager
         if (!isset($data['images'])) {
             $data['images'] = [];
         }
+        if (!isset($data['details'])) {
+            $data['details'] = [];
+        }
         return $data;
     }
 

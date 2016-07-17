@@ -18,6 +18,7 @@ Route::group(['middleware' => ['web', 'front']], function() {
 
         Route::get('/booking', 'BookingController@booking1');
         Route::get('/booking/rooms', 'BookingController@booking2');
+        Route::post('/booking/info', 'BookingController@booking3');
 
         Route::post('/api/contact', 'ApiController@contact');
         Route::post('/api/subscribe', 'ApiController@subscribe');

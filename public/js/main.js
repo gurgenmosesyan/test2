@@ -291,22 +291,70 @@ $main.initAccSubMenu = function() {
     });
 };
 
-$main.initSelect = function() {
-    $('#booking-2').find('select').change(function() {
+$main.numberFormat = function(number) {
+    number = number.toString();
+    number = number.split('').reverse().join('');
+    var n = '';
+    for (var i = 0, l = number.length; i < l; i++) {
+        n += number[i];
+        if ((i%3 == 2) && (i != l-1)) {
+            n += '.';
+        }
+    }
+    return n.split('').reverse().join('');
+};
+
+$main.initSelect = function(obj) {
+    obj.find('select').change(function() {
         var self = $(this),
             text = self.find('option:selected').text();
         self.prev('.select-title').text($.trim(text));
 
         var quantity = self.val(),
-            td = self.closest('td');
+            td = self.closest('td'),
+            detailRow = $('.detail-'+self.data('id'));
         if (quantity) {
             var price = parseInt(quantity) * parseInt(td.prev('td').data('price'));
-            td.next('td').html(price);
+            td.next('td').data('rate', price).html($main.numberFormat(price));
+            if (self.hasClass('main-select')) {
+                detailRow.removeClass('detail-dn');
+            }
         } else {
-            td.next('td').html('<img src="/images/booking-rate.png" />');
+            td.next('td').data('rate', 0).html('<img src="/images/booking-rate.png" />');
+            if (self.hasClass('main-select')) {
+                detailRow.addClass('detail-dn');
+                detailRow.find('select').each(function() {
+                    $(this).val('').change();
+                });
+            }
         }
+        $main.setTotal();
 
     }).change();
+};
+
+$main.setTotal = function() {
+    var totalPrice = 0;
+    $('#booking-2').find('td.rate').each(function() {
+        totalPrice += $(this).data('rate');
+    });
+    $('#total').data('price', totalPrice).text($main.numberFormat(totalPrice));
+};
+
+$main.initFancybox = function() {
+    $('#booking-2').find('.img-box a').fancybox({
+        prevEffect: 'fade',
+        nextEffect: 'fade'
+    });
+};
+
+$main.initDetails = function() {
+    var bookingBox = $('#booking-2');
+    bookingBox.find('.details').on('click', function() {
+        var details = bookingBox.find('.details-'+$(this).data('id'));
+        details.toggleClass('dpn');
+        return false;
+    });
 };
 
 $(document).ready(function() {
@@ -321,5 +369,8 @@ $(document).ready(function() {
 
     $main.initAccSubMenu();
 
-    $main.initSelect();
+    $main.initSelect($('#booking-2'));
+    $main.initSelect($('#booking-3'));
+
+    $main.initDetails();
 });

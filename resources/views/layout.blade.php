@@ -150,11 +150,12 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
                     <h3 class="tc">Online Rooms Booking</h3>
                     <p class="tc">Get your guaranteed reservation right now!</p>
                     <div class="calendar-separator"></div>
-                    <form id="top-booking-form" action="{{url_with_lng('/booking/rooms', false)}}" method="get">
+                    <form id="top-booking-form" action="{{route('booking2', cLng('code'))}}" method="post">
                         <input type="text" id="from" value="{{date('d/m/Y', time()+86400)}}" placeholder="Arrival date" />
                         <input type="hidden" id="from-hidden" name="start_date" value="{{date('Y-m-d', time()+86400)}}" />
                         <input type="text" id="to" value="{{date('d/m/Y', time()+172800)}}" placeholder="Depart, date" />
                         <input type="hidden" id="to-hidden" name="end_date" value="{{date('Y-m-d', time()+172800)}}" />
+                        {{csrf_field()}}
                         <input type="submit" class="tu" value="Find room" />
                     </form>
                 </div>

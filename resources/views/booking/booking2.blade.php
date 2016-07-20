@@ -55,7 +55,10 @@ $bookingPage = true;
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($accommodations as $acc)
+                        <?php
+                        foreach($accommodations as $acc) {
+                            if ($acc->room_quantity <= 0) { continue; }
+                        ?>
                             <tr>
                                 <td>
                                     <p class="acc-title">{{$acc->title}}</p>
@@ -122,7 +125,7 @@ $bookingPage = true;
                                     </div>
                                 </td>
                             </tr>
-                        @endforeach
+                        <?php } ?>
                     </tbody>
                 </table>
                 {{csrf_field()}}

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking\Manager;
 use App\Models\Country\Country;
 use Illuminate\Http\Request;
 use App\Models\Background\Background;
@@ -12,6 +13,13 @@ use Session;
 
 class BookingController extends Controller
 {
+    protected $manager = null;
+
+    public function __construct(Manager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     protected function background()
     {
         $background = Background::first();
@@ -22,32 +30,7 @@ class BookingController extends Controller
         }
     }
 
-    /*public function booking(Request $request)
-    {
-        $background = $this->background();
-
-        //$startDate = Session::get('start_date');
-        //$endDate = Session::get('end_date');
-
-        $booking3 = Session::get('booking3');
-        if ($booking3 != null) {
-            return $this->booking4($request);
-        } else {
-            $booking2 = Session::get('booking2');
-            if ($booking2 != null) {
-                return $this->booking3($request);
-            } else {
-                $booking1 = Session::get('booking1');
-                if ($booking1 != null) {
-                    return $this->booking2($request);
-                } else {
-                    return $this->booking1($request);
-                }
-            }
-        }
-    }*/
-
-    public function booking1(Request $request)
+    public function booking1()
     {
         Session::forget('booking2');
         Session::forget('booking3');
@@ -60,9 +43,6 @@ class BookingController extends Controller
             $startDate = date('Y-m-d', time()+86400);
             $endDate = date('Y-m-d', time()+172800);
         }
-
-        //$startDate = $request->input('start_date', date('Y-m-d', time()+86400));
-        //$endDate = $request->input('end_date', date('Y-m-d', time()+172800));
 
         return view('booking.booking1')->with([
             'background' => $background,
@@ -104,13 +84,18 @@ class BookingController extends Controller
                         $query->current();
                     }])->with(['details' => function($query) {
                         $query->current();
-                    }])->get();
-                    $reserves = Reserved::where('date_from', '<', $endDate)->where('date_to', '>', $startDate)->orderBy('room_quantity', 'asc')->get()->keyBy('accommodation_id');
-                    foreach ($accommodations as $accommodation) {
-                        if (isset($reserves[$accommodation->id])) {
-                            $accommodation->room_quantity -= $reserves[$accommodation->id]->room_quantity;
+                    }])->get()->keyBy('id');
+                    $reserves = Reserved::where('date_from', '<', $endDate)->where('date_to', '>', $startDate)->orderBy('room_quantity', 'asc')->get();
+                    foreach ($reserves as $reserve) {
+                        if (isset($accommodations[$reserve->accommodation_id])) {
+                            $accommodations[$reserve->accommodation_id]->room_quantity -= $reserve->room_quantity;
                         }
-                        $accommodation->price = $accommodation->price * $interval;
+                    }
+                    foreach ($accommodations as $acc) {
+                        $acc->price = $acc->price * $interval;
+                        foreach ($acc->details as $key => $detail) {
+                            $acc->details[$key]->price = $detail->price * $interval;
+                        }
                     }
                 } else {
                     $accommodations = collect();
@@ -140,7 +125,24 @@ class BookingController extends Controller
         if ($request->isMethod('post')) {
             Session::put(['booking3' => true]);
             $reqData = $request->all();
-            Session::put(['booking_acc' => $reqData]);
+            $data = [];
+            $accIds = [];
+            if (isset($reqData['accommodations']) && is_array($reqData['accommodations'])) {
+                foreach ($reqData['accommodations'] as $accId => $value) {
+                    if (!empty($value['quantity'])) {
+                        $accIds[] = $accId;
+                        $data[$accId]['quantity'] = $value['quantity'];
+                        if (isset($value['details']) && is_array($value['details'])) {
+                            foreach ($value['details'] as $index => $detail) {
+                                if ($detail == '1') {
+                                    $data[$accId]['details'][$index] = 1;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            Session::put(['booking_acc' => $data]);
         }
 
         if (Session::get('booking3') == null) {
@@ -151,29 +153,12 @@ class BookingController extends Controller
             }
         }
 
-        $reqData = Session::get('booking_acc');
-
-        //$startDate = $request->input('start_date');
-        //$endDate = $request->input('end_date');
-
-        //$reqData = $request->all();
-        $data = [];
+        $data = Session::get('booking_acc');
         $accIds = [];
-        if (isset($reqData['accommodations']) && is_array($reqData['accommodations'])) {
-            foreach ($reqData['accommodations'] as $accId => $value) {
-                if (!empty($value['quantity'])) {
-                    $accIds[] = $accId;
-                    $data[$accId]['quantity'] = $value['quantity'];
-                    if (isset($value['details']) && is_array($value['details'])) {
-                        foreach ($value['details'] as $index => $detail) {
-                            if ($detail == '1') {
-                                $data[$accId]['details'][$index] = 1;
-                            }
-                        }
-                    }
-                }
-            }
+        foreach ($data as $key => $value) {
+            $accIds[] = $key;
         }
+
         $price = 0;
         $accommodations = Accommodation::joinMl()->whereIn('accommodations.id', $accIds)->with(['details' => function($query) {
             $query->current();
@@ -188,13 +173,12 @@ class BookingController extends Controller
                 }
             }
         }
+        Session::put(['price' => $price]);
 
         $countries = Country::all();
 
         return view('booking.booking3')->with([
             'background' => $background,
-            //'startDate' => $startDate,
-            //'endDate' => $endDate,
             'accommodations' => $accommodations,
             'countries' => $countries,
             'price' => $price
@@ -235,25 +219,18 @@ class BookingController extends Controller
         $endDate = Session::get('end_date');
         $accommodations = Session::get('booking_acc');
         $info = Session::get('booking_info');
+        $price = Session::get('price');
 
-        if ($this->check($startData, $endDate, $accommodations)) {
+        if ($this->manager->check($startData, $endDate, $accommodations)) {
             $success = true;
+            $this->manager->finishCash($startData, $endDate, $accommodations, $price, $info);
+            //$this->manager->reserve($accommodations, $startData, $endDate);
         } else {
             $success = false;
         }
 
-        return view('booking.booking5');
-    }
-
-    protected function check($startDate, $endDate, $accommodations)
-    {
-        $accommodations = Accommodation::get();
-        $reserves = Reserved::where('date_from', '<', $endDate)->where('date_to', '>', $startDate)->orderBy('room_quantity', 'asc')->get()->keyBy('accommodation_id');
-        foreach ($accommodations as $accommodation) {
-            if (isset($reserves[$accommodation->id])) {
-                $accommodation->room_quantity -= $reserves[$accommodation->id]->room_quantity;
-            }
-            $accommodation->price = $accommodation->price * $interval;
-        }
+        return view('booking.booking5')->with([
+            'success' => $success
+        ]);
     }
 }

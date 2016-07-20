@@ -21,7 +21,7 @@ $bookingPage = true;
 <div class="page">
     <div id="booking-steps">
         <div class="step-box fl tc first">
-            <a href="{{url_with_lng('/booking?start_date='.$startDate.'&end_date='.$endDate, false)}}" class="step-item db">
+            <a href="{{url_with_lng('/booking', false)}}" class="step-item db">
                 <span class="db fl left">1</span>
                 <span class="db right"><span>{{trans('www.booking.step.1')}}</span></span>
                 <span class="fl"></span>
@@ -44,7 +44,7 @@ $bookingPage = true;
         @if($accommodations->isEmpty())
             <p class="empty tc">{{trans('www.booking.empty_rooms')}}</p>
         @else
-            <form action="{{url_with_lng('/booking/info?start_date='.$startDate.'&end_date='.$endDate, false)}}" method="post">
+            <form action="{{url_with_lng('/booking/info', false)}}" method="post">
                 <table>
                     <thead>
                         <tr>

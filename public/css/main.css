@@ -684,7 +684,7 @@ body.ru .title {
     padding: 0 42px;
     line-height: normal;
 }
-#contact-form .form-error {
+.form-error {
     color: #FF0000;
     font-size: 0.8em;
     margin-top: 3px;
@@ -1147,7 +1147,6 @@ body.ru .title {
 #booking-3 .select-box {
     background-color: #F1F1F2;
     height: 50px;
-    margin-top: 5px;
     position: relative;
     width: 100%;
 }
@@ -1226,20 +1225,27 @@ body.ru .title {
     color: #58595B;
     margin-bottom: 55px;
 }
-#booking-3 .col {
-    height: 50px;
-    line-height: 50px;
+#booking-3 .row {
+    margin-bottom: 5px;
 }
 #booking-3 .left {
     margin-right: 2%;
-    width: 18%;
+    width: 20%;
+}
+#booking-3 .left label {
+    display: table-cell;
+    height: 50px;
+    vertical-align: middle;
 }
 #booking-3 .middle {
     margin-right: 4%;
-    width: 38%;
+    width: 37%;
 }
 #booking-3 .right {
-    width: 38%;
+    width: 37%;
+}
+#booking-3 .long {
+    width: 78%;
 }
 #booking-3 h2 {
     font-size: 1.5em;
@@ -1249,11 +1255,12 @@ body.ru .title {
     font-size: 1.2em;
 }
 #booking-3 .required:after {
-    content: " *" !important;
+    content: "*" !important;
     font-size: 1.2em;
     vertical-align: middle;
 }
-#booking-3 input[type="text"] {
+#booking-3 input[type="text"],
+#booking-3 textarea {
     background-color: #F1F1F2;
     box-sizing: border-box;
     color: #58595B;
@@ -1262,10 +1269,47 @@ body.ru .title {
     padding: 0 20px;
     width: 100%;
 }
+#booking-3 textarea {
+    height: 80px;
+    padding: 10px 20px;
+    resize: none;
+}
+#booking-3 .time {
+    height: 50px;
+    line-height: 47px;
+}
 #booking-3 .separator {
     background-color: #CED0D1;
     height: 1px;
     margin: 20px 0;
+}
+#booking-3 .help {
+    font-style: italic;
+    font-size: 0.9em;
+    margin: 8px 0;
+}
+#booking-3 .form-error {
+    font-size: 0.9em;
+    margin-bottom: 2px;
+}
+#booking-3 .submit-btn {
+    margin-top: 20px;
+}
+
+/* booking-4 */
+#booking-4 {
+    margin-bottom: 55px;
+}
+#booking-4 h2 {
+    font-size: 1.5em;
+    margin-bottom: 40px;
+}
+#booking-4 .btn-box {
+    min-width: 140px;
+    margin: 0 5px;
+}
+#booking-4 .btn-box input {
+    min-width: 140px;
 }
 
 /* footer */

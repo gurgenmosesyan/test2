@@ -31,7 +31,7 @@ $bookingPage = true;
     <div id="booking-1" class="tc">
         <h2>{{trans('www.booking.step1.text')}}</h2>
 
-        <form action="{{url_with_lng('/booking/rooms', false)}}" method="get">
+        <form action="{{url_with_lng('/booking/rooms', false)}}" method="post">
             <div class="dib left">
                 <p>{{trans('www.booking.arrival_date')}}</p>
                 <div>
@@ -47,6 +47,7 @@ $bookingPage = true;
                 </div>
             </div>
             <div class="cb"></div>
+            {{csrf_field()}}
             <input type="submit" class="btn tu" value="{{trans('www.booking.show_available_rooms')}}" />
         </form>
 

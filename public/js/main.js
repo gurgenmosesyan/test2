@@ -56,36 +56,36 @@ $main.initMap = function() {
     });
 };
 
-$main.resetForm = function() {
-    $('.form-error').text('').closest('.form-box').removeClass('has-error');
+$main.resetForm = function(form) {
+    $('.form-error', form).text('').closest('.form-box').removeClass('has-error');
 };
 
-$main.showErrors = function(errors) {
+$main.showErrors = function(errors, form) {
     for (var i in errors) {
-        $('#form-error-'+i).text(errors[i]).closest('.form-box').addClass('has-error');
+        $('#form-error-'+ i.replace(/\./g, '_'), form).text(errors[i]).closest('.form-box').addClass('has-error');
     }
 };
 
 $main.initContactForm = function() {
     $('#contact-form').submit(function() {
-        var self = $(this);
-        if (self.hasClass('sending')) {
+        var form = $(this);
+        if (form.hasClass('sending')) {
             return false;
         }
-        self.addClass('sending');
+        form.addClass('sending');
         $.ajax({
             type: 'post',
-            url: self.attr('action'),
-            data: self.serializeArray(),
+            url: form.attr('action'),
+            data: form.serializeArray(),
             dataType: 'json',
             success: function(result) {
-                $main.resetForm();
+                $main.resetForm(form);
                 if (result.status == 'OK') {
                     alert(result.data);
                 } else {
-                    $main.showErrors(result.errors);
+                    $main.showErrors(result.errors, form);
                 }
-                self.removeClass('sending');
+                form.removeClass('sending');
             }
         });
         return false;
@@ -357,6 +357,35 @@ $main.initDetails = function() {
     });
 };
 
+$main.initBooking3Form = function() {
+    $('#booking-3-form').submit(function() {
+        var form = $(this);
+        if (form.hasClass('loading')) {
+            return false;
+        }
+        form.addClass('loading');
+        $.ajax({
+            type: 'post',
+            url: form.attr('action'),
+            data: form.serializeArray(),
+            dataType: 'json',
+            success: function(result) {
+                $main.resetForm(form);
+                if (result.status == 'OK') {
+                    document.location.href = result.data.link;
+                } else {
+                    $main.showErrors(result.errors, form);
+                    $('html, body').animate({
+                        scrollTop: $('.has-error:first', form).offset().top - 20
+                    }, 500);
+                }
+                form.removeClass('loading');
+            }
+        });
+        return false;
+    });
+};
+
 $(document).ready(function() {
 
     $main.initClock();
@@ -373,4 +402,6 @@ $(document).ready(function() {
     $main.initSelect($('#booking-3'));
 
     $main.initDetails();
+
+    $main.initBooking3Form();
 });

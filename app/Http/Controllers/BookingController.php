@@ -159,11 +159,11 @@ class BookingController extends Controller
             $accIds[] = $key;
         }
 
-        $price = 0;
+        //$price = 0;
         $accommodations = Accommodation::joinMl()->whereIn('accommodations.id', $accIds)->with(['details' => function($query) {
             $query->current();
         }])->get();
-        foreach ($accommodations as $acc) {
+        /*foreach ($accommodations as $acc) {
             $price += $acc->price * $data[$acc->id]['quantity'];
             foreach ($acc->details as $key => $detail) {
                 if (isset($data[$acc->id]['details'][$detail->index])) {
@@ -173,7 +173,7 @@ class BookingController extends Controller
                 }
             }
         }
-        Session::put(['price' => $price]);
+        Session::put(['price' => $price]);*/
 
         $countries = Country::all();
 
@@ -181,7 +181,7 @@ class BookingController extends Controller
             'background' => $background,
             'accommodations' => $accommodations,
             'countries' => $countries,
-            'price' => $price
+            //'price' => $price
         ]);
     }
 
@@ -215,14 +215,18 @@ class BookingController extends Controller
             }
         }
 
+        $background = $this->background();
+
         $startData = Session::get('start_date');
         $endDate = Session::get('end_date');
         $accommodations = Session::get('booking_acc');
         $info = Session::get('booking_info');
-        $price = Session::get('price');
+        //$price = Session::get('price');
 
-        if ($this->manager->check($startData, $endDate, $accommodations)) {
+        if (($data = $this->manager->check($startData, $endDate, $accommodations)) !== false) {
             $success = true;
+            $price = $data['price'];
+            $accommodations = $data['accommodations'];
             $this->manager->finishCash($startData, $endDate, $accommodations, $price, $info);
             //$this->manager->reserve($accommodations, $startData, $endDate);
         } else {
@@ -230,6 +234,7 @@ class BookingController extends Controller
         }
 
         return view('booking.booking5')->with([
+            'background' => $background,
             'success' => $success
         ]);
     }

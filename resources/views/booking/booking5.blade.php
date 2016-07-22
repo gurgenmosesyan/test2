@@ -53,14 +53,13 @@ $bookingPage = true;
             <div class="cb"></div>
         </div>
 
-        <div id="booking-5">
+        <div id="booking-5" class="tc">
 
-            <h2 class="tc">{{trans('www.booking.payment.select_type')}}</h2>
-
-            <div class="tc">
-                <a href="#" class="btn">{{trans('www.booking.payment.ameria')}}</a>
-                <a href="#" class="btn">{{trans('www.booking.payment.cash')}}</a>
-            </div>
+            @if($success)
+                <p>{{trans('www.booking.success.text')}}</p>
+            @else
+                <p>{{trans('www.booking.error.text')}}</p>
+            @endif
 
         </div>
 

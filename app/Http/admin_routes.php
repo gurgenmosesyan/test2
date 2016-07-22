@@ -115,4 +115,12 @@ Route::group($params, function () {
     Route::post('/reserved/update/{id}', ['uses' => 'ReservedController@update', 'as' => 'admin_reserved_update']);
     Route::post('/reserved/delete/{id}', ['uses' => 'ReservedController@delete', 'as' => 'admin_reserved_delete']);
 
+    Route::get('/order', ['uses' => 'OrderController@table', 'as' => 'admin_order_table']);
+    Route::get('/order/create', ['uses' => 'OrderController@create', 'as' => 'admin_order_create']);
+    Route::get('/order/edit/{id}', ['uses' => 'OrderController@edit', 'as' => 'admin_order_edit']);
+    Route::post('/order', ['uses' => 'OrderController@index', 'as' => 'admin_order_index']);
+    Route::post('/order/store', ['uses' => 'OrderController@store', 'as' => 'admin_order_store']);
+    Route::post('/order/update/{id}', ['uses' => 'OrderController@update', 'as' => 'admin_order_update']);
+    Route::post('/order/delete/{id}', ['uses' => 'OrderController@delete', 'as' => 'admin_order_delete']);
+
 });

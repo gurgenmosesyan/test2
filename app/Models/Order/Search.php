@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Event;
+namespace App\Models\Order;
 
 use App\Core\DataTable;
 
@@ -8,7 +8,7 @@ class Search extends DataTable
 {
     public function totalCount()
     {
-        return Event::count();
+        return Order::count();
     }
 
     public function filteredCount()
@@ -22,12 +22,34 @@ class Search extends DataTable
         $query = $this->constructQuery();
         $this->constructOrder($query);
         $this->constructLimit($query);
-        return $query->get();
+        $cLngId = cLng('id');
+        $data = $query->get();
+        foreach ($data as $value) {
+            $accommodations = json_decode($value->accommodations, true);
+            $value->accommodations = '';
+            foreach ($accommodations as $acc) {
+                $value->accommodations .= $acc['ml'][$cLngId].' - '.$acc['quantity'].'<br />';
+                if (isset($acc['details'])) {
+                    $value->accommodations .= '(';
+                    foreach ($acc['details'] as $detail) {
+                        $value->accommodations .= $detail[$cLngId];
+                    }
+                    $value->accommodations .= ')<hr />';
+                }
+            }
+
+            $guests = json_decode($value->info, true);
+            $value->info = '';
+            foreach ($guests as $guest) {
+                $value->info .= $guest['first_name'].' '.$guest['last_name'].'<br />';
+            }
+        }
+        return $data;
     }
 
     protected function constructQuery()
     {
-        $query = Event::joinMl();
+        $query = Order::getProcessor();
         if ($this->search != null) {
             $query->where('ml.title', 'LIKE', '%'.$this->search.'%')
                 ->orWhere('ml.text', 'LIKE', '%'.$this->search.'%');
@@ -42,10 +64,10 @@ class Search extends DataTable
                 $orderCol = 'ml.title';
                 break;
             case 'sort_order':
-                $orderCol = 'events.sort_order';
+                $orderCol = 'orders.sort_order';
                 break;
             default:
-                $orderCol = 'events.id';
+                $orderCol = 'orders.id';
         }
         $orderType = 'desc';
         if ($this->orderType == 'asc') {

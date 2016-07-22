@@ -1311,6 +1311,10 @@ body.ru .title {
 #booking-4 .btn-box input {
     min-width: 140px;
 }
+/* booking 5 */
+#booking-5 {
+    margin-bottom: 55px;
+}
 
 /* footer */
 #footer {

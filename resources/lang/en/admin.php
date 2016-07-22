@@ -142,4 +142,8 @@ return array (
   'base.label.date_to' => 'Date to',
   'reserved.form.edit.sub_title' => 'Reserve № :id',
   'reserved.form.add.sub_title' => 'Add new reserve',
+  'order.form.title' => 'Orders',
+  'order.label.accommodations' => 'Accommodations',
+  'base.label.phone' => 'Phone',
+  'base.label.guest' => 'Guest',
 );

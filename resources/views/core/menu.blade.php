@@ -6,6 +6,7 @@
     <li{{$pageMenu == 'partner' ? ' class=active' : ''}}><a href="{{route('admin_partner_table')}}"><i class="fa fa-suitcase"></i> <span>{{trans('admin.partner.form.title')}}</span></a></li>
     <li{{$pageMenu == 'accommodation' ? ' class=active' : ''}}><a href="{{route('admin_accommodation_table')}}"><i class="fa fa-hotel"></i> <span>{{trans('admin.accommodation.form.title')}}</span></a></li>
     <li{{$pageMenu == 'reserved' ? ' class=active' : ''}}><a href="{{route('admin_reserved_table')}}"><i class="fa fa-lock"></i> <span>{{trans('admin.reserved.form.title')}}</span></a></li>
+    <li{{$pageMenu == 'order' ? ' class=active' : ''}}><a href="{{route('admin_order_table')}}"><i class="fa fa-money"></i> <span>{{trans('admin.order.form.title')}}</span></a></li>
     <li class="treeview{{$pageMenu == 'offer' || $pageMenu == 'offer_text' || $pageMenu == 'offer_slider' ? ' active' : ''}}">
         <a href="#">
             <i class="fa fa-tags"></i> <span>{{trans('admin.offer.form.title')}}</span> <i class="fa fa-angle-left pull-right"></i>

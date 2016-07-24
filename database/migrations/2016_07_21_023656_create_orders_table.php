@@ -16,6 +16,8 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
             $table->enum('type', [Order::TYPE_CASH, Order::TYPE_AMERIA]);
+            $table->string('order_id');
+            $table->string('payment_id');
             $table->text('accommodations');
             $table->integer('price')->unsigned();
             $table->date('date_from');
@@ -23,6 +25,7 @@ class CreateOrdersTable extends Migration
             $table->text('info');
             $table->string('phone');
             $table->string('email');
+            $table->enum('status', [Order::STATUS_NOT_PAYED, Order::STATUS_PAYED]);
             $table->timestamps();
         });
     }

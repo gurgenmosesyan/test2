@@ -55,11 +55,7 @@ $bookingPage = true;
 
     <div id="booking-5" class="tc">
 
-        @if($success)
-            <p>{{trans('www.booking.success.text')}}</p>
-        @else
-            <p>{{trans('www.booking.error.text')}}</p>
-        @endif
+        <p class="{{$success ? 'success' : 'error'}}">{{$message}}</p>
 
     </div>
 

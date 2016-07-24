@@ -80,11 +80,11 @@ class Manager
     {
         DB::transaction(function() use($startDate, $endDate, $accommodations, $price, $info) {
             $this->reserve(Reserved::TYPE_CASH, $startDate, $endDate, $accommodations);
-            $this->order(Order::TYPE_CASH, $startDate, $endDate, $accommodations, $price, $info);
+            $this->cashOrder($startDate, $endDate, $accommodations, $price, $info);
         });
     }
 
-    protected function reserve($type, $startDate, $endDate, $data)
+    public function reserve($type, $startDate, $endDate, $data)
     {
         $reserved = [];
         foreach ($data as $accId => $value) {
@@ -99,7 +99,26 @@ class Manager
         Reserved::insert($reserved);
     }
 
-    protected function order($type, $startDate, $endDate, $accommodations, $price, $info)
+    protected function cashOrder($startDate, $endDate, $accommodations, $price, $info)
+    {
+        $info = $this->setInfo($info);
+        $order = $this->getOrderObj(Order::TYPE_CASH, $accommodations, $price, $startDate, $endDate, $info);
+        $order->order_id = '';
+        $order->save();
+        $this->storeOrderAccommodations($accommodations, $order);
+    }
+
+    public function ameriaOrder($startDate, $endDate, $accommodations, $price, $info)
+    {
+        $info = $this->setInfo($info);
+        $order = $this->getOrderObj(Order::TYPE_AMERIA, $accommodations, $price, $startDate, $endDate, $info);
+        $order->save();
+        $order->order_id = $this->randomUniqueOrderId();
+        $this->storeOrderAccommodations($accommodations, $order);
+        return $order;
+    }
+
+    protected function setInfo($info)
     {
         foreach ($info['info'] as $key => $value) {
             $country = Country::where('id', $value['citizenship'])->first();
@@ -109,17 +128,37 @@ class Manager
                 'ru' => $country->name_ru
             ];
         }
-        $order = new Order([
+        return $info;
+    }
+
+    protected function getOrderObj($type, $accommodations, $price, $startDate, $endDate, $info)
+    {
+        return new Order([
             'type' => $type,
+            'payment_id' => '',
             'accommodations' => json_encode($accommodations),
             'price' => $price,
             'date_from' => $startDate,
             'date_to' => $endDate,
             'info' => json_encode($info['info']),
             'phone' => $info['phone'],
-            'email' => $info['email']
+            'email' => $info['email'],
+            'status' => Order::STATUS_NOT_PAYED
         ]);
-        $order->save();
+    }
+
+    protected function randomUniqueOrderId()
+    {
+        $orderId = rand(1000000, 99999999999);
+        $order = Order::where('order_id', $orderId)->first();
+        if ($order == null) {
+            return $orderId;
+        }
+        return $this->randomUniqueOrderId();
+    }
+
+    protected function storeOrderAccommodations($accommodations, Order $order)
+    {
         $orderAccData = [];
         foreach ($accommodations as $accId => $acc) {
             $orderAccData[] = new OrderAccommodation([

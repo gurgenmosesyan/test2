@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking\Manager;
 use App\Models\Country\Country;
+use App\Models\Order\Order;
 use Illuminate\Http\Request;
 use App\Models\Background\Background;
 use App\Models\Accommodation\Accommodation;
 use App\Models\Reserved\Reserved;
 use DateTime;
+use SoapClient;
 use Session;
 
 class BookingController extends Controller
@@ -216,16 +218,153 @@ class BookingController extends Controller
         if (($data = $this->manager->check($startData, $endDate, $accommodations)) !== false) {
             Session::forget('booking2');
             $success = true;
+            $message = trans('www.booking.cash.success');
             $price = $data['price'];
             $accommodations = $data['accommodations'];
             $this->manager->finishCash($startData, $endDate, $accommodations, $price, $info);
         } else {
             $success = false;
+            $message = trans('www.booking.error.rooms');
         }
 
         return view('booking.booking5')->with([
             'background' => $background,
-            'success' => $success
+            'success' => $success,
+            'message' => $message
+        ]);
+    }
+
+    public function ameria(Request $request)
+    {
+        $startData = Session::get('start_date');
+        $endDate = Session::get('end_date');
+        $accommodations = Session::get('booking_acc');
+        $info = Session::get('booking_info');
+
+        if (($data = $this->manager->check($startData, $endDate, $accommodations)) !== false) {
+            $price = $data['price'];
+            $accommodations = $data['accommodations'];
+            $order = $this->manager->ameriaOrder($startData, $endDate, $accommodations, $price, $info);
+        } else {
+            return view('booking.booking5')->with([
+                'success' => false,
+                'message' => trans('www.booking.error.rooms')
+            ]);
+        }
+
+        $conf = config('ameria');
+        $cLng = cLng();
+
+        $client = new SoapClient($conf['soap_url_1'], $conf['soap_options']);
+
+        $params = [];
+        $params['paymentfields']['ClientID'] = $conf['client_id'];
+        $params['paymentfields']['Username'] = $conf['username'];
+        $params['paymentfields']['Password'] = $conf['password'];
+        $params['paymentfields']['OrderID'] = $order->order_id;
+        $params['paymentfields']['PaymentAmount'] = 10; // TODO change to $price
+        $params['paymentfields']['Description'] = 'Reserve accommodations';
+        $params['paymentfields']['backURL'] = route('booking_ameria_back', $cLng->code);
+        $params['paymentfields']['Opaque '] = 'test Opaque 1';
+
+        $webService = $client->GetPaymentID($params);
+
+        if ($webService->GetPaymentIDResult->Respcode == '1' && $webService->GetPaymentIDResult->Respmessage == 'OK') {
+
+            $paymentId = $webService->GetPaymentIDResult->PaymentID;
+            //Session::put(['payment_id' => $paymentId]);
+
+            $order->payment_id = $paymentId;
+            $order->save();
+
+            $clientUrl = $request->url();
+            $cLngCode = $cLng->code == 'hy' ? 'am' : $cLng->code;
+            $url = $conf['form_url'].'?clientid='.$conf['client_id'].'&clienturl='.$clientUrl.'&lang='.$cLngCode.'&paymentid='.$paymentId;
+
+            //echo '<iframe width="840" height="500" id="idIframe" src="'.$url.'" frameborder="0" onload="FrameManager.registerFrame(this)">';
+
+            header('Location: '.$url);
+            exit();
+
+            //echo "<script type='text/javascript'>\n";
+            //echo "window.location.replace('".$url."')";
+            //echo "</script>";
+
+        } else {
+            die('Error'); //TODO process error show
+        }
+    }
+
+    public function ameriaBack(Request $request)
+    {
+        $conf = config('ameria');
+
+        $orderId = $request->input('orderID');
+        $paymentId = $request->input('paymentid');
+
+        $order = Order::where('order_id', $orderId)->where('payment_id', $paymentId)->firstOrFail();
+
+        $client = new SoapClient($conf['soap_url_2'], $conf['soap_options']);
+
+        $params['paymentfields']['ClientID'] = $conf['client_id'];
+        $params['paymentfields']['Description'] = 'Reserve accommodations';
+        $params['paymentfields'] ['OrderID'] = $orderId;
+        $params['paymentfields'] ['Password'] = $conf['password'];
+        $params['paymentfields'] ['PaymentAmount'] = 10; // TODO change to $order->price
+        $params['paymentfields'] ['Username'] = $conf['username'];
+
+        $webService = $client->GetPaymentFields($params);
+
+        //echo '<pre>'; print_r($webService); die;
+
+        if ($webService->GetPaymentFieldsResult->respcode == '00') {
+            if ($webService->GetPaymentFieldsResult ->paymenttype == '1') {
+                $webService1 = $client->Confirmation($params);
+                if ($webService1->ConfirmationResult->Respcode == '00') {
+                    // you can print your check or call Ameriabank check example
+                    echo '<iframe id="idIframe" src="'.$conf['check_url'].'?lang=am&paymentid='.$_POST['paymentid'].'" width="560px" height="820px" frameborder="0"></iframe>';
+                } else {
+                    return $this->error($webService->GetPaymentFieldsResult->respcode);
+                }
+            } else {
+                // you can print your check or call Ameriabank check example
+                echo '<iframe id="idIframe" src="'.$conf['check_url'].'?lang=am&paymentid='.$_POST['paymentid'].'" width="560px" height="820px" frameborder="0"></iframe>';
+            }
+            $order->status = Order::STATUS_PAYED;
+            $order->save();
+            $this->manager->reserve(Reserved::TYPE_AMERIA, $order->date_from, $order->date_to, json_decode($order->accommodations, true));
+        } else {
+            return $this->error($webService->GetPaymentFieldsResult->respcode);
+        }
+    }
+
+    protected function error($statusCode)
+    {
+        $message = trans('www.booking.error.01');
+        if ($statusCode == '02') {
+            $message = trans('www.booking.error.02');
+        } else if ($statusCode == '03') {
+            $message = trans('www.booking.error.03');
+        } else if ($statusCode == '04') {
+            $message = trans('www.booking.error.04');
+        } else if ($statusCode == '05') {
+            $message = trans('www.booking.error.05');
+        } else if ($statusCode == '06') {
+            $message = trans('www.booking.error.06');
+        } else if ($statusCode == '07') {
+            $message = trans('www.booking.error.07');
+        } else if ($statusCode == '08') {
+            $message = trans('www.booking.error.08');
+        } else if ($statusCode == '10') {
+            $message = trans('www.booking.error.10');
+        } else if ($statusCode == '11') {
+            $message = trans('www.booking.error.11');
+        } else if ($statusCode == '12' || $statusCode == '13') {
+            $message = trans('www.booking.error.12');
+        }
+        return view('booking.booking5')->with([
+            'success' => false,
+            'message' => $message
         ]);
     }
 }

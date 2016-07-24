@@ -2,6 +2,7 @@
 $title = trans('www.booking.head_title');
 $page = null;
 $bookingPage = true;
+$lngCode = cLng('code');
 ?>
 @extends('layout')
 
@@ -54,13 +55,13 @@ $bookingPage = true;
 
         <div class="tc">
             <div class="dib btn-box">
-                <form action="" method="post">
+                <form action="{{route('booking_ameria', $lngCode)}}" method="post">
                     {{csrf_field()}}
                     <input type="submit" class="btn" value="{{trans('www.booking.payment.ameria')}}" />
                 </form>
             </div>
             <div class="dib btn-box">
-                <form action="{{route('booking_cash', cLng('code'))}}" method="post">
+                <form action="{{route('booking_cash', $lngCode)}}" method="post">
                     {{csrf_field()}}
                     <input type="submit" class="btn" value="{{trans('www.booking.payment.cash')}}" />
                 </form>

@@ -65,17 +65,19 @@ $cLngCode = cLng('code');
                 <div class="row">
                     <div class="left fl"><label class="required">{{trans('www.booking.citizenship')}}</label></div>
                     <div class="middle fl">
-                        <div class="select-box">
-                            <div class="select-arrow"></div>
-                            <div class="select-title"></div>
-                            <select name="info[{{$key}}][citizenship]">
-                                <option value="">{{trans('www.base.label.select')}}</option>
-                                @foreach($countries as $country)
-                                    <option value="{{$country->id}}">{{ $country->{"name_{$cLngCode}"} }}</option>
-                                @endforeach
-                            </select>
+                        <div class="form-box">
+                            <div class="select-box">
+                                <div class="select-arrow"></div>
+                                <div class="select-title"></div>
+                                <select name="info[{{$key}}][citizenship]">
+                                    <option value="">{{trans('www.base.label.select')}}</option>
+                                    @foreach($countries as $country)
+                                        <option value="{{$country->id}}">{{ $country->{"name_{$cLngCode}"} }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div id="form-error-info_{{$key}}_citizenship" class="form-error"></div>
                         </div>
-                        <div id="form-error-info_{{$key}}_citizenship" class="form-error"></div>
                     </div>
                     <div class="cb"></div>
                 </div>
@@ -132,5 +134,7 @@ $cLngCode = cLng('code');
     </div>
 
 </div>
-
+<script type="text/javascript">
+    $('html, body').animate({scrollTop: 600}, 500);
+</script>
 @stop

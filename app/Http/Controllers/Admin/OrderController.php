@@ -5,12 +5,16 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Core\BaseController;
 use App\Models\Order\Order;
 use App\Models\Order\Search;
+use App\Models\Accommodation\AccommodationMl;
 
 class OrderController extends BaseController
 {
     public function table()
     {
-        return view('admin.order.index');
+        $accommodations = AccommodationMl::where('lng_id', cLng('id'))->get();
+        return view('admin.order.index')->with([
+            'accommodations' => $accommodations
+        ]);
     }
 
     public function index(Search $search)

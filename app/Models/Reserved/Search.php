@@ -27,13 +27,16 @@ class Search extends DataTable
 
     protected function constructQuery()
     {
-        $query = Reserved::select('reserved.id', 'reserved.room_quantity', 'reserved.date_from', 'reserved.date_to', 'acc.title as acc_title')
+        $query = Reserved::select('reserved.id', 'reserved.room_quantity', 'reserved.date_from', 'reserved.date_to', 'reserved.type', 'acc.title as acc_title')
             ->join('accommodations_ml as acc', function($query) {
                 $query->on('acc.id', '=', 'reserved.accommodation_id')->where('acc.lng_id', '=', cLng('id'));
             });
 
         if (!empty($this->searchData['accommodation_id'])) {
             $query->where('reserved.accommodation_id', $this->searchData['accommodation_id']);
+        }
+        if (!empty($this->searchData['type'])) {
+            $query->where('reserved.type', $this->searchData['type']);
         }
         if (!empty($this->searchData['from_date_from'])) {
             $query->where('reserved.date_from', '>=', $this->searchData['from_date_from']);

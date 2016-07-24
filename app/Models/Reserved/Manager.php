@@ -7,6 +7,7 @@ class Manager
     public function store($data)
     {
         $reserved = new Reserved($data);
+        $reserved->type = Reserved::TYPE_ADMIN;
         $reserved->save();
     }
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use App\Models\Reserved\Reserved;
 
 class CreateReservedTable extends Migration
 {
@@ -18,6 +19,7 @@ class CreateReservedTable extends Migration
             $table->smallInteger('room_quantity')->unsigned();
             $table->date('date_from');
             $table->date('date_to');
+            $table->enum('type', [Reserved::TYPE_CASH, Reserved::TYPE_AMERIA, Reserved::TYPE_ADMIN]);
             $table->timestamps();
         });
     }

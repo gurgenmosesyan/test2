@@ -1,4 +1,5 @@
 <?php
+use App\Models\Reserved\Reserved;
 use App\Core\Helpers\Calendar;
 
 Calendar::includeHeadData();
@@ -21,6 +22,7 @@ $pageMenu = 'reserved';
             <th>{{trans('admin.base.label.room_quantity')}}</th>
             <th>{{trans('admin.base.label.date_from')}}</th>
             <th>{{trans('admin.base.label.date_to')}}</th>
+            <th>{{trans('admin.base.label.type')}}</th>
             <th class="th-actions"></th>
         </tr>
         </thead>
@@ -39,6 +41,15 @@ $pageMenu = 'reserved';
                                 @foreach($accommodations as $accommodation)
                                     <option value="{{$accommodation->id}}">{{$accommodation->title}}</option>
                                 @endforeach
+                            </select>
+                        </td>
+                        <td align="right"><label>{{trans('admin.base.label.type')}}</label></td>
+                        <td>
+                            <select name="type" class="form-control type">
+                                <option value="">{{trans('admin.base.label.select')}}</option>
+                                <option value="{{Reserved::TYPE_CASH}}">{{trans('admin.base.label.cash')}}</option>
+                                <option value="{{Reserved::TYPE_AMERIA}}">{{trans('admin.base.label.ameria')}}</option>
+                                <option value="{{Reserved::TYPE_ADMIN}}">{{trans('admin.base.label.admin')}}</option>
                             </select>
                         </td>
                     </tr>

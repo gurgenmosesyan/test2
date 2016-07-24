@@ -146,4 +146,8 @@ return array (
   'order.label.accommodations' => 'Accommodations',
   'base.label.phone' => 'Phone',
   'base.label.guest' => 'Guest',
+  'base.label.type' => 'Type',
+  'base.label.cash' => 'Cash',
+  'base.label.ameria' => 'Ameria',
+  'base.label.admin' => 'Admin',
 );

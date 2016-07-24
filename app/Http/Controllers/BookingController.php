@@ -159,29 +159,16 @@ class BookingController extends Controller
             $accIds[] = $key;
         }
 
-        //$price = 0;
         $accommodations = Accommodation::joinMl()->whereIn('accommodations.id', $accIds)->with(['details' => function($query) {
             $query->current();
         }])->get();
-        /*foreach ($accommodations as $acc) {
-            $price += $acc->price * $data[$acc->id]['quantity'];
-            foreach ($acc->details as $key => $detail) {
-                if (isset($data[$acc->id]['details'][$detail->index])) {
-                    $price += $detail->price;
-                } else {
-                    unset($acc->details[$key]);
-                }
-            }
-        }
-        Session::put(['price' => $price]);*/
 
         $countries = Country::all();
 
         return view('booking.booking3')->with([
             'background' => $background,
             'accommodations' => $accommodations,
-            'countries' => $countries,
-            //'price' => $price
+            'countries' => $countries
         ]);
     }
 
@@ -203,10 +190,12 @@ class BookingController extends Controller
         ]);
     }
 
-    public function cash()
+    public function cash(Request $request)
     {
-        if (Session::get('booking4') == null) {
-            if (Session::get('booking3') != null) {
+        if (!$request->isMethod('post') || Session::get('booking4') == null) {
+            if (Session::get('booking4') != null) {
+                return redirect()->route('booking4', cLng('code'));
+            } else if (Session::get('booking3') != null) {
                 return redirect()->route('booking3', cLng('code'));
             } else if (Session::get('booking2') != null) {
                 return redirect()->route('booking2', cLng('code'));
@@ -214,6 +203,8 @@ class BookingController extends Controller
                 return redirect()->route('booking1', cLng('code'));
             }
         }
+        Session::forget('booking4');
+        Session::forget('booking3');
 
         $background = $this->background();
 
@@ -221,14 +212,13 @@ class BookingController extends Controller
         $endDate = Session::get('end_date');
         $accommodations = Session::get('booking_acc');
         $info = Session::get('booking_info');
-        //$price = Session::get('price');
 
         if (($data = $this->manager->check($startData, $endDate, $accommodations)) !== false) {
+            Session::forget('booking2');
             $success = true;
             $price = $data['price'];
             $accommodations = $data['accommodations'];
             $this->manager->finishCash($startData, $endDate, $accommodations, $price, $info);
-            //$this->manager->reserve($accommodations, $startData, $endDate);
         } else {
             $success = false;
         }

@@ -143,5 +143,6 @@ $bookingPage = true;
 </div>
 <script type="text/javascript">
     $main.initFancybox();
+    $('html, body').animate({scrollTop: 600}, 500);
 </script>
 @stop

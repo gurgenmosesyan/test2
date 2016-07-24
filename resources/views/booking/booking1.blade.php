@@ -54,5 +54,7 @@ $bookingPage = true;
     </div>
 
 </div>
-
+<script type="text/javascript">
+    $('html, body').animate({scrollTop: 600}, 500);
+</script>
 @stop

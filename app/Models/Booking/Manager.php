@@ -5,6 +5,8 @@ namespace App\Models\Booking;
 use App\Models\Accommodation\Accommodation;
 use App\Models\Reserved\Reserved;
 use App\Models\Order\Order;
+use App\Models\Order\OrderAccommodation;
+use App\Models\Country\Country;
 use DB;
 
 class Manager
@@ -77,12 +79,12 @@ class Manager
     public function finishCash($startDate, $endDate, $accommodations, $price, $info)
     {
         DB::transaction(function() use($startDate, $endDate, $accommodations, $price, $info) {
-            $this->reserve($startDate, $endDate, $accommodations);
-            $this->order('cash', $startDate, $endDate, $accommodations, $price, $info);
+            $this->reserve(Reserved::TYPE_CASH, $startDate, $endDate, $accommodations);
+            $this->order(Order::TYPE_CASH, $startDate, $endDate, $accommodations, $price, $info);
         });
     }
 
-    protected function reserve($startDate, $endDate, $data)
+    protected function reserve($type, $startDate, $endDate, $data)
     {
         $reserved = [];
         foreach ($data as $accId => $value) {
@@ -90,7 +92,8 @@ class Manager
                 'accommodation_id' => $accId,
                 'room_quantity' => $value['quantity'],
                 'date_from' => $startDate,
-                'date_to' => $endDate
+                'date_to' => $endDate,
+                'type' => $type
             ];
         }
         Reserved::insert($reserved);
@@ -98,7 +101,15 @@ class Manager
 
     protected function order($type, $startDate, $endDate, $accommodations, $price, $info)
     {
-        $data = [
+        foreach ($info['info'] as $key => $value) {
+            $country = Country::where('id', $value['citizenship'])->first();
+            $info['info'][$key]['citizenship'] = [
+                'en' => $country->name_en,
+                'hy' => $country->name_hy,
+                'ru' => $country->name_ru
+            ];
+        }
+        $order = new Order([
             'type' => $type,
             'accommodations' => json_encode($accommodations),
             'price' => $price,
@@ -107,7 +118,14 @@ class Manager
             'info' => json_encode($info['info']),
             'phone' => $info['phone'],
             'email' => $info['email']
-        ];
-        Order::create($data);
+        ]);
+        $order->save();
+        $orderAccData = [];
+        foreach ($accommodations as $accId => $acc) {
+            $orderAccData[] = new OrderAccommodation([
+                'accommodation_id' => $accId
+            ]);
+        }
+        $order->accommodations()->saveMany($orderAccData);
     }
 }

@@ -21,4 +21,9 @@ class Order extends Model
     ];
 
     protected $table = 'orders';
+
+    public function accommodations()
+    {
+        return $this->hasMany(OrderAccommodation::class, 'order_id', 'id');
+    }
 }

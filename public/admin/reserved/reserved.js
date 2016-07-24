@@ -16,6 +16,7 @@ $reserved.initSearchPage = function() {
             "type": "post",
             "data": function(data) {
                 data.search.accommodation_id = searchForm.find('.acc-id').val();
+                data.search.type = searchForm.find('.type').val();
                 data.search.from_date_from = searchForm.find('.from-date-from').val();
                 data.search.to_date_from = searchForm.find('.to-date-from').val();
                 data.search.from_date_to = searchForm.find('.from-date-to').val();
@@ -35,6 +36,7 @@ $reserved.initSearchPage = function() {
             {data: 'room_quantity'},
             {data: 'date_from'},
             {data: 'date_to'},
+            {data: 'type'},
             {
                 data: null,
                 render: function(data) {

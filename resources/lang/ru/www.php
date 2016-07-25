@@ -104,4 +104,9 @@ return array (
   'booking.error.10' => 'Вы прислали платеж, превышающий ваши лимиты',
   'booking.error.11' => 'Прислано завершение на просроченный платеж',
   'booking.error.12' => 'Транзакция неправильно сформирована с точки зрения эмитента',
+  '404.title' => '404',
+  '404.text' => 'Страница не найдена',
+  'top_booking.title' => 'Online Rooms Booking',
+  'top_booking.sub_title' => 'Get your guaranteed reservation right now!',
+  'top_booking.find_room' => 'Find room',
 );

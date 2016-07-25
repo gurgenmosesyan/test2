@@ -104,4 +104,9 @@ return array (
   'booking.error.10' => 'Payment exceeds the limits',
   'booking.error.11' => 'Late Payment',
   'booking.error.12' => 'Incorrect transaction type for issuer',
+  '404.title' => '404',
+  '404.text' => 'Page not found',
+  'top_booking.title' => 'Online Rooms Booking',
+  'top_booking.sub_title' => 'Get your guaranteed reservation right now!',
+  'top_booking.find_room' => 'Find room',
 );

@@ -104,4 +104,9 @@ return array (
   'booking.error.10' => 'Սահմանաչափերի գերազանցում',
   'booking.error.11' => 'Ուշացված վճարում',
   'booking.error.12' => 'Գործարքի սխալ ձևաչափ թողարկող բանկի տեսակետից',
+  '404.title' => '404',
+  '404.text' => 'Էջը չի գտնվել',
+  'top_booking.title' => 'Online Rooms Booking',
+  'top_booking.sub_title' => 'Get your guaranteed reservation right now!',
+  'top_booking.find_room' => 'Find room',
 );

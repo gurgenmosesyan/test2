@@ -55,7 +55,16 @@ $bookingPage = true;
 
     <div id="booking-5" class="tc">
 
-        <p class="{{$success ? 'success' : 'error'}}">{{$message}}</p>
+        <p class="booking-result {{$success ? 'success' : 'error'}}">{{$message}}</p>
+
+        <?php
+        if (isset($ameria)) {
+            $conf = config('ameria');
+            $cLngCode = cLng('code');
+            $cLngCode = $cLngCode == 'hy' ? 'am' : $cLngCode;
+            echo '<iframe id="idIframe" src="'.$conf['check_url'].'?lang='.$cLngCode.'&paymentid='.$paymentId.'" width="560px" height="820px" frameborder="0"></iframe>';
+        }
+        ?>
 
     </div>
 

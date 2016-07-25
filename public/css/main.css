@@ -1315,6 +1315,22 @@ body.ru .title {
 #booking-5 {
     margin-bottom: 55px;
 }
+#booking-5 .booking-result {
+    margin-bottom: 40px;
+}
+
+#bg-block .error-section {
+    color: #ffffff;
+    margin-top: 100px;
+    text-shadow: 0 0 10px #000000;
+}
+#bg-block .error-section h2 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+#bg-block .error-section p {
+    font-size: 1.8em;
+}
 
 /* footer */
 #footer {

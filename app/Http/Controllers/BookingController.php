@@ -236,21 +236,33 @@ class BookingController extends Controller
 
     public function ameria(Request $request)
     {
+        if (!$request->isMethod('post') || Session::get('booking4') == null) {
+            if (Session::get('booking4') != null) {
+                return redirect()->route('booking4', cLng('code'));
+            } else if (Session::get('booking3') != null) {
+                return redirect()->route('booking3', cLng('code'));
+            } else if (Session::get('booking2') != null) {
+                return redirect()->route('booking2', cLng('code'));
+            } else {
+                return redirect()->route('booking1', cLng('code'));
+            }
+        }
+
         $startData = Session::get('start_date');
         $endDate = Session::get('end_date');
         $accommodations = Session::get('booking_acc');
         $info = Session::get('booking_info');
 
-        if (($data = $this->manager->check($startData, $endDate, $accommodations)) !== false) {
-            $price = $data['price'];
-            $accommodations = $data['accommodations'];
-            $order = $this->manager->ameriaOrder($startData, $endDate, $accommodations, $price, $info);
-        } else {
+        if (($data = $this->manager->check($startData, $endDate, $accommodations)) === false) {
             return view('booking.booking5')->with([
+                'background' => $this->background(),
                 'success' => false,
                 'message' => trans('www.booking.error.rooms')
             ]);
         }
+        $price = $data['price'];
+        $accommodations = $data['accommodations'];
+        $order = $this->manager->ameriaOrder($startData, $endDate, $accommodations, $price, $info);
 
         $conf = config('ameria');
         $cLng = cLng();
@@ -265,14 +277,13 @@ class BookingController extends Controller
         $params['paymentfields']['PaymentAmount'] = 10; // TODO change to $price
         $params['paymentfields']['Description'] = 'Reserve accommodations';
         $params['paymentfields']['backURL'] = route('booking_ameria_back', $cLng->code);
-        $params['paymentfields']['Opaque '] = 'test Opaque 1';
+        $params['paymentfields']['Opaque '] = '';
 
         $webService = $client->GetPaymentID($params);
 
         if ($webService->GetPaymentIDResult->Respcode == '1' && $webService->GetPaymentIDResult->Respmessage == 'OK') {
 
             $paymentId = $webService->GetPaymentIDResult->PaymentID;
-            //Session::put(['payment_id' => $paymentId]);
 
             $order->payment_id = $paymentId;
             $order->save();
@@ -281,22 +292,30 @@ class BookingController extends Controller
             $cLngCode = $cLng->code == 'hy' ? 'am' : $cLng->code;
             $url = $conf['form_url'].'?clientid='.$conf['client_id'].'&clienturl='.$clientUrl.'&lang='.$cLngCode.'&paymentid='.$paymentId;
 
-            //echo '<iframe width="840" height="500" id="idIframe" src="'.$url.'" frameborder="0" onload="FrameManager.registerFrame(this)">';
-
             header('Location: '.$url);
             exit();
 
-            //echo "<script type='text/javascript'>\n";
-            //echo "window.location.replace('".$url."')";
-            //echo "</script>";
-
         } else {
-            die('Error'); //TODO process error show
+            return $this->error('01');
         }
     }
 
     public function ameriaBack(Request $request)
     {
+        if (!$request->isMethod('post') || Session::get('booking4') == null) {
+            if (Session::get('booking4') != null) {
+                return redirect()->route('booking4', cLng('code'));
+            } else if (Session::get('booking3') != null) {
+                return redirect()->route('booking3', cLng('code'));
+            } else if (Session::get('booking2') != null) {
+                return redirect()->route('booking2', cLng('code'));
+            } else {
+                return redirect()->route('booking1', cLng('code'));
+            }
+        }
+        Session::forget('booking4');
+        Session::forget('booking3');
+
         $conf = config('ameria');
 
         $orderId = $request->input('orderID');
@@ -315,27 +334,25 @@ class BookingController extends Controller
 
         $webService = $client->GetPaymentFields($params);
 
-        //echo '<pre>'; print_r($webService); die;
-
-        if ($webService->GetPaymentFieldsResult->respcode == '00') {
-            if ($webService->GetPaymentFieldsResult ->paymenttype == '1') {
-                $webService1 = $client->Confirmation($params);
-                if ($webService1->ConfirmationResult->Respcode == '00') {
-                    // you can print your check or call Ameriabank check example
-                    echo '<iframe id="idIframe" src="'.$conf['check_url'].'?lang=am&paymentid='.$_POST['paymentid'].'" width="560px" height="820px" frameborder="0"></iframe>';
-                } else {
-                    return $this->error($webService->GetPaymentFieldsResult->respcode);
-                }
-            } else {
-                // you can print your check or call Ameriabank check example
-                echo '<iframe id="idIframe" src="'.$conf['check_url'].'?lang=am&paymentid='.$_POST['paymentid'].'" width="560px" height="820px" frameborder="0"></iframe>';
-            }
-            $order->status = Order::STATUS_PAYED;
-            $order->save();
-            $this->manager->reserve(Reserved::TYPE_AMERIA, $order->date_from, $order->date_to, json_decode($order->accommodations, true));
-        } else {
+        if ($webService->GetPaymentFieldsResult->respcode != '00') {
             return $this->error($webService->GetPaymentFieldsResult->respcode);
         }
+        if ($webService->GetPaymentFieldsResult ->paymenttype == '1') {
+            $webService1 = $client->Confirmation($params);
+            if ($webService1->ConfirmationResult->Respcode != '00') {
+                return $this->error($webService1->ConfirmationResult->Respcode);
+            }
+        }
+        $order->status = Order::STATUS_PAYED;
+        $order->save();
+        $this->manager->reserve(Reserved::TYPE_AMERIA, $order->date_from, $order->date_to, json_decode($order->accommodations, true));
+        return view('booking.booking5')->with([
+            'background' => $this->background(),
+            'success' => true,
+            'ameria' => true,
+            'paymentId' => $paymentId,
+            'message' => trans('www.booking.ameria.success')
+        ]);
     }
 
     protected function error($statusCode)
@@ -363,6 +380,7 @@ class BookingController extends Controller
             $message = trans('www.booking.error.12');
         }
         return view('booking.booking5')->with([
+            'background' => $this->background(),
             'success' => false,
             'message' => $message
         ]);

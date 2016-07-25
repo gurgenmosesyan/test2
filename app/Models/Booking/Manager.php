@@ -17,18 +17,6 @@ class Manager
         $price = 0;
         $accData = Accommodation::joinMl()->with('ml', 'details')->get()->keyBy('id');
         $reserves = Reserved::where('date_from', '<', $endDate)->where('date_to', '>', $startDate)->orderBy('room_quantity', 'asc')->get();
-        /*foreach ($accommodations as $acc) {
-            $price += $acc->price * $interval * $data[$acc->id]['quantity'];
-            foreach ($acc->details as $key => $detail) {
-                if (isset($data[$acc->id]['details'][$detail->index])) {
-                    $price += $detail->price;
-                } else {
-                    unset($acc->details[$key]);
-                }
-            }
-        }*/
-
-        //$accData = Accommodation::get()->keyBy('id');
 
         foreach ($reserves as $reserve) {
             if (isset($accData[$reserve->accommodation_id])) {
@@ -62,13 +50,6 @@ class Manager
                     }
                 }
             }
-            /*foreach ($accData[$accId]->details as $key => $detail) {
-                if (isset($value['details'][$detail->index])) {
-                    $price += $detail->price;
-                } else {
-                    unset($acc->details[$key]);
-                }
-            }*/
         }
         return [
             'accommodations' => $data,
@@ -112,8 +93,8 @@ class Manager
     {
         $info = $this->setInfo($info);
         $order = $this->getOrderObj(Order::TYPE_AMERIA, $accommodations, $price, $startDate, $endDate, $info);
-        $order->save();
         $order->order_id = $this->randomUniqueOrderId();
+        $order->save();
         $this->storeOrderAccommodations($accommodations, $order);
         return $order;
     }

@@ -147,8 +147,8 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
                     <div class="cb"></div>
                 </div>
                 <div id="top-calendar">
-                    <h3 class="tc">Online Rooms Booking</h3>
-                    <p class="tc">Get your guaranteed reservation right now!</p>
+                    <h3 class="tc">{{trans('www.top_booking.title')}}</h3>
+                    <p class="tc">{{trans('www.top_booking.sub_title')}}</p>
                     <div class="calendar-separator"></div>
                     <form id="top-booking-form" action="{{route('booking2', cLng('code'))}}" method="post">
                         <input type="text" id="from" value="{{date('d/m/Y', time()+86400)}}" placeholder="Arrival date" />
@@ -156,7 +156,7 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
                         <input type="text" id="to" value="{{date('d/m/Y', time()+172800)}}" placeholder="Depart, date" />
                         <input type="hidden" id="to-hidden" name="end_date" value="{{date('Y-m-d', time()+172800)}}" />
                         {{csrf_field()}}
-                        <input type="submit" class="tu" value="Find room" />
+                        <input type="submit" class="tu" value="{{trans('www.top_booking.find_room')}}" />
                     </form>
                 </div>
             </div>
@@ -164,6 +164,13 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
 
         @if(isset($isHomepage))
             <h1 class="main-title tu">{{trans('www.homepage.main_title')}}</h1>
+        @endif
+
+        @if(isset($errorPage))
+            <div class="error-section tc">
+                <h2>{{trans('www.404.title')}}</h2>
+                <p>{{trans('www.404.text')}}</p>
+            </div>
         @endif
 
     </div>

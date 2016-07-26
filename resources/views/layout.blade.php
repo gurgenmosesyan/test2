@@ -3,7 +3,7 @@ use App\Core\Language\Language;
 use App\Models\Accommodation\Accommodation;
 
 $languages = Language::all();
-$cLngId = cLng('id');
+$cLng = cLng();
 $accommodations = Accommodation::joinMl()->ordered()->get();
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -39,7 +39,7 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
     $head->renderScripts();
     ?>
 </head>
-<body class="{{cLng('code')}}">
+<body class="{{$cLng->code}}">
 <script type="text/javascript">
     $main.baseUrl = '{{url('')}}';
     $main.time = <?php echo time(); ?>;
@@ -66,7 +66,7 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
                 <div class="fr">
                     <ul id="lng-switcher" class="fr">
                         @foreach($languages as $lng)
-                            <li class="fl{{$lng->id == $cLngId ? ' active' : ''}}">
+                            <li class="fl{{$lng->id == $cLng->id ? ' active' : ''}}">
                                 <a href="{{url($lng->code)}}" class="ubuntu db">{{trans('www.language.'.$lng->code)}}</a>
                             </li>
                         @endforeach
@@ -150,7 +150,7 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
                     <h3 class="tc">{{trans('www.top_booking.title')}}</h3>
                     <p class="tc">{{trans('www.top_booking.sub_title')}}</p>
                     <div class="calendar-separator"></div>
-                    <form id="top-booking-form" action="{{route('booking2', cLng('code'))}}" method="post">
+                    <form id="top-booking-form" action="{{route('booking2', $cLng->code)}}" method="post">
                         <input type="text" id="from" value="{{date('d/m/Y', time()+86400)}}" placeholder="Arrival date" />
                         <input type="hidden" id="from-hidden" name="start_date" value="{{date('Y-m-d', time()+86400)}}" />
                         <input type="text" id="to" value="{{date('d/m/Y', time()+172800)}}" placeholder="Depart, date" />
@@ -167,7 +167,7 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
         @endif
 
         @if(isset($errorPage))
-            <div class="error-section tc">
+            <div class="error-section tc fb">
                 <h2>{{trans('www.404.title')}}</h2>
                 <p>{{trans('www.404.text')}}</p>
             </div>

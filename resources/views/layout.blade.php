@@ -67,7 +67,7 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
                     <ul id="lng-switcher" class="fr">
                         @foreach($languages as $lng)
                             <li class="fl{{$lng->id == $cLng->id ? ' active' : ''}}">
-                                <a href="{{url($lng->code)}}" class="ubuntu db">{{trans('www.language.'.$lng->code)}}</a>
+                                <a href="{{route('language', ['code' => $lng->code])}}" class="ubuntu db">{{trans('www.language.'.$lng->code)}}</a>
                             </li>
                         @endforeach
                         <li class="cb"></li>

@@ -1,5 +1,7 @@
 <?php
 
+Route::get('/language', ['uses' => 'LanguageController@index', 'as' => 'language']);
+
 Route::group(['middleware' => ['web', 'front']], function() {
 
     Route::get('/', 'IndexController@index');

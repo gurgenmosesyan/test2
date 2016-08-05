@@ -7,6 +7,7 @@ use App\Models\Reserved\Reserved;
 use App\Models\Order\Order;
 use App\Models\Order\OrderAccommodation;
 use App\Models\Country\Country;
+use Mail;
 use DB;
 
 class Manager
@@ -62,6 +63,7 @@ class Manager
         DB::transaction(function() use($startDate, $endDate, $accommodations, $price, $info) {
             $this->reserve(Reserved::TYPE_CASH, $startDate, $endDate, $accommodations);
             $this->cashOrder($startDate, $endDate, $accommodations, $price, $info);
+            $this->sendClientEmail($startDate, $endDate, $accommodations, $price, $info);
         });
     }
 
@@ -147,5 +149,23 @@ class Manager
             ]);
         }
         $order->accommodations()->saveMany($orderAccData);
+    }
+
+    protected function sendClientEmail($startDate, $endDate, $accommodations, $price, $info)
+    {
+        $data = [
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'accommodations' => $accommodations,
+            'price' => $price,
+            'info' => $info,
+            'message' => trans('www.booking.cash.client_email.text')
+        ];
+        Mail::send(['email.default_html', 'email.default'], $data, function($message) use($info) {
+            $message->from(trans('www.booking.client_email.from'), trans('www.booking.client_email.from_name'));
+            $message->to($info['email']);
+            //$message->replyTo($email->reply_to);
+            $message->subject(trans('www.booking.client_email.subject'));
+        });
     }
 }

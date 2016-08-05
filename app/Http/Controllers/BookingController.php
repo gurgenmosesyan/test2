@@ -267,7 +267,7 @@ class BookingController extends Controller
         $conf = config('ameria');
         $cLng = cLng();
 
-        $client = new SoapClient($conf['soap_url_1'], $conf['soap_options']);
+        $client = new SoapClient($conf['soap_url'], $conf['soap_options']);
 
         $params = [];
         $params['paymentfields']['ClientID'] = $conf['client_id'];
@@ -323,7 +323,7 @@ class BookingController extends Controller
 
         $order = Order::where('order_id', $orderId)->where('payment_id', $paymentId)->firstOrFail();
 
-        $client = new SoapClient($conf['soap_url_2'], $conf['soap_options']);
+        $client = new SoapClient($conf['soap_url'], $conf['soap_options']);
 
         $params['paymentfields']['ClientID'] = $conf['client_id'];
         $params['paymentfields']['Description'] = 'Reserve accommodations';

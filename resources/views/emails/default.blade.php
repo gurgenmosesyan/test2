@@ -1,1 +1,8 @@
-<?php echo $data['message']; ?>
+<?php
+$cLngId = cLng('id');
+
+echo $startDate.' - '.$endDate."\r\n";
+
+
+
+?>

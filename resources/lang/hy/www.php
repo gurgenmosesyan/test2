@@ -110,4 +110,5 @@ return array (
   'top_booking.sub_title' => 'Get your guaranteed reservation right now!',
   'top_booking.find_room' => 'Find room',
   'homepage.title' => 'Golden Palace',
+  'booking.client_email.subject' => 'Booking complete',
 );

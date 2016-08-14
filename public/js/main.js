@@ -36,7 +36,7 @@ $main.basePath = function(path) {
 $main.includeGoogleMap = function() {
     var s = document.createElement("script");
     s.type = "text/javascript";
-    s.src = "https://maps.googleapis.com/maps/api/js?v=3";
+    s.src = "https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyB-SSsZhHh-0vkfQ6Y8PX6U_95e3hxNp8g";
     $("head").append(s);
 };
 

@@ -62,17 +62,18 @@ class Image
         $directory = $info['dirname'].'/'.$info['filename'];
         $imgFilePath = $directory.'/'.$width.'x'.$height.'c-'.$mode.'.'.$extension;
 
-        if (!file_exists(public_path($imgFilePath))) {
-            if (!file_exists(public_path($filename)) || !is_file(public_path($filename))) {
+        $publicPath = env('PUBLIC_PATH', public_path());
+        if (!file_exists($publicPath.'/'.$imgFilePath)) {
+            if (!file_exists($publicPath.'/'.$filename) || !is_file($publicPath.'/'.$filename)) {
                 return false;
             }
-            if (!file_exists(public_path($directory))) {
-                $success = mkdir(public_path($directory), 0775);
+            if (!file_exists($publicPath.'/'.$directory)) {
+                $success = mkdir($publicPath.'/'.$directory, 0775);
                 if (!$success) {
                     return false;
                 }
             }
-            $image = ImageManager::make(public_path($filename));
+            $image = ImageManager::make($publicPath.'/'.$filename);
             $imageWidth = $image->getWidth();
             $imageHeight = $image->getHeight();
 
@@ -93,7 +94,7 @@ class Image
             } else {
                 $image->resize($width, $height);
             }
-            $image->save(public_path($imgFilePath));
+            $image->save($publicPath.'/'.$imgFilePath);
         }
         return $imgFilePath;
     }

@@ -184,6 +184,10 @@ $main.init = function() {
         } else {
             self.initEditPage();
         }
+
+        if (typeof CKFinder != 'undefined') {
+            CKFinder.setupCKEditor();
+        }
     });
 };
 

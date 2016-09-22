@@ -3,6 +3,7 @@
 use App\Core\Helpers\ImgUploader;
 
 $head->appendScript('/assets/plugins/ckeditor/ckeditor.js');
+$head->appendScript('/assets/plugins/ckfinder/ckfinder.js');
 $head->appendScript('/admin/homepage/homepage.js');
 $pageTitle = $pageSubTitle = trans('admin.homepage.form.title');
 $pageMenu = 'homepage';

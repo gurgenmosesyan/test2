@@ -1,6 +1,7 @@
 <?php
 
 $head->appendScript('/assets/plugins/ckeditor/ckeditor.js');
+$head->appendScript('/assets/plugins/ckfinder/ckfinder.js');
 $head->appendScript('/admin/offer/text.js');
 $pageTitle = $pageSubTitle = trans('admin.offer_text.form.title');
 $pageMenu = 'offer_text';

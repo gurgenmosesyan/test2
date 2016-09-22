@@ -3,6 +3,7 @@ use App\Models\Accommodation\Accommodation;
 
 $head->appendStyle('/admin/accommodation/accommodation.css');
 $head->appendScript('/assets/plugins/ckeditor/ckeditor.js');
+$head->appendScript('/assets/plugins/ckfinder/ckfinder.js');
 $head->appendScript('/admin/accommodation/accommodation.js');
 $pageTitle = trans('admin.accommodation.form.title');
 $pageMenu = 'accommodation';

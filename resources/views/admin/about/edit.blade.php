@@ -1,6 +1,7 @@
 <?php
 
 $head->appendScript('/assets/plugins/ckeditor/ckeditor.js');
+$head->appendScript('/assets/plugins/ckfinder/ckfinder.js');
 $head->appendScript('/admin/about/about.js');
 $pageTitle = $pageSubTitle = trans('admin.about.form.title');
 $pageMenu = 'about';

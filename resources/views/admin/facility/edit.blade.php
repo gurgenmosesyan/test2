@@ -2,6 +2,7 @@
 
 $head->appendStyle('/admin/facility/facility.css');
 $head->appendScript('/assets/plugins/ckeditor/ckeditor.js');
+$head->appendScript('/assets/plugins/ckfinder/ckfinder.js');
 $head->appendScript('/admin/facility/facility.js');
 $pageTitle = trans('admin.facility.form.title');
 $pageMenu = 'facility';

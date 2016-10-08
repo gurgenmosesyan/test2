@@ -20,6 +20,5 @@ class VacancyMl extends Model
         'responsibilities',
         'qualifications',
         'procedures',
-        'about'
     ];
 }

@@ -155,6 +155,7 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
                         <input type="hidden" id="from-hidden" name="start_date" value="{{date('Y-m-d', time()+86400)}}" />
                         <input type="text" id="to" value="{{date('d/m/Y', time()+172800)}}" placeholder="Depart, date" />
                         <input type="hidden" id="to-hidden" name="end_date" value="{{date('Y-m-d', time()+172800)}}" />
+                        <input type="hidden" name="room_id" value="" />
                         {{csrf_field()}}
                         <input type="submit" class="tu" value="{{trans('www.top_booking.find_room')}}" />
                     </form>

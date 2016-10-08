@@ -440,3 +440,61 @@ body #vacancies table td {
 body #footer {
     padding: 20px 0;
 }
+/* media queries */
+@media screen and (max-width: 600px) {
+    body #slider-block,
+    body #slider .slider-item {
+        height: 220px;
+    }
+    body #slider .owl-buttons div {
+        top: 91px;
+    }
+}
+@media screen and (max-width: 520px) {
+    body #slider-block,
+    body #slider .slider-item {
+        height: 200px;
+    }
+    body #slider .owl-buttons div {
+        top: 81px;
+    }
+}
+@media screen and (max-width: 450px) {
+    body #slider-block,
+    body #slider .slider-item {
+        height: 150px;
+    }
+    body #slider .owl-buttons div {
+        top: 56px;
+    }
+    body #slider-block .slider-title {
+        font-size: 0.7em;
+        bottom: 25px;
+        height: 25px;
+        line-height: 25px;
+        min-width: 140px;
+    }
+    body #slider .owl-pagination {
+        bottom: 7px;
+        width: 140px;
+    }
+}
+@media screen and (max-width: 355px) {
+    body #slider-block,
+    body #slider .slider-item {
+        height: 130px;
+    }
+    body #slider .owl-buttons div {
+        top: 46px;
+    }
+    body #slider-block .slider-title {
+        bottom: 23px;
+        height: 20px;
+        line-height: 20px;
+        min-width: 125px;
+    }
+    body #slider .owl-pagination {
+        bottom: 5px;
+        width: 125px;
+    }
+}

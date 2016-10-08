@@ -23,7 +23,7 @@ Route::group(['middleware' => ['web', 'front']], function() {
         Route::any('/booking/info', ['uses' => 'BookingController@booking3', 'as' => 'booking3']);
         Route::post('/api/booking/info', ['uses' => 'BookingApiController@booking3', 'as' => 'booking3_api']);
         Route::get('/booking/payment', ['uses' => 'BookingController@booking4', 'as' => 'booking4']);
-        Route::any('/booking/cash', ['uses' => 'BookingController@cash', 'as' => 'booking_cash']);
+        //Route::any('/booking/cash', ['uses' => 'BookingController@cash', 'as' => 'booking_cash']);
         Route::any('/booking/ameria', ['uses' => 'BookingController@ameria', 'as' => 'booking_ameria']);
         Route::any('/booking/ameria/result', ['uses' => 'BookingController@ameriaBack', 'as' => 'booking_ameria_back']);
 

@@ -23,7 +23,6 @@ class CreateVacanciesMlTable extends Migration
             $table->text('responsibilities');
             $table->text('qualifications');
             $table->text('procedures');
-            $table->text('about');
             $table->primary(['id', 'lng_id']);
         });
     }

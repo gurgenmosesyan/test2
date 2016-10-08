@@ -63,7 +63,8 @@ class Manager
         DB::transaction(function() use($startDate, $endDate, $accommodations, $price, $info) {
             $this->reserve(Reserved::TYPE_CASH, $startDate, $endDate, $accommodations);
             $this->cashOrder($startDate, $endDate, $accommodations, $price, $info);
-            $this->sendClientEmail($startDate, $endDate, $accommodations, $price, $info);
+            $paymentType = trans('www.order.email.payment_type.cash');
+            $this->sendClientEmail($startDate, $endDate, $accommodations, $price, $info, $info['email'], $paymentType);
         });
     }
 
@@ -132,7 +133,7 @@ class Manager
 
     protected function randomUniqueOrderId()
     {
-        $orderId = rand(1000000, 99999999999);
+        $orderId = rand(1000, 999999999);
         $order = Order::where('order_id', $orderId)->first();
         if ($order == null) {
             return $orderId;
@@ -151,7 +152,7 @@ class Manager
         $order->accommodations()->saveMany($orderAccData);
     }
 
-    protected function sendClientEmail($startDate, $endDate, $accommodations, $price, $info)
+    public function sendClientEmail($startDate, $endDate, $accommodations, $price, $info, $email, $paymentType)
     {
         $data = [
             'startDate' => $startDate,
@@ -159,12 +160,11 @@ class Manager
             'accommodations' => $accommodations,
             'price' => $price,
             'info' => $info,
-            'message' => trans('www.booking.cash.client_email.text')
+            'paymentType' => $paymentType
         ];
-        Mail::send(['email.default_html', 'email.default'], $data, function($message) use($info) {
+        Mail::send(['emails.order_html', 'emails.order'], $data, function($message) use($email) {
             $message->from(trans('www.booking.client_email.from'), trans('www.booking.client_email.from_name'));
-            $message->to($info['email']);
-            //$message->replyTo($email->reply_to);
+            $message->to($email);
             $message->subject(trans('www.booking.client_email.subject'));
         });
     }

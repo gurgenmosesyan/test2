@@ -2,6 +2,8 @@
 use App\Models\Vacancy\Vacancy;
 use App\Core\Helpers\Calendar;
 
+$head->appendScript('/assets/plugins/ckeditor/ckeditor.js');
+$head->appendScript('/assets/plugins/ckfinder/ckfinder.js');
 $head->appendScript('/admin/vacancy/vacancy.js');
 $pageTitle = trans('admin.vacancy.form.title');
 $pageMenu = 'vacancy';
@@ -106,17 +108,15 @@ $mls = $vacancy->ml->keyBy('lng_id');
                 </div>
             </div>
 
-            <div class="form-group">
-                <label class="col-sm-3 control-label">{{trans('admin.base.label.job_description')}}</label>
-                <div class="col-sm-9 separate-sections">
-                    @foreach($languages as $lng)
-                        <div class="form-group form-group-inner">
-                            <textarea name="ml[{{$lng->id}}][description]" class="form-control" placeholder="{{$lng->name}}">{{isset($mls[$lng->id]) ? $mls[$lng->id]->description : ''}}</textarea>
-                            <div id="form-error-ml_{{$lng->id}}_description" class="form-error"></div>
-                        </div>
-                    @endforeach
+            @foreach($languages as $lng)
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">{{trans('admin.base.label.job_description').' ('.$lng->code.')'}}</label>
+                    <div class="col-sm-9">
+                        <textarea name="ml[{{$lng->id}}][description]" class="form-control ckeditor">{{isset($mls[$lng->id]) ? $mls[$lng->id]->description : ''}}</textarea>
+                        <div id="form-error-ml_{{$lng->id}}_description" class="form-error"></div>
+                    </div>
                 </div>
-            </div>
+            @endforeach
 
             <div class="form-group">
                 <label class="col-sm-3 control-label">{{trans('admin.base.label.job_responsibilities')}}</label>
@@ -149,18 +149,6 @@ $mls = $vacancy->ml->keyBy('lng_id');
                         <div class="form-group form-group-inner">
                             <textarea name="ml[{{$lng->id}}][procedures]" class="form-control" placeholder="{{$lng->name}}">{{isset($mls[$lng->id]) ? $mls[$lng->id]->procedures : ''}}</textarea>
                             <div id="form-error-ml_{{$lng->id}}_procedures" class="form-error"></div>
-                        </div>
-                    @endforeach
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-3 control-label">{{trans('admin.base.label.about')}}</label>
-                <div class="col-sm-9 separate-sections">
-                    @foreach($languages as $lng)
-                        <div class="form-group form-group-inner">
-                            <textarea name="ml[{{$lng->id}}][about]" class="form-control" placeholder="{{$lng->name}}">{{isset($mls[$lng->id]) ? $mls[$lng->id]->about : ''}}</textarea>
-                            <div id="form-error-ml_{{$lng->id}}_about" class="form-error"></div>
                         </div>
                     @endforeach
                 </div>

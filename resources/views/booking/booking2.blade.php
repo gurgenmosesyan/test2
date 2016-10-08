@@ -44,6 +44,9 @@ $bookingPage = true;
         @if($accommodations->isEmpty())
             <p class="empty tc">{{trans('www.booking.empty_rooms')}}</p>
         @else
+            @if($required)
+                <div id="error-room-req" class="form-error">{{trans('www.booking.room_required')}}</div>
+            @endif
             <form action="{{url_with_lng('/booking/info', false)}}" method="post">
                 <table>
                     <thead>

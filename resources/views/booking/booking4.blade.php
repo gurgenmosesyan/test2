@@ -57,15 +57,15 @@ $lngCode = cLng('code');
             <div class="dib btn-box">
                 <form action="{{route('booking_ameria', $lngCode)}}" method="post">
                     {{csrf_field()}}
-                    <input type="submit" class="btn" value="{{trans('www.booking.payment.ameria')}}" />
+                    <input type="submit" class="btn" value="{{trans('www.booking.payment.visa_master')}}" />
                 </form>
             </div>
-            <div class="dib btn-box">
+            <?php /* <div class="dib btn-box">
                 <form action="{{route('booking_cash', $lngCode)}}" method="post">
                     {{csrf_field()}}
                     <input type="submit" class="btn" value="{{trans('www.booking.payment.cash')}}" />
                 </form>
-            </div>
+            </div> */ ?>
         </div>
 
     </div>

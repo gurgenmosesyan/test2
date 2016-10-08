@@ -44,9 +44,17 @@ $page = 'accommodation';
         </div>
         <div class="acc-right fr">
             <div class="price">{{trans('www.accommodation.price_text', ['price' => $accommodation->price])}}</div>
-            <div class="booking-btn tu">
-                <a href="" class="dib tc">{{trans('www.accommodation.booking')}}</a>
-            </div>
+            @if($accommodation->room_quantity > 0)
+                <div class="booking-btn">
+                    <form action="{{route('booking2', cLng('code'))}}" method="post">
+                        <input type="hidden" name="room_id" value="{{$accommodation->id}}" />
+                        <input type="hidden" name="start_date" value="{{date('Y-m-d', time()+86400)}}" />
+                        <input type="hidden" name="end_date" value="{{date('Y-m-d', time()+172800)}}" />
+                        {{csrf_field()}}
+                        <input type="submit" class="dib tc tu" value="{{trans('www.accommodation.booking')}}" />
+                    </form>
+                </div>
+            @endif
         </div>
         <div class="cb"></div>
     </div>

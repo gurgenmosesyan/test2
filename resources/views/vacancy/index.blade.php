@@ -44,7 +44,7 @@ $page = 'vacancies';
                 @if(!empty($vacancy->description))
                     <tr>
                         <td>{{trans('www.vacancies.list.description')}}</td>
-                        <td class="last">{{$vacancy->description}}</td>
+                        <td class="last html-content">{!!$vacancy->description!!}</td>
                     </tr>
                 @endif
                 @if(!empty($vacancy->responsibilities))
@@ -75,12 +75,6 @@ $page = 'vacancies';
                     <tr>
                         <td>{{trans('www.vacancies.list.deadline')}}</td>
                         <td class="last">{{strftime('%d %b %Y', strtotime($vacancy->deadline))}}</td>
-                    </tr>
-                @endif
-                @if(!empty($vacancy->about))
-                    <tr>
-                        <td>{{trans('www.vacancies.list.about')}}</td>
-                        <td class="last">{{$vacancy->about}}</td>
                     </tr>
                 @endif
             </tbody>

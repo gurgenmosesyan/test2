@@ -41,6 +41,7 @@ class BookingController extends Controller
 
         $startDate = Session::get('start_date');
         $endDate = Session::get('end_date');
+        $roomId = Session::get('room_id');
         if ($startDate == null || $endDate == null) {
             $startDate = date('Y-m-d', time()+86400);
             $endDate = date('Y-m-d', time()+172800);
@@ -49,6 +50,7 @@ class BookingController extends Controller
         return view('booking.booking1')->with([
             'background' => $background,
             'startDate' => $startDate,
+            'roomId' => $roomId,
             'endDate' => $endDate
         ]);
     }
@@ -58,14 +60,17 @@ class BookingController extends Controller
         Session::forget('booking3');
         Session::forget('booking4');
         Session::forget('booking_info');
+        $required = $request->input('required');
         $background = $this->background();
 
         if ($request->isMethod('post')) {
             Session::put(['booking2' => true]);
             $startDate = $request->input('start_date');
             $endDate = $request->input('end_date');
+            $roomId = $request->input('room_id');
             Session::put(['start_date' => $startDate]);
             Session::put(['end_date' => $endDate]);
+            Session::put(['room_id' => $roomId]);
         }
 
         if (Session::get('booking2') == null) {
@@ -74,6 +79,7 @@ class BookingController extends Controller
 
         $startDate = Session::get('start_date');
         $endDate = Session::get('end_date');
+        $roomId = Session::get('room_id');
         $interval = 0;
 
         if (is_string($startDate) && is_string($endDate)) {
@@ -82,11 +88,15 @@ class BookingController extends Controller
             if ($checkStart && $checkStart->format('Y-m-d') === $startDate && $checkEnd && $checkEnd->format('Y-m-d') === $endDate) {
                 if ($startDate > date('Y-m-d') && $endDate > $startDate) {
                     $interval = (strtotime($endDate) - strtotime($startDate)) / 86400;
-                    $accommodations = Accommodation::joinMl()->with('images')->with(['facilities' => function($query) {
+                    $query = Accommodation::joinMl()->with('images')->with(['facilities' => function($query) {
                         $query->current();
                     }])->with(['details' => function($query) {
                         $query->current();
-                    }])->get()->keyBy('id');
+                    }]);
+                    if (!empty($roomId)) {
+                        $query->where('accommodations.id', $roomId);
+                    }
+                    $accommodations = $query->get()->keyBy('id');
                     $reserves = Reserved::where('date_from', '<', $endDate)->where('date_to', '>', $startDate)->orderBy('room_quantity', 'asc')->get();
                     foreach ($reserves as $reserve) {
                         if (isset($accommodations[$reserve->accommodation_id])) {
@@ -114,7 +124,8 @@ class BookingController extends Controller
             'startDate' => $startDate,
             'endDate' => $endDate,
             'accommodations' => $accommodations,
-            'interval' => $interval
+            'interval' => $interval,
+            'required' => $required
         ]);
     }
 
@@ -142,6 +153,9 @@ class BookingController extends Controller
                             }
                         }
                     }
+                }
+                if (empty($accIds)) {
+                    return redirect(route('booking2', cLng('code')).'?required=1');
                 }
             }
             Session::put(['booking_acc' => $data]);
@@ -210,18 +224,18 @@ class BookingController extends Controller
 
         $background = $this->background();
 
-        $startData = Session::get('start_date');
+        $startDate = Session::get('start_date');
         $endDate = Session::get('end_date');
         $accommodations = Session::get('booking_acc');
         $info = Session::get('booking_info');
 
-        if (($data = $this->manager->check($startData, $endDate, $accommodations)) !== false) {
+        if (($data = $this->manager->check($startDate, $endDate, $accommodations)) !== false) {
             Session::forget('booking2');
             $success = true;
             $message = trans('www.booking.cash.success');
             $price = $data['price'];
             $accommodations = $data['accommodations'];
-            $this->manager->finishCash($startData, $endDate, $accommodations, $price, $info);
+            $this->manager->finishCash($startDate, $endDate, $accommodations, $price, $info);
         } else {
             $success = false;
             $message = trans('www.booking.error.rooms');
@@ -248,12 +262,12 @@ class BookingController extends Controller
             }
         }
 
-        $startData = Session::get('start_date');
+        $startDate = Session::get('start_date');
         $endDate = Session::get('end_date');
         $accommodations = Session::get('booking_acc');
         $info = Session::get('booking_info');
 
-        if (($data = $this->manager->check($startData, $endDate, $accommodations)) === false) {
+        if (($data = $this->manager->check($startDate, $endDate, $accommodations)) === false) {
             return view('booking.booking5')->with([
                 'background' => $this->background(),
                 'success' => false,
@@ -262,7 +276,7 @@ class BookingController extends Controller
         }
         $price = $data['price'];
         $accommodations = $data['accommodations'];
-        $order = $this->manager->ameriaOrder($startData, $endDate, $accommodations, $price, $info);
+        $order = $this->manager->ameriaOrder($startDate, $endDate, $accommodations, $price, $info);
 
         $conf = config('ameria');
         $cLng = cLng();
@@ -274,7 +288,7 @@ class BookingController extends Controller
         $params['paymentfields']['Username'] = $conf['username'];
         $params['paymentfields']['Password'] = $conf['password'];
         $params['paymentfields']['OrderID'] = $order->order_id;
-        $params['paymentfields']['PaymentAmount'] = 10; // TODO change to $price
+        $params['paymentfields']['PaymentAmount'] = $price;
         $params['paymentfields']['Description'] = 'Reserve accommodations';
         $params['paymentfields']['backURL'] = route('booking_ameria_back', $cLng->code);
         $params['paymentfields']['Opaque '] = '';
@@ -329,7 +343,7 @@ class BookingController extends Controller
         $params['paymentfields']['Description'] = 'Reserve accommodations';
         $params['paymentfields'] ['OrderID'] = $orderId;
         $params['paymentfields'] ['Password'] = $conf['password'];
-        $params['paymentfields'] ['PaymentAmount'] = 10; // TODO change to $order->price
+        $params['paymentfields'] ['PaymentAmount'] = $order->price;
         $params['paymentfields'] ['Username'] = $conf['username'];
 
         $webService = $client->GetPaymentFields($params);
@@ -346,12 +360,19 @@ class BookingController extends Controller
         $order->status = Order::STATUS_PAYED;
         $order->save();
         $this->manager->reserve(Reserved::TYPE_AMERIA, $order->date_from, $order->date_to, json_decode($order->accommodations, true));
+
+        $accommodations = json_decode($order->accommodations, true);
+        $info = [];
+        $info['info'] = json_decode($order->info, true);
+        $paymentType = trans('www.order.email.payment_type.visa_master');
+        $this->manager->sendClientEmail($order->date_from, $order->date_to, $accommodations, $order->price, $info, $order->email, $paymentType);
+
         return view('booking.booking5')->with([
             'background' => $this->background(),
             'success' => true,
             'ameria' => true,
             'paymentId' => $paymentId,
-            'message' => trans('www.booking.ameria.success')
+            'message' => trans('www.booking.visa_master.success')
         ]);
     }
 

@@ -47,6 +47,7 @@ $bookingPage = true;
                 </div>
             </div>
             <div class="cb"></div>
+            <input type="hidden" name="room_id" value="{{$roomId}}" />
             {{csrf_field()}}
             <input type="submit" class="btn tu" value="{{trans('www.booking.show_available_rooms')}}" />
         </form>

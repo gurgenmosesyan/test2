@@ -712,6 +712,11 @@ body.ru .title {
     color: #6E6F71;
     line-height: 30px;
 }
+.html-content:after {
+    display: block;
+    content: " ";
+    clear: both;
+}
 .html-content h1, .html-content h2,
 .html-content h3, .html-content h4,
 .html-content h5, .html-content h6 {
@@ -745,6 +750,15 @@ body.ru .title {
 .html-content ul li {
     background: url('../images/list-dot.png') no-repeat left center;
     padding-left: 22px;
+}
+.html-content img {
+    margin-bottom: 15px;
+}
+.html-content img[style*="float:left"] {
+    margin-right: 20px;
+}
+.html-content img[style*="float:right"] {
+    margin-left: 20px;
 }
 
 #guests-block {

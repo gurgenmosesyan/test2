@@ -10,7 +10,7 @@ $pageMenu = 'order';
 ?>
 @extends('core.layout')
 @section('navButtons')
-    <a href="{{route('admin_order_create')}}" class="btn btn-primary pull-right">{{trans('admin.base.label.add')}}</a>
+
 @stop
 @section('content')
 <div class="box-body">

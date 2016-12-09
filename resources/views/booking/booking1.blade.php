@@ -35,7 +35,7 @@ $bookingPage = true;
             <div class="dib left">
                 <p>{{trans('www.booking.arrival_date')}}</p>
                 <div>
-                    <input type="text" id="from" value="{{date('d/m/Y', strtotime($startDate))}}" />
+                    <input type="text" id="from" value="{{date('d/m/Y', strtotime($startDate))}}" data-min-date="{{date('d/m/Y', time()+86400)}}" />
                     <input type="hidden" id="from-hidden" name="start_date" value="{{date('Y-m-d', strtotime($startDate))}}" />
                 </div>
             </div>

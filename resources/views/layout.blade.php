@@ -59,8 +59,8 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
                     <li class="twitter fl"><a href="{{trans('www.social.twitter.link')}}" class="db" target="_blank"></a></li>
                     <li class="linkedin fl"><a href="{{trans('www.social.linkedin.link')}}" class="db" target="_blank"></a></li>
                     <li class="instagram fl"><a href="{{trans('www.social.instagram.link')}}" class="db" target="_blank"></a></li>
-                    <li class="viber fl"><a href="{{trans('www.social.viber.link')}}" class="db" target="_blank"></a></li>
-                    <li class="skype last fl"><a href="{{trans('www.social.skype.link')}}" class="db" target="_blank"></a></li>
+                    <?php /*<li class="viber fl"><a href="{{trans('www.social.viber.link')}}" class="db" target="_blank"></a></li>
+                    <li class="skype last fl"><a href="{{trans('www.social.skype.link')}}" class="db" target="_blank"></a></li>*/ ?>
                     <li class="cb"></li>
                 </ul>
                 <div class="fr">
@@ -98,10 +98,12 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
                         <a href="{{url_with_lng('')}}" class="db"></a>
                     </div>
                 </div>
-                <div id="header-right" class="fr-">
-                    <form id="search-form" action="{{url_with_lng('search', false)}}" method="get" class="dib">
+                <div id="header-right">
+                    <?php /*<form id="search-form" action="{{url_with_lng('search', false)}}" method="get" class="dib">
                         <input type="text" name="q" /><input type="submit" value="" />
-                    </form>
+                    </form>*/ ?>
+                    <h2 class="title top-title dib tc">{{trans('www.page.top_title')}}</h2>
+
                     <ul id="nav">
                         <li class="first{{$page == 'about' ? ' active' : ''}}">
                             <a href="{{url_with_lng('/about', false)}}">{{trans('www.menu.about')}}</a>
@@ -134,15 +136,19 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
                 <div class="calendar-overlay"></div>
                 <div id="weather-block">
                     <div class="weather fl">
-                        <p class="tc">weather in Armenia</p>
-                        <h4 class="tc">3<span>º</span>C</h4>
+                        <?php /*<p class="tc">weather in Armenia</p>
+                        <h4 class="tc">3<span>º</span>C</h4>*/ ?>
                     </div>
                     <div id="clock" class="fl">
                         <div id="hour"></div>
                         <div id="minute"></div>
                     </div>
                     <div class="currency fl">
-                        <p class="tc">currency<br />exchange rates</p>
+                        <p class="tc">
+                            <a href="http://rates.am/en/armenian-dram-exchange-rates/banks/non-cash" target="_blank">
+                                currency<br />exchange rates
+                            </a>
+                        </p>
                     </div>
                     <div class="cb"></div>
                 </div>
@@ -151,9 +157,9 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
                     <p class="tc">{{trans('www.top_booking.sub_title')}}</p>
                     <div class="calendar-separator"></div>
                     <form id="top-booking-form" action="{{route('booking2', $cLng->code)}}" method="post">
-                        <input type="text" id="from" value="{{date('d/m/Y', time()+86400)}}" placeholder="Arrival date" />
+                        <input type="text" id="from" value="{{date('d/m/Y', time()+86400)}}" data-min-date="{{date('d/m/Y', time()+86400)}}" placeholder="{{trans('www.booking.arrival_date')}}" />
                         <input type="hidden" id="from-hidden" name="start_date" value="{{date('Y-m-d', time()+86400)}}" />
-                        <input type="text" id="to" value="{{date('d/m/Y', time()+172800)}}" placeholder="Depart, date" />
+                        <input type="text" id="to" value="{{date('d/m/Y', time()+172800)}}" placeholder="{{trans('www.booking.depart_date')}}" />
                         <input type="hidden" id="to-hidden" name="end_date" value="{{date('Y-m-d', time()+172800)}}" />
                         <input type="hidden" name="room_id" value="" />
                         {{csrf_field()}}
@@ -204,6 +210,47 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
         <div class="copyright tc">{{trans('www.copyright.text')}}</div>
     </div>
 </div>
+
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-59511131-1', 'auto');
+    ga('send', 'pageview');
+
+</script>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function (d, w, c) {
+        (w[c] = w[c] || []).push(function() {
+            try {
+                w.yaCounter34114790 = new Ya.Metrika({
+                    id:34114790,
+                    clickmap:true,
+                    trackLinks:true,
+                    accurateTrackBounce:true,
+                    webvisor:true
+                });
+            } catch(e) { }
+        });
+
+        var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = "https://mc.yandex.ru/metrika/watch.js";
+
+        if (w.opera == "[object Opera]") {
+            d.addEventListener("DOMContentLoaded", f, false);
+        } else { f(); }
+    })(document, window, "yandex_metrika_callbacks");
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/34114790" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 
 </body>
 </html>

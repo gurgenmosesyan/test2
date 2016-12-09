@@ -8,7 +8,6 @@ $accommodation.initSearchPage = function() {
     $accommodation.listColumns = [
         {data: 'id'},
         {data: 'title'},
-        {data: 'price'},
         {data: 'sort_order'}
     ];
     $accommodation.order = [3, 'asc'];

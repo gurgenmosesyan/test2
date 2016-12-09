@@ -68,24 +68,24 @@ $page = null;
 
         </div>
         <div id="contact-form-block" class="fr">
-            <h2 class="title">Contact us</h2>
+            <h2 class="title">{{trans('www.contact_us.title')}}</h2>
             <form id="contact-form" action="{{url_with_lng('/api/contact', false)}}" method="post">
                 <div class="form-box name-box fl">
-                    <input type="text" name="name" class="name-input" value="" placeholder="Name" />
+                    <input type="text" name="name" class="name-input" value="" placeholder="{{trans('www.contact_us.name')}}" />
                     <div id="form-error-name" class="form-error"></div>
                 </div>
                 <div class="form-box email-box fl">
-                    <input type="text" name="email" value="" placeholder="Email" />
+                    <input type="text" name="email" value="" placeholder="{{trans('www.contact_us.email')}}" />
                     <div id="form-error-email" class="form-error"></div>
                 </div>
                 <div class="cb"></div>
                 <div class="form-box message-box">
-                    <textarea name="message" placeholder="Message"></textarea>
+                    <textarea name="message" placeholder="{{trans('www.contact_us.message')}}"></textarea>
                     <div id="form-error-message" class="form-error"></div>
                 </div>
                 {{csrf_field()}}
                 <div class="tc">
-                    <input type="submit" class="btn" value="Send" />
+                    <input type="submit" class="btn" value="{{trans('www.contact_us.send')}}" />
                 </div>
             </form>
         </div>

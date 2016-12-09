@@ -124,7 +124,7 @@ $main.initClock = function() {
 
 $main.initCalendar = function() {
     var fromObj = $('#from'),
-        fromMinDate = fromObj.val(),
+        fromMinDate = fromObj.data('min-date'),
         toObj = $('#to'),
         toMinDate = toObj.val();
     fromObj.datepicker({

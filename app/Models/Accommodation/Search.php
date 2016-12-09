@@ -44,9 +44,6 @@ class Search extends DataTable
             case 'title':
                 $orderCol = 'ml.title';
                 break;
-            case 'price':
-                $orderCol = 'accommodations.price';
-                break;
             case 'sort_order':
                 $orderCol = 'accommodations.sort_order';
                 break;

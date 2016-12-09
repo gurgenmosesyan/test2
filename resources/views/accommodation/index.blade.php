@@ -43,7 +43,7 @@ $page = 'accommodation';
             <div class="cb"></div>
         </div>
         <div class="acc-right fr">
-            <div class="price">{{trans('www.accommodation.price_text', ['price' => $accommodation->price])}}</div>
+            <div class="price">{!! trans('www.accommodation.price_text', ['price' => '<strong>'.$accommodation->price.'</strong>']) !!}</div>
             @if($accommodation->room_quantity > 0)
                 <div class="booking-btn">
                     <form action="{{route('booking2', cLng('code'))}}" method="post">

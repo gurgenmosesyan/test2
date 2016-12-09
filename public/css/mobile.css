@@ -6,7 +6,8 @@ body #header .top,
 body #search-form,
 body #calendar-block,
 body #header .header-overlay,
-body #nav {
+body #nav,
+body #header-right .top-title {
     display: none;
 }
 body #header {

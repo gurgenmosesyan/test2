@@ -171,6 +171,7 @@ class Manager
         $bookingAdminEmails = trans('www.booking.admin_emails');
         $bookingAdminEmails = explode(',', $bookingAdminEmails);
         foreach ($bookingAdminEmails as $adminEmail) {
+            $adminEmail = trim($adminEmail);
             Mail::send(['emails.order_html', 'emails.order'], $data, function($message) use($adminEmail) {
                 $message->from(trans('www.booking.client_email.from'), trans('www.booking.client_email.from_name'));
                 $message->to($adminEmail);

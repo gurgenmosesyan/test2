@@ -102,7 +102,11 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
                     <?php /*<form id="search-form" action="{{url_with_lng('search', false)}}" method="get" class="dib">
                         <input type="text" name="q" /><input type="submit" value="" />
                     </form>*/ ?>
-                    <h2 class="title top-title dib tc">{{trans('www.page.top_title')}}</h2>
+                    @if(isset($isHomepage))
+                        <h1 class="title top-title dib tc">{{trans('www.page.top_title')}}</h1>
+                    @else
+                        <h2 class="title top-title dib tc">{{trans('www.page.top_title')}}</h2>
+                    @endif
 
                     <ul id="nav">
                         <li class="first{{$page == 'about' ? ' active' : ''}}">
@@ -170,7 +174,7 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
         @endif
 
         @if(isset($isHomepage))
-            <h1 class="main-title tu">{{trans('www.homepage.main_title')}}</h1>
+            <h2 class="main-title tu">{{trans('www.homepage.main_title')}}</h2>
         @endif
 
         @if(isset($errorPage))

@@ -88,7 +88,10 @@ class BookingController extends Controller
             if ($checkStart && $checkStart->format('Y-m-d') === $startDate && $checkEnd && $checkEnd->format('Y-m-d') === $endDate) {
                 if ($startDate > date('Y-m-d') && $endDate > $startDate) {
                     $interval = (strtotime($endDate) - strtotime($startDate)) / 86400;
-                    $query = Accommodation::joinMl()->with('images')->with(['facilities' => function($query) {
+                    if ($interval >= 365) {
+                        die('Error! You can not reserve more than a year.');
+                    }
+                    $query = Accommodation::joinMl()->with('images', 'prices')->with(['facilities' => function($query) {
                         $query->current();
                     }])->with(['details' => function($query) {
                         $query->current();
@@ -104,7 +107,8 @@ class BookingController extends Controller
                         }
                     }
                     foreach ($accommodations as $acc) {
-                        $acc->price = $acc->price * $interval;
+                        //$acc->price = $acc->price * $interval;
+                        $acc->price = $acc->getPrice($startDate, $endDate);
                         foreach ($acc->details as $key => $detail) {
                             $acc->details[$key]->price = $detail->price * $interval;
                         }
@@ -175,7 +179,7 @@ class BookingController extends Controller
             $accIds[] = $key;
         }
 
-        $accommodations = Accommodation::joinMl()->whereIn('accommodations.id', $accIds)->with(['details' => function($query) {
+        $accommodations = Accommodation::joinMl()->whereIn('accommodations.id', $accIds)->with('prices')->with(['details' => function($query) {
             $query->current();
         }])->get();
 

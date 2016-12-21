@@ -379,7 +379,7 @@ body .page {
     position: relative;
     z-index: 1;
 }
-#bg-block h1 {
+#bg-block .main-title {
     color: #ffffff;
     font-size: 3.2em;
     font-weight: bold;

@@ -13,6 +13,7 @@ class Manager
         $accommodation = new Accommodation($data);
         DB::transaction(function() use($data, $accommodation) {
             $accommodation->save();
+            $this->updatePrices($data['prices'], $accommodation);
             $this->storeMl($data['ml'], $accommodation);
             $this->updateDetails($data['details'], $accommodation);
             $this->storeImages($data['images'], $accommodation);
@@ -25,10 +26,27 @@ class Manager
         $data = $this->processSave($data);
         DB::transaction(function() use($data, $accommodation) {
             $accommodation->update($data);
+            $this->updatePrices($data['prices'], $accommodation, true);
             $this->updateMl($data['ml'], $accommodation);
             $this->updateDetails($data['details'], $accommodation, true);
             $this->updateImages($data['images'], $accommodation);
         });
+    }
+
+    protected function updatePrices($data, Accommodation $accommodation, $editMode = false)
+    {
+        if ($editMode) {
+            AccommodationPrice::where('accommodation_id', $accommodation->id)->delete();
+        }
+        $prices = [];
+        foreach ($data as $value) {
+            $prices[] = new AccommodationPrice([
+                'start_date' => $value['start_month'].'-'.$value['start_day'],
+                'end_date' => $value['end_month'].'-'.$value['end_day'],
+                'price' => $value['price']
+            ]);
+        }
+        $accommodation->prices()->saveMany($prices);
     }
 
     protected function storeMl($data, Accommodation $accommodation)
@@ -72,6 +90,9 @@ class Manager
 
     protected function processSave($data)
     {
+        if (!isset($data['prices'])) {
+            $data['prices'] = [];
+        }
         if (!isset($data['images'])) {
             $data['images'] = [];
         }

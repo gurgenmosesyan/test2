@@ -136,7 +136,7 @@ return array (
   'base.label.meeting_events' => 'Meeting & events',
   'base.label.room_quantity' => 'Room quantity',
   'base.label.details' => 'Details',
-  'reserved.form.title' => 'Reserves',
+  'reserved.form.title' => 'Reservations',
   'base.label.accommodation' => 'Accommodation',
   'base.label.date_from' => 'Date from',
   'base.label.date_to' => 'Date to',
@@ -150,4 +150,8 @@ return array (
   'base.label.cash' => 'Cash',
   'base.label.ameria' => 'Ameria',
   'base.label.admin' => 'Admin',
+  'base.label.end_date' => 'End date',
+  'base.label.prices' => 'Prices',
+  'base.label.month' => 'Month',
+  'base.label.day' => 'Day',
 );

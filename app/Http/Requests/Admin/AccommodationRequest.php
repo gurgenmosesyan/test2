@@ -10,9 +10,15 @@ class AccommodationRequest extends Request
     {
         $rules = [
             'room_quantity' => 'required|integer',
-            'price' => 'required|integer',
+            //'price' => 'required|integer',
             'room_size' => 'required|numeric',
             'sort_order' => 'integer',
+            'prices' => 'array',
+            'prices.*.start_month' => 'required|min:2|max:2',
+            'prices.*.start_day' => 'required|min:2|max:2',
+            'prices.*.end_month' => 'required|min:2|max:2',
+            'prices.*.end_day' => 'required|min:2|max:2',
+            'prices.*.price' => 'required|integer',
             'ml' => 'ml',
             'ml.*.title' => 'required|max:255',
             'ml.*.text' => 'required|max:65000',

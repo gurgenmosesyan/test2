@@ -16,7 +16,7 @@ class Manager
     {
         $interval = (strtotime($endDate) - strtotime($startDate)) / 86400;
         $price = 0;
-        $accData = Accommodation::joinMl()->with('ml', 'details')->get()->keyBy('id');
+        $accData = Accommodation::joinMl()->with('ml', 'prices', 'details')->get()->keyBy('id');
         $reserves = Reserved::where('date_from', '<', $endDate)->where('date_to', '>', $startDate)->orderBy('room_quantity', 'asc')->get();
 
         foreach ($reserves as $reserve) {
@@ -29,7 +29,8 @@ class Manager
             if (!isset($accData[$accId]) || $value['quantity'] > $accData[$accId]->room_quantity) {
                 return false;
             }
-            $price += $accData[$accId]->price * $interval * $value['quantity'];
+            //$price += $accData[$accId]->price * $interval * $value['quantity'];
+            $price += $accData[$accId]->getPrice($startDate, $endDate) * $value['quantity'];
             $data[$accId] = [
                 'id' => $accId,
                 'quantity' => $value['quantity']

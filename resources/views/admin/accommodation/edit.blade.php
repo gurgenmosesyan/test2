@@ -10,17 +10,33 @@ $pageMenu = 'accommodation';
 if ($saveMode == 'add') {
     $pageSubTitle = trans('admin.accommodation.form.add.sub_title');
     $url = route('admin_accommodation_store');
+    $prices = [];
 } else {
     $pageSubTitle = trans('admin.accommodation.form.edit.sub_title', ['id' => $accommodation->id]);
     $url = route('admin_accommodation_update', $accommodation->id);
+    $prices = $accommodation->prices;
+    foreach ($prices as $value) {
+        $startDate = explode('-', $value->start_date);
+        $value->start_month = $startDate[0];
+        $value->start_day = $startDate[1];
+        $endDate = explode('-', $value->end_date);
+        $value->end_month = $endDate[0];
+        $value->end_day = $endDate[1];
+    }
 }
 $mls = $accommodation->ml->keyBy('lng_id');
 
-$jsTrans->addTrans(['admin.base.label.price']);
+$jsTrans->addTrans([
+    'admin.base.label.price',
+    'admin.base.label.month',
+    'admin.base.label.day',
+    'admin.base.label.price',
+]);
 ?>
 @extends('core.layout')
 @section('content')
 <script type="text/javascript">
+    $accommodation.prices = <?php echo json_encode($prices); ?>;
     $accommodation.languages = <?php echo json_encode($languages); ?>;
     $accommodation.facilities = <?php echo json_encode($facilities); ?>;
     $accommodation.details = <?php echo json_encode($details); ?>;
@@ -60,11 +76,20 @@ $jsTrans->addTrans(['admin.base.label.price']);
             </div>
         </div>
 
-        <div class="form-group">
+        {{--<div class="form-group">
             <label class="col-sm-3 control-label data-req">{{trans('admin.base.label.price')}}</label>
             <div class="col-sm-3">
                 <input type="text" class="form-control" name="price" value="{{$accommodation->price or ''}}">
                 <div id="form-error-price" class="form-error"></div>
+            </div>
+        </div>--}}
+
+        <div class="form-group">
+            <label class="col-sm-3 control-label data-req">{{trans('admin.base.label.prices')}}</label>
+            <div class="col-sm-9">
+                <div id="prices-block"></div>
+                <a href="#" id="add-price" class="btn btn-default"><i class="fa fa-plus"></i></a>
+                <div id="form-error-prices" class="form-error"></div>
             </div>
         </div>
 

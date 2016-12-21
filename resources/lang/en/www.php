@@ -135,7 +135,7 @@ return array (
   'booking.visa_master.success' => 'Booking successfully completed. Please check your email.',
   'social.facebook.link' => 'https://www.facebook.com/GoldenPalace.Resort.and.SPA/',
   'booking.admin_email.subject' => 'New booking',
-  'booking.admin_emails' => 'smeliksetyan@gmail.com',
+  'booking.admin_emails' => 'hotel@goldenpalacehotel.am, smeliksetyan@gmail.com, sargis@goldenpalacehotel.am',
   'contact_us.title' => 'Contact us',
   'contact_us.name' => 'Name',
   'contact_us.email' => 'Email',

@@ -3,6 +3,7 @@ $accommodation.listPath = '/admpanel/accommodation';
 $accommodation.imgIndex = 0;
 $accommodation.facilityIndex = 0;
 $accommodation.detailIndex = 0;
+$accommodation.priceIndex = 0;
 
 $accommodation.initSearchPage = function() {
     $accommodation.listColumns = [
@@ -187,9 +188,114 @@ $accommodation.initDetails = function() {
     }
 };
 
+$accommodation.addPrice = function(obj) {
+    var startMonths = '',
+        startDays = '',
+        endMonths = '',
+        endDays = '',
+        html,
+        index = $accommodation.priceIndex,
+        start_month = '',
+        start_day = '',
+        end_month = '',
+        end_day = '',
+        price = '';
+    if (obj) {
+        start_month = obj.start_month;
+        start_day = obj.start_day;
+        end_month = obj.end_month;
+        end_day = obj.end_day;
+        price = obj.price;
+    }
+    for (var i = 1; i < 10; i++) {
+        startMonths += '<option value="0'+i+'"'+('0'+i == start_month ? ' selected="selected"' : '')+'>0'+i+'</option>';
+    }
+    for (i = 10; i < 13; i++) {
+        startMonths += '<option value="'+i+'"'+(i == start_month ? ' selected="selected"' : '')+'>'+i+'</option>';
+    }
+    for (i = 1; i < 10; i++) {
+        startDays += '<option value="0'+i+'"'+('0'+i == start_day ? ' selected="selected"' : '')+'>0'+i+'</option>';
+    }
+    for (i = 10; i < 32; i++) {
+        startDays += '<option value="'+i+'"'+(i == start_day ? ' selected="selected"' : '')+'>'+i+'</option>';
+    }
+    for (i = 1; i < 10; i++) {
+        endMonths += '<option value="0'+i+'"'+('0'+i == end_month ? ' selected="selected"' : '')+'>0'+i+'</option>';
+    }
+    for (i = 10; i < 13; i++) {
+        endMonths += '<option value="'+i+'"'+(i == end_month ? ' selected="selected"' : '')+'>'+i+'</option>';
+    }
+    for (i = 1; i < 10; i++) {
+        endDays += '<option value="0'+i+'"'+('0'+i == end_day ? ' selected="selected"' : '')+'>0'+i+'</option>';
+    }
+    for (i = 10; i < 32; i++) {
+        endDays += '<option value="'+i+'"'+(i == end_day ? ' selected="selected"' : '')+'>'+i+'</option>';
+    }
+    html =  '<div class="row" style="margin-bottom: 5px;">'+
+                '<div class="col-sm-2">' +
+                    '<select class="form-control" name="prices['+index+'][start_month]">'+
+                        '<option value="">'+$trans.get('admin.base.label.month')+'</option>'+
+                        startMonths+
+                    '</select>'+
+                    '<div id="form-error-prices_'+index+'_start_month" class="form-error"></div>'+
+                '</div>'+
+                '<div class="col-sm-2">'+
+                    '<select class="form-control" name="prices['+index+'][start_day]">'+
+                        '<option value="">'+$trans.get('admin.base.label.day')+'</option>'+
+                        startDays+
+                    '</select>'+
+                    '<div id="form-error-prices_'+index+'_start_day" class="form-error"></div>'+
+                '</div>'+
+                '<div class="col-sm-1 text-center" style="padding-top: 5px;">'+
+                    '<i class="fa fa-arrow-right"></i>'+
+                '</div>'+
+                '<div class="col-sm-2">' +
+                    '<select class="form-control" name="prices['+index+'][end_month]">'+
+                        '<option value="">'+$trans.get('admin.base.label.month')+'</option>'+
+                        endMonths+
+                    '</select>'+
+                    '<div id="form-error-prices_'+index+'_end_month" class="form-error"></div>'+
+                '</div>'+
+                '<div class="col-sm-2">'+
+                    '<select class="form-control" name="prices['+index+'][end_day]">'+
+                        '<option value="">'+$trans.get('admin.base.label.day')+'</option>'+
+                        endDays+
+                    '</select>'+
+                    '<div id="form-error-prices_'+index+'_end_day" class="form-error"></div>'+
+                '</div>'+
+                '<div class="col-sm-2">'+
+                    '<input type="text" name="prices['+index+'][price]" class="form-control" value="'+price+'" placeholder="'+$trans.get('admin.base.label.price')+'">'+
+                '</div>'+
+                '<div class="col-sm-1" style="padding-top: 5px;">'+
+                    '<a href="#"><i class="fa fa-remove remove-price"></i></a>'+
+                '</div>'+
+            '</div>';
+    html = $(html);
+    html.find('.remove-price').on('click', function() {
+        html.remove();
+        return false;
+    });
+    $('#prices-block').append(html);
+    $accommodation.priceIndex++;
+};
+
+$accommodation.initPrices = function() {
+    $('#add-price').on('click', function() {
+        $accommodation.addPrice();
+        return false;
+    });
+    if (!$.isEmptyObject($accommodation.prices)) {
+        for (var i in $accommodation.prices) {
+            $accommodation.addPrice($accommodation.prices[i]);
+        }
+    }
+};
+
 $accommodation.initEditPage = function() {
 
     $accommodation.initForm();
+
+    $accommodation.initPrices();
 
     $accommodation.initImageUpload();
 

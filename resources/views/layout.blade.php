@@ -25,6 +25,7 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
     $head->appendMainScript('/js/jquery-ui.min.js');
     $head->appendMainScript('/js/owl.carousel.min.js');
     $head->appendMainScript('/js/main.js');
+    $head->appendMainScript('/js/snow.js');
 
     $ua = new UserAgent();
     if ($ua->isIPhone() || $ua->isAndroidMobile() || $ua->isWinPhone()) {

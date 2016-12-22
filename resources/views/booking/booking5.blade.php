@@ -43,7 +43,7 @@ $bookingPage = true;
                 <span class="fl"></span>
             </a>
         </div>
-        <div class="step-box fl tc active">
+        <div class="step-box fl tc active last">
             <span class="step-item db">
                 <span class="db fl left">5</span>
                 <span class="db right"><span>{{trans('www.booking.step.5')}}</span></span>

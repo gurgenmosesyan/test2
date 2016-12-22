@@ -438,6 +438,80 @@ body #vacancies table td {
 #vacancies.index table td {
     border: none;
 }
+#booking-steps .step-box {
+    float: none;
+    margin-bottom: 1px;
+    width: 100%;
+}
+#booking-steps .step-box.last {
+    margin-bottom: 20px;
+}
+#booking-1 .left, #booking-1 .right {
+    margin: 0 0 20px;
+}
+#booking-1 .dib {
+    display: block;
+}
+#booking-1 form input[type="text"] {
+    box-sizing: border-box;
+    width: 100%;
+}
+#booking-2 table th, #booking-2 table td {
+    padding: 2px 4px;
+    font-size: 0.9em;
+}
+#booking-2 .acc-title {
+    font-size: 0.9em;
+}
+#booking-2 .details {
+    padding-right: 20px;
+    max-width: 54px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+#booking-2 .price {
+    width: 70px;
+}
+#booking-2 .total-box {
+    font-size: 1.2em;
+}
+#booking-2 .select-box {
+    width: 70px;
+}
+#booking-2 .select-title {
+    width: 46px;
+}
+#booking-2 .select-arrow {
+    width: 22px;
+}
+#booking-2 select {
+    padding-left: 5px;
+    width: 74px;
+}
+#booking-2 table th.rate img, #booking-2 table td.rate img {
+    width: 25px;
+}
+#booking-3 .row .fl {
+    float: none;
+}
+#booking-3 .row .left,
+#booking-3 .row .right,
+#booking-3 .row .middle,
+#booking-3 .row .long {
+    margin-right: 0;
+    width: 100%;
+}
+#booking-1 .btn,
+#booking-2 .btn,
+#booking-3 .btn,
+#booking-4 .btn {
+    box-sizing: border-box;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
 body #footer {
     padding: 20px 0;
 }

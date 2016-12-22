@@ -38,7 +38,7 @@ $lngCode = cLng('code');
             </a>
         </div>
         @for($i = 4; $i < 6; $i++)
-            <div class="step-box fl tc{{$i == 4 ? ' active' : ''}}">
+            <div class="step-box fl tc{!! ($i == 4 ? ' active' : '').($i == 5 ? ' last' : '') !!}">
             <span class="step-item db">
                 <span class="db fl left">{{$i}}</span>
                 <span class="db right"><span>{{trans('www.booking.step.'.$i)}}</span></span>

@@ -83,7 +83,7 @@ $mobile.initVacancies = function() {
 $mobile.init = function() {
     $mobile.initBurger();
 
-    $('#bg-block').prepend('<div class="booking"><div><a href="#" class="btn">'+$trans.get('www.mobile.book_now')+'</a></div></div>').prepend('<div class="bg-overlay"></div>');
+    $('#bg-block').prepend('<div class="booking"><div><a href="'+$main.baseLngPath('/booking')+'" class="btn">'+$trans.get('www.mobile.book_now')+'</a></div></div>').prepend('<div class="bg-overlay"></div>');
 
     $mobile.lngSwitcher();
 

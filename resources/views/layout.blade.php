@@ -43,6 +43,7 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
 <body class="{{$cLng->code}}">
 <script type="text/javascript">
     $main.baseUrl = '{{url('')}}';
+    $main.baseLngUrl = '{{url_with_lng('', false)}}';
     $main.time = <?php echo time(); ?>;
     var $locSettings = {"trans": <?php echo json_encode($jsTrans->getTrans()); ?>};
 </script>

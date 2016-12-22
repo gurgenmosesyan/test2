@@ -33,6 +33,10 @@ $main.basePath = function(path) {
     return $main.baseUrl + path;
 };
 
+$main.baseLngPath = function(path) {
+    return $main.baseLngUrl + path;
+};
+
 $main.includeGoogleMap = function() {
     var s = document.createElement("script");
     s.type = "text/javascript";

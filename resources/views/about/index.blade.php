@@ -2,6 +2,15 @@
 $title = trans('www.menu.about');
 $page = 'about';
 
+$desc = mb_substr(trim(strip_tags($about->text)), 0, 300, 'utf-8');
+$meta->title($title);
+$meta->description($desc);
+$meta->keywords(trans('www.homepage.keywords'));
+$meta->ogTitle($title);
+$meta->ogDescription($desc);
+$meta->ogImage($background);
+$meta->ogUrl(url_with_lng('/about', false));
+
 $jsTrans->addTrans([
     'www.vacancies.list.title',
     'www.vacancies.list.function',

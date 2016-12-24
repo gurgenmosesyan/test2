@@ -3,6 +3,15 @@ $title = trans('www.booking.head_title');
 $page = null;
 $bookingPage = true;
 
+$desc = trans('www.booking.description');
+$meta->title($title);
+$meta->description($desc);
+$meta->keywords(trans('www.homepage.keywords'));
+$meta->ogTitle($title);
+$meta->ogDescription($desc);
+$meta->ogImage($background);
+$meta->ogUrl(url_with_lng('/booking', false));
+
 ?>
 @extends('layout')
 

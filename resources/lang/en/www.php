@@ -142,4 +142,8 @@ return array (
   'contact_us.message' => 'Message',
   'contact_us.send' => 'Send',
   'page.top_title' => 'Golden Palace Hotel',
+  'head_title' => '{title} - gph.am',
+  'homepage.keywords' => 'golden palace, hotel, tsaghkadzor, accommodations',
+  'vacancies.description' => 'Vacancies for Golden Palace Hotel',
+  'booking.description' => 'Booking accommodations',
 );

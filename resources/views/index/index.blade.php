@@ -1,9 +1,19 @@
 <?php
 use App\Image\Image;
 
-$title = trans('www.homepage.title');
 $isHomepage = true;
 $page = null;
+
+$desc = trim(strip_tags($homepageMl->about_text));
+
+$meta->title(trans('www.homepage.title'), false);
+$meta->description($desc);
+$meta->keywords(trans('www.homepage.keywords'));
+$meta->ogTitle(trans('www.homepage.title'));
+$meta->ogDescription($desc);
+$meta->ogImage($background);
+$meta->ogUrl(url_with_lng('/'));
+
 ?>
 @extends('layout')
 

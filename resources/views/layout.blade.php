@@ -10,8 +10,19 @@ $accommodations = Accommodation::joinMl()->ordered()->get();
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="description" content="{{$meta->getDescription()}}" />
+    <meta name="keywords" content="{{$meta->getKeywords()}}" />
+    <meta property="og:title" content="{{$meta->getOgTitle()}}" />
+    <meta property="og:description" content="{{$meta->getOgDescription()}}" />
+    <meta property="og:image" content="{{$meta->getOgImage()}}" />
+    <meta property="og:url" content="{{$meta->getOgUrl()}}" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{$meta->getOgTitle()}}" />
+    <meta name="twitter:description" content="{{$meta->getOgDescription()}}" />
+    <meta name="twitter:image" content="{{$meta->getOgImage()}}" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-    <title>{{$title.' - gph.am'}}</title>
+    <title>{{$meta->getTitle(trans('www.head_title'))}}</title>
     <link rel="shortcut icon" href="{{url('/favicon.ico')}}" type="image/x-icon" />
     <?php
     use App\Core\Helpers\UserAgent;

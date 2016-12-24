@@ -1,6 +1,15 @@
 <?php
 $title = trans('www.vacancies.title');
 $page = 'vacancies';
+
+$desc = trans('www.vacancies.description');
+$meta->title($title);
+$meta->keywords(trans('www.homepage.keywords'));
+$meta->ogTitle($title);
+$meta->ogImage($background);
+$meta->ogUrl(url_with_lng('/vacancies/'.$vacancy->id, false));
+$desc = $title;
+
 ?>
 @extends('layout')
 
@@ -46,24 +55,28 @@ $page = 'vacancies';
                         <td>{{trans('www.vacancies.list.description')}}</td>
                         <td class="last html-content">{!!$vacancy->description!!}</td>
                     </tr>
+                    <?php $desc = $vacancy->description; ?>
                 @endif
                 @if(!empty($vacancy->responsibilities))
                     <tr>
                         <td>{{trans('www.vacancies.list.responsibilities')}}</td>
                         <td class="last">{{$vacancy->responsibilities}}</td>
                     </tr>
+                    <?php $desc = $vacancy->responsibilities; ?>
                 @endif
                 @if(!empty($vacancy->qualifications))
                     <tr>
                         <td>{{trans('www.vacancies.list.qualifications')}}</td>
                         <td class="last">{{$vacancy->qualifications}}</td>
                     </tr>
+                    <?php $desc = $vacancy->qualifications; ?>
                 @endif
                 @if(!empty($vacancy->procedures))
                     <tr>
                         <td>{{trans('www.vacancies.list.procedures')}}</td>
                         <td class="last">{{$vacancy->procedures}}</td>
                     </tr>
+                    <?php $desc = $vacancy->procedures; ?>
                 @endif
                 @if($vacancy->open_date != '0000-00-00')
                     <tr>
@@ -82,5 +95,9 @@ $page = 'vacancies';
     </div>
 
 </div>
+<?php
+$meta->description($desc);
+$meta->ogDescription($desc);
+?>
 
 @stop

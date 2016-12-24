@@ -2,6 +2,15 @@
 $title = trans('www.vacancies.title');
 $page = 'vacancies';
 
+$desc = trans('www.vacancies.description');
+$meta->title($title);
+$meta->description($desc);
+$meta->keywords(trans('www.homepage.keywords'));
+$meta->ogTitle($title);
+$meta->ogDescription($desc);
+$meta->ogImage($background);
+$meta->ogUrl(url_with_lng('/vacancies', false));
+
 $jsTrans->addTrans([
     'www.vacancies.list.title',
     'www.vacancies.list.function',

@@ -1,6 +1,17 @@
 <?php
 $title = $facility->title;
 $page = 'facilities';
+
+$desc = mb_substr(trim(strip_tags($facility->text)), 0, 300, 'utf-8');
+$image = $facility->images->isEmpty() ? $background : $facility->images[0]->getImage();
+$meta->title($title);
+$meta->description($desc);
+$meta->keywords(trans('www.homepage.keywords'));
+$meta->ogTitle($title);
+$meta->ogDescription($desc);
+$meta->ogImage($image);
+$meta->ogUrl(url_with_lng('/hotel-facilities/'.$facility->id, false));
+
 ?>
 @extends('layout')
 

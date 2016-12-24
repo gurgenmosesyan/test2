@@ -2,6 +2,20 @@
 $title = trans('www.menu.hotel_facilities');
 $page = 'facilities';
 
+$desc = '';
+foreach ($facilities as $value) {
+    $desc .= $value->title.', ';
+}
+$desc = rtrim($desc, ', ');
+
+$meta->title($title);
+$meta->description($desc);
+$meta->keywords(trans('www.homepage.keywords'));
+$meta->ogTitle($title);
+$meta->ogDescription($desc);
+$meta->ogImage($background);
+$meta->ogUrl(url_with_lng('/hotel-facilities', false));
+
 $count = $facilities->count();
 $separator = ceil($count / 2);
 ?>

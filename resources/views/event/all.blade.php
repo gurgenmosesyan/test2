@@ -1,6 +1,16 @@
 <?php
 $title = trans('www.menu.meeting_events');
 $page = 'events';
+
+$desc = mb_substr(trim(strip_tags($eventText->text)), 0, 300, 'utf-8');
+$meta->title($title);
+$meta->description($desc);
+$meta->keywords(trans('www.homepage.keywords'));
+$meta->ogTitle($title);
+$meta->ogDescription($desc);
+$meta->ogImage($background);
+$meta->ogUrl(url_with_lng('/meeting-and-events', false));
+
 ?>
 @extends('layout')
 

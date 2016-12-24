@@ -3,6 +3,17 @@ use App\Image\Image;
 
 $title = $accommodation->title;
 $page = 'accommodation';
+
+$desc = mb_substr(trim(strip_tags($accommodation->text)), 0, 300, 'utf-8');
+$image = $accommodation->images->isEmpty() ? $background : $accommodation->images[0]->getImage();
+$meta->title($title);
+$meta->description($desc);
+$meta->keywords(trans('www.homepage.keywords'));
+$meta->ogTitle($title);
+$meta->ogDescription($desc);
+$meta->ogImage($image);
+$meta->ogUrl(url_with_lng('/accommodations/'.$accommodation->id, false));
+
 ?>
 @extends('layout')
 

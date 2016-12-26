@@ -4785,3 +4785,6 @@ table.text-center th {
 .separate-sections > div {
     margin-bottom: 10px !important;
 }
+.under-scroll {
+    overflow: auto;
+}

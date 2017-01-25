@@ -143,7 +143,7 @@ return array (
   'contact_us.send' => 'Ուղարկել',
   'page.top_title' => 'Գոլդեն Փելիս Հյուրանոց',
   'head_title' => '{title} - gph.am',
-  'homepage.keywords' => 'golden palace, hotel, tsaghkadzor, accommodations',
+  'homepage.keywords' => 'ծաղկաձոր,  հյուրանոց,  հյուրանոց ծաղկաձորում, հյուրանոց ռեզորտ, հանգիստ ծաղկաձորում',
   'vacancies.description' => 'Թափուր աշխատատեղեր Գոլդեն Փելիս Հյուրանոցի համար',
   'booking.description' => 'Booking accommodations',
 );

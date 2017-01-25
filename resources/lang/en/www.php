@@ -143,7 +143,7 @@ return array (
   'contact_us.send' => 'Send',
   'page.top_title' => 'Golden Palace Hotel',
   'head_title' => '{title} - gph.am',
-  'homepage.keywords' => 'golden palace, hotel, tsaghkadzor, accommodations',
+  'homepage.keywords' => 'best hotel in Armenia,  book hotel in Armenia,  caxkadzor hotels,  five star hotel Armenia,  hotel caxkadzor,  hotel golden palace, hotel in Armenia, hotel reservation Armenia,  hotel resort Armenia,  hotels in Tsaghkadzor Armenia,  luxury hotel Armenia',
   'vacancies.description' => 'Vacancies for Golden Palace Hotel',
   'booking.description' => 'Booking accommodations',
 );

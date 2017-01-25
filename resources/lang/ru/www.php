@@ -143,7 +143,7 @@ return array (
   'contact_us.send' => 'Отправить',
   'page.top_title' => 'Гостиница Голден Палас',
   'head_title' => '{title} - gph.am',
-  'homepage.keywords' => 'golden palace, hotel, tsaghkadzor, accommodations',
+  'homepage.keywords' => 'отдых в цахкадзоре,  отель в армении,  цахкадзор',
   'vacancies.description' => 'Вакансии для Голден Палас Отель',
   'booking.description' => 'Booking accommodations',
 );

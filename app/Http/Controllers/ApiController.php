@@ -13,9 +13,9 @@ class ApiController extends Controller
     {
         $data = $request->all();
         Mail::send(['emails.default_html', 'emails.default'], ['data' => $data], function($message) use($data) {
-            $message->from($data['email']);
-            $message->to(trans('www.contact.admin_email'), trans('www.contact.admin_name'));
-            $message->subject(trans('www.contact.email_subject'));
+            $message->from($data['email'], $data['name']);
+            $message->to('hotel@goldenpalacehotel.am', 'Golden palace');
+            $message->subject('Contact email');
         });
         return $this->api('OK', trans('www.contact.email.success_text'));
     }
